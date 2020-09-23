@@ -20,7 +20,6 @@ class Header extends React.Component {
   componentDidMount() {
     this.props.getData();
     this.props.getDataSitemap();
-
   }
 
   handleClick = (index) => {
@@ -88,7 +87,7 @@ class Header extends React.Component {
           <div className="mainMenu-row">
             <div className="mainMenu-row-item1">
               <img
-                src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/db2a10ffeaf89a4546159370fe887f299bcf0ead/assets/images/sendoLogo.svg"
+                src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/sendoLogo.svg"
                 alt="Sendo Logo"
               />
               <div>
