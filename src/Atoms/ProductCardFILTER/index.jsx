@@ -6,7 +6,9 @@ class ProductCardFILTER extends React.Component {
     console.log(20 * this.props.product.percent_star, this.props.index);
     var styleElem = document.head.appendChild(document.createElement("style"));
 
-    styleElem.innerHTML = `.percentStar::before {background: linear-gradient(90deg, #e5101d ${
+    styleElem.innerHTML = `.rating${
+      this.props.index
+    }::before {background: linear-gradient(90deg, #e5101d ${
       20 * this.props.product.percent_star
     }%, #c7c7cd 0);}`;
     return (
@@ -37,7 +39,7 @@ class ProductCardFILTER extends React.Component {
 
         {/* rating star */}
 
-        <div className="percentStar">
+        <div className={`percentStar rating${this.props.index}`}>
           <p>{this.props.product.percent_star}</p>
         </div>
       </a>
