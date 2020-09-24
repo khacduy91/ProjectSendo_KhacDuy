@@ -1,72 +1,146 @@
 .productCardFILTER-Card {
   display: flex;
-  flex-direction: column;
-  /* margin-right: 10px; */
-  position: relative;
-  padding-bottom: 15px;
   flex: 0 0 20%;
-  transition: 0.25s ease;
-  /* justify-content: center; */
+  flex-direction: column;
+  padding-bottom: 15px;
+  justify-content: center;
   align-items: center;
-  &-img {
-    width: 200px;
-  }
-  &-title {
-    display: flex;
-    flex-direction: row;
-    padding-top: 10px;
-    width: 200px;
-    justify-content: flex-start;
-    align-items: center;
-    p {
-      font-size: 12px;
-      font-weight: 500;
-      text-transform: uppercase;
-      color: black;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-block-end: 0;
-    }
-    &-img {
-      height: 16px;
-      width: 44px;
-    }
-  }
-  &-price {
-    width: 200px;
-    display: flex;
+  &-wraper {
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    p {
-      margin-block-end: 0;
-      color: red;
-      font-size: 14px;
-      font-weight: 500;
+    /* margin-right: 10px; */
+    position: relative;
+
+    transition: 0.25s ease;
+    position: relative;
+    /* justify-content: center; */
+    height: 295px;
+    width: 200px;
+    &-img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      border: 0.5px solid #00000030;
     }
-    .priceMax {
-      text-decoration: line-through;
-      color: gray;
+    &-title {
+      display: flex;
+      flex-direction: row;
+      padding-top: 10px;
+      width: 200px;
+      justify-content: flex-start;
+      align-items: center;
+      p {
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: black;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-block-end: 0;
+      }
+      &-img {
+        height: 16px;
+        width: 44px;
+      }
+    }
+    &-price {
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      p {
+        margin-block-end: 0;
+        color: red;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .priceMax {
+        text-decoration: line-through;
+        color: gray;
+        font-size: 12px;
+        font-style: italic;
+      }
+    }
+
+    .percentStar {
+      display: flex;
+      width: 200px;
+      align-items: center;
+
+      &::before {
+        content: "\2605\2605\2605\2605\2605";
+
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-background-clip: text;
+      }
+
+      p {
+        color: #828282;
+        font-size: 12px;
+        margin-block-end: 0;
+      }
+    }
+
+    .orderCount {
+      color: #828282;
       font-size: 12px;
-      font-style: italic;
+      margin-block-end: 0;
+      position: absolute;
+      bottom: 6px;
+      right: 0;
+      display: flex;
+      align-items: center;
+      p {
+        margin-block-end: 0;
+      }
+    }
+    .promotionPercent {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      z-index: 5;
+      span {
+        display: flex;
+        background: linear-gradient(90deg, #b9081d, #f21a4c);
+        width: 40px;
+        height: 20px;
+        color: white;
+        font-size: 12px;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+      }
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-color: transparent #b9081d transparent transparent;
+        border-style: solid;
+        border-width: 0 10px 20px 0px;
+        top: 0;
+        left: 0;
+        transform: translateX(-100%);
+      }
     }
   }
 
-  .percentStar {
-    display: flex;
+  .shopName {
+    margin-block-end: 0;
     width: 200px;
-    &::before {
-      content: "\2605\2605\2605\2605\2605";
-
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-background-clip: text;
-    }
+    height: 20px;
+    text-align: left;
+    color: #808080;
+    font-size: 14px;
+    border-top: 1px solid;
   }
   &:hover {
     text-decoration: none;
+    box-shadow: 2px 2px 20px #00000030;
   }
   padding: 1rem;
   text-align: center;

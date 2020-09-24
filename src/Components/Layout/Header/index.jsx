@@ -75,7 +75,7 @@ class Header extends React.Component {
             </div>
             <div className="right_topBar">
               <img
-                src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/gh-pages/assets/images/avatarUser1.jpg"
+                src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/avatarUser1.jpg"
                 alt="avatartUser1"
                 className="avatarUser"
               />
@@ -121,9 +121,18 @@ class Header extends React.Component {
             <div className="mainMenu-row-item3">
               <span>Sản phẩm vừa xem</span>
               <div className="mainMenu-row-item3-images">
-                <img src="assets/images/avatarUser1.jpg" alt="img1" />
-                <img src="assets/images/avatarUser1.jpg" alt="img2" />
-                <img src="assets/images/avatarUser1.jpg" alt="img3" />
+                <img
+                  src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/avatarUser1.jpg"
+                  alt="img1"
+                />
+                <img
+                  src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/avatarUser1.jpg"
+                  alt="img2"
+                />
+                <img
+                  src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/avatarUser1.jpg"
+                  alt="img3"
+                />
               </div>
               <div className="mainMenu-row-item3-button showMoreButton">
                 <svg

@@ -8,7 +8,9 @@ class ProductCardFLASHSALE extends React.Component {
       <div className="productCard_FLASHSALE">
         <a href="/">
           <img src={product.img_url_mob} alt={product.name} />
-          <p className="productCard_FLASHSALE-price">{product.price}đ</p>
+          <p className="productCard_FLASHSALE-price">
+            {product.price.toLocaleString()}đ
+          </p>
           <div className="progress">
             <p>{product.stock_description}</p>
             <div
