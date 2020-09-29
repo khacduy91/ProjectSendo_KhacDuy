@@ -24,8 +24,11 @@ class Header extends React.Component {
     this.props.getDataSitemap();
   }
   handleSubmitSearch = (e) => {
-    this.setState({ ...this.state });
-    this.props.getProductFilter("", "", "", this.state.query, "sortType=rank");
+    this.setState({ ...this.state }, () =>
+      this.props.getProductFilter("", "", "", this.state.query, "sortType=rank")
+    );
+
+    this.props.getArrayFilter(this.props.query);
     // this.setState({ query: "" }, () => this.props.getQuery(""));
     // // this.props.getQuery(this.state.query);
   };
@@ -161,6 +164,7 @@ const mapsStateToProps = (state) => ({
   sitemap: state.sitemap,
   themeEvent: state.themeEvent,
   query: state.query,
+  arrayFilter: state.arrayFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({

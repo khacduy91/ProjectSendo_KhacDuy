@@ -135,12 +135,12 @@ class FilterPage extends React.Component {
     return (
       <div className="FilterPage-wraper">
         <div className="FilterPage-wraper-left">
-          {this.props.defaultTerm && (
+          {this.props.defaultTerm.length > 0 && (
             <div
               className="FilterPage-wraper-left-container-DefaultTerm"
               id="accordion"
             >
-              {this.props.generalTerm && (
+              {this.props.generalTerm.length > 0 && (
                 <div className="DefaultTerm">
                   <div className="card">
                     <div className="card-header DefaultTerm-header">
@@ -238,7 +238,7 @@ class FilterPage extends React.Component {
         </div>
         <div className="FilterPage-wraper-right">
           <div className="FilterPage-wraper-right-container-PositionTop">
-            {this.props.generalTerm_PositionTop && (
+            {this.props.generalTerm_PositionTop.length > 0 && (
               <>
                 <div
                   className="FilterPage-wraper-right-container-PositionTop-left"

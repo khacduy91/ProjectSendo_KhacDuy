@@ -28,11 +28,11 @@ const initialState = {
   sitemap: [],
   query: "",
   themeEvent: [],
-  arrayFilter: {
-    defaultTerm: [],
-    generalTerm: [],
-    generalTerm_PositionTop: [],
-  },
+  arrayFilter: [],
+  defaultTerm: [],
+  generalTerm: [],
+  generalTerm_PositionTop: [],
+
   pathDefault: [],
 };
 
@@ -77,46 +77,46 @@ const reducer = (state = initialState, action) => {
       let { pathDefault } = state;
       const newArray_PathDefault = [...pathDefault, action.pathDefault];
 
-      console.log(newArray_PathDefault, "ss");
       return { ...state, pathDefault: newArray_PathDefault };
     }
     case GET_PRODUCT_FILTER: {
       return { ...state, productFilter: action.productFilter };
     }
     case GET_ARRAY_FILTER: {
-      const { arrayFilter } = state;
+      let newArrayDefaultTerm = [];
+      let newArrayGeneralTerm = [];
+      let newArrayPositionTop = [];
 
-      const newArrayFilter = { ...state.arrayFilter, ...action.arrayFilter };
-      for (let i = 0; i < newArrayFilter.result.data.length; i++) {
-        newArrayFilter.result.data[i].attribute_term === "DefaultTerm" &&
-          arrayFilter.defaultTerm.push(newArrayFilter.result.data[i]);
+      const newArrayFilter = action.arrayFilter.result.data;
+
+      for (let i = 0; i < newArrayFilter.length; i++) {
+        newArrayFilter[i].attribute_term === "DefaultTerm" &&
+          newArrayDefaultTerm.push(newArrayFilter[i]);
       }
 
-      for (let i = 0; i < newArrayFilter.result.data.length; i++) {
+      for (let i = 0; i < newArrayFilter.length; i++) {
         if (
-          (newArrayFilter.result.data[i].attribute_term === "GeneralTerm") &
-          (newArrayFilter.result.data[i].position !== "top")
+          (newArrayFilter[i].attribute_term === "GeneralTerm") &
+          (newArrayFilter[i].position !== "top")
         ) {
-          arrayFilter.generalTerm.push(newArrayFilter.result.data[i]);
+          newArrayGeneralTerm.push(newArrayFilter[i]);
         }
       }
-      for (let i = 0; i < newArrayFilter.result.data.length; i++) {
+      for (let i = 0; i < newArrayFilter.length; i++) {
         if (
-          (newArrayFilter.result.data[i].attribute_term === "GeneralTerm") &
-          (newArrayFilter.result.data[i].position === "top")
+          (newArrayFilter[i].attribute_term === "GeneralTerm") &
+          (newArrayFilter[i].position === "top")
         ) {
-          arrayFilter.generalTerm_PositionTop.push(
-            newArrayFilter.result.data[i]
-          );
+          newArrayPositionTop.push(newArrayFilter[i]);
         }
       }
 
       return {
         ...state,
-        arrayFilter: action.arrayFilter,
-        defaultTerm: arrayFilter.defaultTerm,
-        generalTerm: arrayFilter.generalTerm,
-        generalTerm_PositionTop: arrayFilter.generalTerm_PositionTop,
+        arrayFilter: newArrayFilter,
+        defaultTerm: newArrayDefaultTerm,
+        generalTerm: newArrayGeneralTerm,
+        generalTerm_PositionTop: newArrayPositionTop,
       };
     }
     case GET_QUERY: {
