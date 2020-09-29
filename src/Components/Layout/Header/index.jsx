@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import {
   getData,
@@ -10,62 +11,31 @@ import {
   getThemeEvent,
   getProductFilter,
   getDataProduct,
+  getQuery,
+  getArrayFilter,
 } from "../../../redux/action";
 
 class Header extends React.Component {
   state = {
-    number: 0,
-    x: new Date(),
+    query: "",
   };
   componentDidMount() {
     this.props.getData();
     this.props.getDataSitemap();
   }
-
-  handleClick = (index) => {
-    let z = new Date();
-    this.setState({ number: index, x: z });
+  handleSubmitSearch = (e) => {
+    this.setState({ ...this.state });
+    this.props.getProductFilter("", "", "", this.state.query, "sortType=rank");
+    // this.setState({ query: "" }, () => this.props.getQuery(""));
+    // // this.props.getQuery(this.state.query);
   };
-  handleNext = () => {
-    const number = this.state.number + 1;
-    this.setState({
-      number: number > this.props.banner.length - 1 ? 0 : number,
-    });
+  handleChangeSearch = (e) => {
+    this.setState({ ...this.state, query: e.target.value }, () =>
+      this.props.getQuery(this.state.query)
+    );
   };
-  handlePrev = () => {
-    const number = this.state.number - 1;
-    this.setState({
-      number: number < 0 ? this.props.banner.length - 1 : number,
-    });
-  };
-  handleThemeEventStyle = (a, b, c, d) => {
-    const style = {
-      position: `absolute`,
-      top: `${a}%`,
-      left: `${b}%`,
-      width: `${c}%`,
-      height: `${d}%`,
-    };
-    return style;
-    // return style;
-  };
-
-  autoChange() {
-    let y = new Date();
-
-    y - this.state.x > 5000 &&
-      this.setState({
-        number:
-          this.state.number + 1 > this.props.banner.length - 1
-            ? 0
-            : this.state.number + 1,
-        x: y,
-      });
-  }
 
   render() {
-    window.setTimeout(() => this.autoChange(), 7000);
-
     return (
       <div className="header">
         <div className="header-topBar">
@@ -86,10 +56,12 @@ class Header extends React.Component {
         <div className="mainMenu">
           <div className="mainMenu-row">
             <div className="mainMenu-row-item1">
-              <img
-                src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/sendoLogo.svg"
-                alt="Sendo Logo"
-              />
+              <a href="/ProjectSendo_KhacDuy">
+                <img
+                  src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/sendoLogo.svg"
+                  alt="Sendo Logo"
+                />
+              </a>
               <div>
                 <svg width="1em" height="1em" viewBox="0 0 24 24">
                   <path
@@ -101,21 +73,32 @@ class Header extends React.Component {
               </div>
             </div>
             <div className="mainMenu-row-item2">
-              <form>
+              <form
+              // onSubmit={() => <Link to="/ProjectSendo_KhacDuy/filter"></Link>}
+              >
                 <input
+                  onChange={(e) => this.handleChangeSearch(e)}
                   type="text"
                   placeholder="Tìm kiếm trên Sendo"
                   className="main-row-item2-input searchBox"
+                  defaultValue={this.state.query}
                 />
-                <label>
-                  <span>Label Name</span>
-                  <span>x</span>
-                </label>
-                <input
-                  type="submit"
-                  value="Search"
-                  className="main-row-item2-input searchButton"
-                />
+
+                {this.state.query === "" ? (
+                  <p className="main-row-item2-input searchButton">Search</p>
+                ) : (
+                  <Link
+                    to="/ProjectSendo_KhacDuy/filter"
+                    className="main-row-item2-input searchButton"
+                  >
+                    <p
+                      className="main-row-item2-input searchButton"
+                      onClick={(e) => this.handleSubmitSearch(e)}
+                    >
+                      Search
+                    </p>
+                  </Link>
+                )}
               </form>
             </div>
             <div className="mainMenu-row-item3">
@@ -166,144 +149,6 @@ class Header extends React.Component {
             </div>
           </div>
         </div>
-        <div className="slider-container">
-          {/* Boostrap caurosel */}
-          <div
-            id="demo2"
-            className="carousel slide slider-container-image"
-            // data-ride="carousel"
-          >
-            {/* Image Caurosel */}
-            <div className="carousel-inner slider-container-image-inner">
-              {this.props.banner.map((ele, index) =>
-                index === this.state.number ? (
-                  <div
-                    className="carousel-item active"
-                    style={{ backgroundColor: `${ele.background_color}` }}
-                    key={index}
-                  >
-                    <img src={ele.image} alt={ele.title} />
-                  </div>
-                ) : (
-                  <div
-                    className="carousel-item"
-                    style={{ backgroundColor: `${ele.background_color}` }}
-                    key={index}
-                  >
-                    <img src={ele.image} alt={ele.title} />
-                  </div>
-                )
-              )}
-              {/* <!-- Left and right controls --> */}
-              <a
-                className="carousel-control-prev"
-                href="#demo1"
-                onClick={() => this.handlePrev()}
-              >
-                <span className="carousel-control-prev-icon"></span>
-              </a>
-              <a
-                className="carousel-control-next"
-                href="#demo1"
-                onClick={() => this.handleNext()}
-              >
-                <span className="carousel-control-next-icon"></span>
-              </a>
-
-              {/* Horizon Button */}
-              <ul className="carousel-indicators">
-                {this.props.banner.map((ele, index) =>
-                  index === this.state.number ? (
-                    <li
-                      // data-target="#demo1 #demo2"
-                      // data-target="#demo2"
-                      // data-slide-to={index}
-                      className="active"
-                      key={index}
-                      index={index}
-                      onClick={() => this.handleClick(index)}
-                    ></li>
-                  ) : (
-                    <li
-                      // data-target="#demo1 #demo2"
-                      // data-target="#demo2"
-                      // data-slide-to={index}
-                      key={index}
-                      index={index}
-                      onClick={() => this.handleClick(index)}
-                    ></li>
-                  )
-                )}
-              </ul>
-            </div>
-          </div>
-
-          <div
-            id="demo1"
-            className="carousel slide banner"
-            // data-ride="carousel"
-          >
-            {/* Banner Container */}
-            <div className="carousel-inner banner-container-inner">
-              {this.props.banner.map((ele, index) =>
-                index === this.state.number ? (
-                  <div
-                    className="carousel-item active banner-container-inner-color"
-                    style={{ backgroundColor: `${ele.background_color}` }}
-                    key={index}
-                  ></div>
-                ) : (
-                  <div
-                    className="carousel-item banner-container-inner-color"
-                    style={{ backgroundColor: `${ele.background_color}` }}
-                    key={index}
-                  ></div>
-                )
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="menu">
-          <div className="menu-container">
-            {this.props.menu.map((ele, index) => (
-              <a href={`https://sendo.vn${ele.link}`} key={index}>
-                <img src={ele.icon} alt={`iconImage${index}`} />
-                <p dangerouslySetInnerHTML={{ __html: ele.label }} />
-              </a>
-            ))}
-
-            {this.props.banner.length > 0 && (
-              <div className="navbar">
-                {this.props.sitemap.map((ele, index) => (
-                  <a href={`/${ele.url_path}`} key={index}>
-                    <p>{ele.title}</p>
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="themeEvent">
-          {Object.keys(this.props.themeEvent).length > 0 && (
-            <div>
-              <img src={this.props.themeEvent.image.lg} alt="themeEvent" />
-              {this.props.themeEvent.links.map((ele, index) => (
-                <a
-                  href={ele.url}
-                  key={index}
-                  style={this.handleThemeEventStyle(
-                    ele.top,
-                    ele.left,
-                    ele.width,
-                    ele.height
-                  )}
-                >
-                  {" "}
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
       </div>
     );
   }
@@ -315,6 +160,7 @@ const mapsStateToProps = (state) => ({
   menu: state.menu,
   sitemap: state.sitemap,
   themeEvent: state.themeEvent,
+  query: state.query,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -327,6 +173,8 @@ const mapDispatchToProps = (dispatch) => ({
       getThemeEvent,
       getDataProduct,
       getProductFilter,
+      getQuery,
+      getArrayFilter,
     },
     dispatch
   ),

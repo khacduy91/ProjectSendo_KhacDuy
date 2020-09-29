@@ -3,7 +3,6 @@ import "./index.scss";
 
 class ProductCardFILTER extends React.Component {
   render() {
-    console.log(20 * this.props.product.percent_star, this.props.index);
     var styleElem = document.head.appendChild(document.createElement("style"));
 
     styleElem.innerHTML = `.rating${
@@ -54,7 +53,7 @@ class ProductCardFILTER extends React.Component {
                 width="10px"
                 height="10px"
                 viewBox="0 0 32 32"
-                class="icon_Mf-x iconSmall_2eXS"
+                className="icon_Mf-x iconSmall_2eXS"
               >
                 <path d="M27.292 15.496l-10.8-10.8A2.378 2.378 0 0014.808 4H6.4C5.08 4 4 5.08 4 6.4v8.4c0 .66.264 1.26.708 1.704l10.8 10.8A2.385 2.385 0 0017.2 28h.012c.658 0 1.253-.271 1.679-.708l8.4-8.4a2.342 2.342 0 00.708-1.68v-.013.001c0-.66-.276-1.272-.708-1.704zM8.2 10c-.996 0-1.8-.804-1.8-1.8s.804-1.8 1.8-1.8 1.8.804 1.8 1.8S9.196 10 8.2 10z"></path>
               </svg>

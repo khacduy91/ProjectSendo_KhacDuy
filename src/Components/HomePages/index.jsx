@@ -9,6 +9,7 @@ import ProductCardFILTER from "../../Atoms/ProductCardFILTER";
 
 import "../HomePages/index.scss";
 import ProductCardRECOMMEND from "../../Atoms/ProductCardRECOMMEND";
+import Countdown from "react-countdown";
 
 class HomePage extends React.Component {
   state = {
@@ -17,46 +18,62 @@ class HomePage extends React.Component {
     numberSliderRecommend: 1,
     numberSliderTopKeyWord: 1,
     numberSliderFilter: 1,
+    number: 0,
+    end_time: "",
+    x: new Date(),
   };
   componentDidMount() {
-    this.props.getProductFilter(1, "ao khoac", 30, 0, 1);
+    this.props.getProductFilter("");
     this.props.getDataProduct();
   }
 
-  countDownClock = (a) => {
-    const countDownDate = new Date(a);
+  componentWillMount() {
+    window.clearTimeout(this.autoChange);
+  }
 
-    var countDownDateTime = new Date(countDownDate).getTime();
-
-    // Update the count down every 1 second
-    var x = setInterval(function () {
-      // Get today's date and time
-      var now = new Date().getTime();
-
-      // Find the distance between now and the count down date
-      var distance = countDownDateTime - now;
-
-      // Time calculations for days, hours, minutes and seconds
-      var hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Display the result in the element with id="demo"
-      document.getElementById(
-        "countdown"
-      ).innerHTML = `${hours}h:${minutes}m:${seconds}s`;
-
-      // If the count down is finished, write some text
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("countdown").innerHTML = "EXPIRED";
-      }
-    }, 1000);
+  //Header
+  handleClick = (index) => {
+    let z = new Date();
+    this.setState({ number: index, x: z });
   };
+  handleNext = () => {
+    const number = this.state.number + 1;
+    this.setState({
+      number: number > this.props.banner.length - 1 ? 0 : number,
+    });
+  };
+  handlePrev = () => {
+    const number = this.state.number - 1;
+    this.setState({
+      number: number < 0 ? this.props.banner.length - 1 : number,
+    });
+  };
+  handleThemeEventStyle = (a, b, c, d) => {
+    const style = {
+      position: `absolute`,
+      top: `${a}%`,
+      left: `${b}%`,
+      width: `${c}%`,
+      height: `${d}%`,
+    };
+    return style;
+    // return style;
+  };
+
+  autoChange() {
+    let y = new Date();
+
+    y - this.state.x > 5000 &&
+      this.setState({
+        number:
+          this.state.number + 1 > this.props.banner.length - 1
+            ? 0
+            : this.state.number + 1,
+        x: y,
+      });
+  }
   //FlashSale
-  handleNext = (a) => {
+  handleNextFlashSale = (a) => {
     document.getElementById(
       "productFlashSale-container"
     ).style.transform = `translateX(${
@@ -71,7 +88,7 @@ class HomePage extends React.Component {
           : this.state.numberSliderFlashSale + 1,
     });
   };
-  handlePrev = () => {
+  handlePrevFlashSale = () => {
     this.state.numberSliderFlashSale === 1
       ? (document.getElementById(
           "productFlashSale-container"
@@ -233,65 +250,226 @@ class HomePage extends React.Component {
     });
   };
   render() {
+    window.setTimeout(() => this.autoChange(), 7000);
+    // console.log("endtime", this.state.end_time);\
+
+    const renderer = ({ hours, minutes, seconds }) => {
+      return (
+        <div className="block-countdown">
+          <span>{hours}h:</span>
+          <span>{minutes}m:</span>
+          <span>{seconds}s</span>
+        </div>
+      );
+    };
     return (
       <div>
-        <div>
-          {Object.keys(this.props.productFlashSale).length > 0 && (
-            <div>
-              <div className="productFlashSale">
-                <button
-                  className="productFlashSale-prev"
-                  onClick={() => this.handlePrev()}
-                >
-                  <span className="carousel-control-prev-icon"></span>
-                </button>
-                <button
-                  className="productFlashSale-next"
-                  onClick={() =>
-                    this.handleNext(
-                      this.props.productFlashSale.data.list.length
-                    )
-                  }
-                >
-                  <span className="carousel-control-next-icon"></span>
-                </button>
-                <div className="productFlashSale-title">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
+        {/* Header */}
+        <div className="slider-container">
+          {/* Boostrap caurosel */}
+          <div
+            id="demo2"
+            className="carousel slide slider-container-image"
+            // data-ride="carousel"
+          >
+            {/* Image Caurosel */}
+            <div className="carousel-inner slider-container-image-inner">
+              {this.props.banner.map((ele, index) =>
+                index === this.state.number ? (
+                  <div
+                    className="carousel-item active"
+                    style={{ backgroundColor: `${ele.background_color}` }}
+                    key={index}
                   >
-                    <path
-                      fill="#FFF"
-                      fillRule="evenodd"
-                      d="M6.408 0l-2.7 8.298h2.794L3 16l8.744-10.587H8.447L11.937 0z"
-                    ></path>
-                  </svg>
-                  <p>FlashSale</p>
-                  <p id="countdown">
-                    {this.countDownClock(
-                      this.props.productFlashSale.data.end_time * 1000
-                    )}
-                  </p>
-                  <div></div>
-                </div>
-                <div
-                  className="productFlashSale-container"
-                  id="productFlashSale-container"
-                >
-                  {Object.keys(this.props.productFlashSale).length > 0 &&
-                    this.props.productFlashSale.data.list.map((ele, index) => (
-                      <ProductCardFLASHSALE
-                        product={ele}
-                        index={index}
-                        key={index}
-                      />
-                    ))}
-                </div>
+                    <img src={ele.image} alt={ele.title} />
+                  </div>
+                ) : (
+                  <div
+                    className="carousel-item"
+                    style={{ backgroundColor: `${ele.background_color}` }}
+                    key={index}
+                  >
+                    <img src={ele.image} alt={ele.title} />
+                  </div>
+                )
+              )}
+              {/* <!-- Left and right controls --> */}
+              <span
+                className="carousel-control-prev"
+                onClick={() => this.handlePrev()}
+              >
+                <span className="carousel-control-prev-icon"></span>
+              </span>
+              <span
+                className="carousel-control-next"
+                onClick={() => this.handleNext()}
+              >
+                <span className="carousel-control-next-icon"></span>
+              </span>
+
+              {/* Horizon Button */}
+              <ul className="carousel-indicators">
+                {this.props.banner.map((ele, index) =>
+                  index === this.state.number ? (
+                    <li
+                      // data-target="#demo1 #demo2"
+                      // data-target="#demo2"
+                      // data-slide-to={index}
+                      className="active"
+                      key={index}
+                      index={index}
+                      onClick={() => this.handleClick(index)}
+                    ></li>
+                  ) : (
+                    <li
+                      // data-target="#demo1 #demo2"
+                      // data-target="#demo2"
+                      // data-slide-to={index}
+                      key={index}
+                      index={index}
+                      onClick={() => this.handleClick(index)}
+                    ></li>
+                  )
+                )}
+              </ul>
+            </div>
+          </div>
+
+          <div
+            id="demo1"
+            className="carousel slide banner"
+            // data-ride="carousel"
+          >
+            {/* Banner Container */}
+            <div className="carousel-inner banner-container-inner">
+              {this.props.banner.map((ele, index) =>
+                index === this.state.number ? (
+                  <div
+                    className="carousel-item active banner-container-inner-color"
+                    style={{ backgroundColor: `${ele.background_color}` }}
+                    key={index}
+                  ></div>
+                ) : (
+                  <div
+                    className="carousel-item banner-container-inner-color"
+                    style={{ backgroundColor: `${ele.background_color}` }}
+                    key={index}
+                  ></div>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="menu">
+          <div className="menu-container">
+            {this.props.menu.map((ele, index) => (
+              <a href={`https://sendo.vn${ele.link}`} key={index}>
+                <img src={ele.icon} alt={`iconImage${index}`} />
+                <p dangerouslySetInnerHTML={{ __html: ele.label }} />
+              </a>
+            ))}
+
+            {this.props.banner.length > 0 && (
+              <div className="navbar">
+                {this.props.sitemap.map((ele, index) => (
+                  <a href={`/${ele.url_path}`} key={index}>
+                    <p>{ele.title}</p>
+                  </a>
+                ))}
               </div>
+            )}
+          </div>
+        </div>
+        <div className="themeEvent">
+          {Object.keys(this.props.themeEvent).length > 0 && (
+            <div>
+              <img src={this.props.themeEvent.image.lg} alt="themeEvent" />
+              {this.props.themeEvent.links.map((ele, index) => (
+                <a
+                  href={ele.url}
+                  key={index}
+                  style={this.handleThemeEventStyle(
+                    ele.top,
+                    ele.left,
+                    ele.width,
+                    ele.height
+                  )}
+                >
+                  {" "}
+                </a>
+              ))}
             </div>
           )}
+        </div>
+        <div>
+          {Object.keys(this.props.productFlashSale).length > 0 &&
+            (() =>
+              this.countDownClock(
+                this.props.productFlashSale.data.end_time * 1000
+              ),
+            (
+              //   this.setState({
+              //   ...this.state,
+              //   end_time: this.props.productFlashSale.data.end_time,
+              // }),
+              <div>
+                <div className="productFlashSale">
+                  <button
+                    className="productFlashSale-prev"
+                    onClick={() => this.handlePrevFlashSale()}
+                  >
+                    <span className="carousel-control-prev-icon"></span>
+                  </button>
+                  <button
+                    className="productFlashSale-next"
+                    onClick={() =>
+                      this.handleNextFlashSale(
+                        this.props.productFlashSale.data.list.length
+                      )
+                    }
+                  >
+                    <span className="carousel-control-next-icon"></span>
+                  </button>
+                  <div className="productFlashSale-title">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill="#FFF"
+                        fillRule="evenodd"
+                        d="M6.408 0l-2.7 8.298h2.794L3 16l8.744-10.587H8.447L11.937 0z"
+                      ></path>
+                    </svg>
+                    <p>FlashSale</p>
+                    <div id="countdown">
+                      <Countdown
+                        date={this.props.productFlashSale.data.end_time * 1000}
+                        renderer={renderer}
+                      />
+                    </div>
+                    <div></div>
+                  </div>
+                  <div
+                    className="productFlashSale-container"
+                    id="productFlashSale-container"
+                  >
+                    {Object.keys(this.props.productFlashSale).length > 0 &&
+                      this.props.productFlashSale.data.list.map(
+                        (ele, index) => (
+                          <ProductCardFLASHSALE
+                            product={ele}
+                            index={index}
+                            key={index}
+                          />
+                        )
+                      )}
+                  </div>
+                </div>
+              </div>
+            ))}
         </div>
         <div className="shopSenMall-wraper">
           {Object.keys(this.props.shopSenMall).length > 0 && (
@@ -450,6 +628,10 @@ const mapsStateToProps = (state) => ({
   shopSenMall: state.shopSenMall,
   productTopKeyWord: state.productTopKeyWord,
   productFilter: state.productFilter,
+  banner: state.banner,
+  menu: state.menu,
+  sitemap: state.sitemap,
+  themeEvent: state.themeEvent,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -11,6 +11,9 @@ import {
   GET_PRODUCT_RECOMMEND,
   GET_PRODUCT_TOPKEYWORD,
   GET_PRODUCT_FILTER,
+  GET_ARRAY_FILTER,
+  GET_QUERY,
+  GET_PATH_DEFAULT,
 } from "./action";
 
 const initialState = {
@@ -23,7 +26,14 @@ const initialState = {
   banner: [],
   menu: [],
   sitemap: [],
+  query: "",
   themeEvent: [],
+  arrayFilter: {
+    defaultTerm: [],
+    generalTerm: [],
+    generalTerm_PositionTop: [],
+  },
+  pathDefault: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -63,8 +73,54 @@ const reducer = (state = initialState, action) => {
     case GET_PRODUCT_TOPKEYWORD: {
       return { ...state, productTopKeyWord: action.productTopKeyWord };
     }
+    case GET_PATH_DEFAULT: {
+      let { pathDefault } = state;
+      const newArray_PathDefault = [...pathDefault, action.pathDefault];
+
+      console.log(newArray_PathDefault, "ss");
+      return { ...state, pathDefault: newArray_PathDefault };
+    }
     case GET_PRODUCT_FILTER: {
       return { ...state, productFilter: action.productFilter };
+    }
+    case GET_ARRAY_FILTER: {
+      const { arrayFilter } = state;
+
+      const newArrayFilter = { ...state.arrayFilter, ...action.arrayFilter };
+      for (let i = 0; i < newArrayFilter.result.data.length; i++) {
+        newArrayFilter.result.data[i].attribute_term === "DefaultTerm" &&
+          arrayFilter.defaultTerm.push(newArrayFilter.result.data[i]);
+      }
+
+      for (let i = 0; i < newArrayFilter.result.data.length; i++) {
+        if (
+          (newArrayFilter.result.data[i].attribute_term === "GeneralTerm") &
+          (newArrayFilter.result.data[i].position !== "top")
+        ) {
+          arrayFilter.generalTerm.push(newArrayFilter.result.data[i]);
+        }
+      }
+      for (let i = 0; i < newArrayFilter.result.data.length; i++) {
+        if (
+          (newArrayFilter.result.data[i].attribute_term === "GeneralTerm") &
+          (newArrayFilter.result.data[i].position === "top")
+        ) {
+          arrayFilter.generalTerm_PositionTop.push(
+            newArrayFilter.result.data[i]
+          );
+        }
+      }
+
+      return {
+        ...state,
+        arrayFilter: action.arrayFilter,
+        defaultTerm: arrayFilter.defaultTerm,
+        generalTerm: arrayFilter.generalTerm,
+        generalTerm_PositionTop: arrayFilter.generalTerm_PositionTop,
+      };
+    }
+    case GET_QUERY: {
+      return { ...state, query: action.query };
     }
     default:
       return state;

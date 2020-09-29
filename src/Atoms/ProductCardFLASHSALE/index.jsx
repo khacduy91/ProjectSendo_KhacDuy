@@ -4,6 +4,7 @@ import "./index.scss";
 class ProductCardFLASHSALE extends React.Component {
   render() {
     const { product } = this.props;
+
     return (
       <div className="productCard_FLASHSALE">
         <a href="/">

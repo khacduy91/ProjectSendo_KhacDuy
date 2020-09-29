@@ -70,6 +70,24 @@ export const getThemeEvent = (themeEvent) => ({
   themeEvent,
 });
 
+export const GET_ARRAY_FILTER = "GET_ARRAY_FILTER";
+export const getArray_Filter = (arrayFilter) => ({
+  type: GET_ARRAY_FILTER,
+  arrayFilter,
+});
+
+export const GET_QUERY = "GET_QUERY";
+export const getQuery = (query) => ({
+  type: GET_QUERY,
+  query,
+});
+
+export const GET_PATH_DEFAULT = "GET_PATH_DEFAULT";
+export const getPath_Default = (pathDefault) => ({
+  type: GET_PATH_DEFAULT,
+  pathDefault,
+});
+
 export const getData = () => {
   return (dispatch) => {
     axios({
@@ -147,25 +165,18 @@ export const getDataProduct = () => {
 };
 
 export const getProductFilter = (
-  page,
+  pathPositionTop,
+  pathDefault,
+  pathGeneral,
   query,
-  quanity,
-  is_shop_plus,
-  is_promotion
+  sortType
 ) => {
-  // page !== undefined ? (page = this.page) : (page = 1);
-  // query !== undefined ? (query = this.query) : (query = "");
-  // quanity !== undefined ? (quanity = this.quanity) : (quanity = 30);
-  // is_shop_plus !== undefined
-  //   ? (is_shop_plus = this.is_shop_plus)
-  //   : (is_shop_plus = 0);
-  // is_promotion !== undefined
-  //   ? (is_promotion = this.is_promotion)
-  //   : (is_promotion = 0);
-
   return (dispatch) => {
-    let url = `https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/search/product?p=${page}&platform=web&q=${query}&s=${quanity}&is_shop_plus=${is_shop_plus}&is_promotion=${is_promotion}&sortType=rank`;
-    console.log(url, "url");
+    // https://www.sendo.vn/m/wap_v2/search/product?is_shop_plus=1&mau_sac=605&p=1&platform=web&promotion_app=1&q=ao&s=60&search_algo=algo6&sortType=rank
+
+    let url = `https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/search/product?${pathPositionTop}${pathDefault}&p=1&platform=web${pathGeneral}&q=${query}&s=32&search_algo=algo6&${sortType}`;
+    console.log(url, "path");
+
     axios({
       method: "get",
       url: url,
@@ -174,5 +185,20 @@ export const getProductFilter = (
         dispatch(getProduct_Filter(res.data));
       })
       .catch((err) => console.log(err, "getProduct_Filter"));
+  };
+};
+
+export const getArrayFilter = (query) => {
+  return (dispatch) => {
+    axios({
+      method: "get",
+      url: `https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/search/filter?platform=web&q=${encodeURIComponent(
+        query
+      )}`,
+    })
+      .then((res) => {
+        dispatch(getArray_Filter(res.data));
+      })
+      .catch((err) => console.log(err, "getArrayFilter"));
   };
 };
