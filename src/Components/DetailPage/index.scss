@@ -1,0 +1,277 @@
+.detailPage-ProductInfo {
+  display: flex;
+  width: 1360px;
+  margin: 0 auto;
+  box-shadow: 0px 0px 5px #00000030;
+  justify-content: space-between;
+  padding-top: 10px;
+  &-Gallery {
+    width: 100%;
+    max-width: 33%;
+    display: block;
+    position: relative;
+    padding-top: 20px;
+
+    &-image0 {
+      display: block;
+      width: 100%;
+      position: absolute;
+      padding-top: 100%;
+
+      img {
+        position: absolute;
+        top: 0px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        box-shadow: 0 0 8px #000000;
+      }
+    }
+    &-image {
+      display: block;
+      width: 15%;
+      position: relative;
+      padding-top: 15%;
+      margin-top: 10px;
+      margin-left: 10px;
+      border: 1.5px solid #000000;
+      box-shadow: 0 0 5px #000000;
+
+      img {
+        position: absolute;
+        top: 0px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+      }
+
+      &:hover {
+        border: 1.5px solid white;
+        box-shadow: 0 0 5px white;
+      }
+    }
+  }
+  &-BasicInfo {
+    width: 100%;
+    max-width: 66%;
+
+    &-row {
+      &-title {
+        display: flex;
+        padding: 12px;
+        border-bottom: 0.5px solid #00000030;
+        border-width: thin;
+
+        p {
+          font-size: 16px;
+          font-weight: 600;
+          padding: 0px 5px;
+          margin-block-end: 0;
+        }
+      }
+
+      &-priceBox {
+        display: flex;
+        padding: 12px;
+        border-bottom: 0.5px solid #00000030;
+        border-width: thin;
+        flex-direction: column;
+        position: relative;
+
+        .priceBox {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          p {
+            margin-block-end: 0;
+            padding: 0px 5px;
+          }
+
+          #finalPrice {
+            font-size: 18px;
+            font-weight: 600;
+            color: #e5101d;
+          }
+          #price {
+            font-size: 16px;
+            color: gray;
+            text-decoration: line-through;
+          }
+
+          &-Promotion {
+            display: flex;
+            background-image: linear-gradient(90deg, #b9081d, #f21a4c);
+            border-radius: 3px;
+            color: #fff;
+            font-size: 12px;
+            line-height: 1;
+            height: 18px;
+            align-items: center;
+            padding: 0 6px;
+          }
+        }
+
+        .rating {
+          display: flex;
+          &::before {
+            content: "\2605\2605\2605\2605\2605";
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            padding-right: 5px;
+            -webkit-background-clip: text;
+          }
+        }
+
+        .orderCount {
+          color: #828282;
+          font-size: 14px;
+          margin-block-end: 0;
+          position: absolute;
+          bottom: 6px;
+          right: 12px;
+          display: flex;
+          align-items: center;
+          p {
+            margin-block-end: 0;
+          }
+        }
+      }
+
+      &-attribute {
+        display: flex;
+        padding: 12px;
+        border-bottom: 0.5px solid #00000030;
+        border-width: thin;
+        flex-direction: column;
+        position: relative;
+        .attribute {
+          display: flex;
+          position: relative;
+          margin-top: 15px;
+
+          &-name {
+            min-width: 15%;
+            font-weight: bold;
+            display: flex;
+
+            justify-content: end;
+            p {
+              margin-block-end: 0;
+            }
+          }
+          &-value {
+            display: flex;
+            flex-wrap: wrap;
+            input {
+              display: block;
+              text-align: center;
+              max-width: 100px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              width: fit-content;
+              /* height: 40px; */
+              margin-right: 10px;
+              margin-top: 5px;
+              padding: 0px 10px;
+              border: 0.5px solid #00000030;
+              transition: 0.25s ease;
+              cursor: pointer;
+
+              &:hover {
+                border-color: #e5101d;
+                color: #e5101d;
+              }
+            }
+            .chosenValue {
+              background-color: #e5101d;
+              color: white;
+            }
+          }
+        }
+      }
+
+      &-addToCart {
+        display: flex;
+        padding: 12px;
+        border-bottom: 0.5px solid #00000030;
+        border-width: thin;
+        flex-direction: row;
+        position: relative;
+        justify-content: flex-end;
+        #addToCart {
+          background-color: darkseagreen;
+          color: white;
+          border: 0.5px solid #00000030;
+          margin-right: 10px;
+          font-weight: 500;
+          width: fit-content;
+          padding: 10px 20px;
+
+          &:hover {
+            background-color: seagreen;
+            border: 0.5px solid #000000;
+          }
+        }
+
+        #quickBuy {
+          background-color: #d06c72;
+          color: white;
+          font-weight: 500;
+          border: 0.5px solid #00000030;
+          width: fit-content;
+          padding: 10px 20px;
+
+          &:hover {
+            background-color: #e5101d;
+            border: 0.5px solid #000000;
+          }
+        }
+      }
+      &-benefit {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        // border-bottom: 0.5px solid #00000030;
+        border-width: thin;
+        flex-direction: row;
+        position: relative;
+
+        .freeReturn {
+          &-title {
+            display: flex;
+            align-content: center;
+            flex-direction: row;
+            width: 100%;
+            background-repeat: no-repeat;
+
+            background-size: 20% 94%;
+            color: white;
+            font-weight: 500;
+
+            p {
+              margin-block-end: 0;
+            }
+            img {
+              height: 20px;
+              padding-left: 5px;
+              padding-top: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.detailPage-Description {
+  box-sizing: border-box;
+  width: 1360px;
+  margin: 0 auto;
+  margin-top: 20px;
+  box-shadow: 0 0 8px #00000030;
+  padding: 10px;
+}

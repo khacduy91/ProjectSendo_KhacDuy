@@ -14,6 +14,7 @@ import {
   GET_ARRAY_FILTER,
   GET_QUERY,
   GET_PATH_DEFAULT,
+  GET_DETAIL_PRODUCT,
 } from "./action";
 
 const initialState = {
@@ -32,7 +33,7 @@ const initialState = {
   defaultTerm: [],
   generalTerm: [],
   generalTerm_PositionTop: [],
-
+  detailProduct: [],
   pathDefault: [],
 };
 
@@ -121,6 +122,9 @@ const reducer = (state = initialState, action) => {
     }
     case GET_QUERY: {
       return { ...state, query: action.query };
+    }
+    case GET_DETAIL_PRODUCT: {
+      return { ...state, detailProduct: action.detailProduct };
     }
     default:
       return state;

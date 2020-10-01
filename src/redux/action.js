@@ -88,6 +88,12 @@ export const getPath_Default = (pathDefault) => ({
   pathDefault,
 });
 
+export const GET_DETAIL_PRODUCT = "GET_DETAIL_PRODUCT";
+export const getDetail_Product = (detailProduct) => ({
+  type: GET_DETAIL_PRODUCT,
+  detailProduct,
+});
+
 export const getData = () => {
   return (dispatch) => {
     axios({
@@ -200,5 +206,18 @@ export const getArrayFilter = (query) => {
         dispatch(getArray_Filter(res.data));
       })
       .catch((err) => console.log(err, "getArrayFilter"));
+  };
+};
+
+export const getDetailProduct = (id) => {
+  return (dispatch) => {
+    axios({
+      method: "get",
+      url: `https://cors-anywhere.herokuapp.com/https://mapi.sendo.vn/mob/product/${id}/detail`,
+    })
+      .then((res) => {
+        dispatch(getDetail_Product(res));
+      })
+      .catch((err) => console.log(err, "getDetailProduct"));
   };
 };

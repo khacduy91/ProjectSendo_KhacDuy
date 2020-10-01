@@ -182,11 +182,7 @@ class FilterPage extends React.Component {
                 </div>
               )}
               {this.props.defaultTerm.map((ele, indexa) => (
-                <div
-                  className="DefaultTerm"
-                  key={`a${indexa}`}
-                  attributeKeyIndex={indexa}
-                >
+                <div className="DefaultTerm" key={`a${indexa}`}>
                   <div className="card">
                     <div className="card-header DefaultTerm-header">
                       <a
@@ -263,7 +259,11 @@ class FilterPage extends React.Component {
                             }`}
                             className="form-check-input"
                           />
-                          <img src={ele.attribute_img} alt="isEvent" />
+                          {ele.attribute_img && (
+                            <img src={ele.attribute_img} alt="isEvent" />
+                          )}
+
+                          {ele.attribute_name}
                         </label>
                       </div>
                     ) : (

@@ -1,5 +1,6 @@
 import React from "react";
 import "./index.scss";
+import { Link } from "react-router-dom";
 
 class ProductCardFILTER extends React.Component {
   render() {
@@ -11,7 +12,11 @@ class ProductCardFILTER extends React.Component {
       20 * this.props.product.percent_star
     }%, #c7c7cd 0);}`;
     return (
-      <a href="/" className="productCardFILTER-Card">
+      <Link
+        to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.id}&name=${this.props.product.name}`}
+        className="productCardFILTER-Card"
+        id={this.props.product.id}
+      >
         <div className="productCardFILTER-Card-wraper">
           <img
             className="productCardFILTER-Card-wraper-img"
@@ -72,7 +77,7 @@ class ProductCardFILTER extends React.Component {
         <div className="shopName">
           <p>{this.props.product.shop_name}</p>
         </div>
-      </a>
+      </Link>
     );
   }
 }
