@@ -23,7 +23,7 @@ class HomePage extends React.Component {
     x: new Date(),
   };
   componentDidMount() {
-    this.props.getProductFilter("");
+    this.props.getProductFilter("", "", "", "quần jean", "30", "sortType=rank");
     this.props.getDataProduct();
   }
 
@@ -36,13 +36,13 @@ class HomePage extends React.Component {
     let z = new Date();
     this.setState({ number: index, x: z });
   };
-  handleNext = () => {
+  handleNextBanner = () => {
     const number = this.state.number + 1;
     this.setState({
       number: number > this.props.banner.length - 1 ? 0 : number,
     });
   };
-  handlePrev = () => {
+  handlePrevBanner = () => {
     const number = this.state.number - 1;
     this.setState({
       number: number < 0 ? this.props.banner.length - 1 : number,
@@ -73,182 +73,41 @@ class HomePage extends React.Component {
       });
   }
   //FlashSale
-  handleNextFlashSale = (a) => {
-    document.getElementById(
-      "productFlashSale-container"
-    ).style.transform = `translateX(${
-      this.state.numberSliderFlashSale === a - 6
-        ? -205 * this.state.numberSliderFlashSale + 120
-        : -205 * this.state.numberSliderFlashSale
-    }px)`;
-    this.setState({
-      numberSliderFlashSale:
-        this.state.numberSliderFlashSale + 1 > 14
-          ? this.state.numberSliderFlashSale
-          : this.state.numberSliderFlashSale + 1,
-    });
-  };
-  handlePrevFlashSale = () => {
-    this.state.numberSliderFlashSale === 1
-      ? (document.getElementById(
-          "productFlashSale-container"
-        ).style.transform = `translateX(${
-          0 * (this.state.numberSliderFlashSale - 2)
-        }px)`)
-      : (document.getElementById(
-          "productFlashSale-container"
-        ).style.transform = `translateX(${
-          -205 * (this.state.numberSliderFlashSale - 2)
-        }px)`);
-    this.setState({
-      numberSliderFlashSale:
-        this.state.numberSliderFlashSale - 1 < 1
-          ? 1
-          : this.state.numberSliderFlashSale - 1,
-    });
-  };
-  //SenMall
-  handlePrevSenMall = () => {
-    this.state.numberSliderSenMall === 1
-      ? (document.getElementById(
-          "shopSendMall"
-        ).style.transform = `translateX(${
-          0 * (this.state.numberSliderSenMall - 2)
-        }px)`)
-      : (document.getElementById(
-          "shopSendMall"
-        ).style.transform = `translateX(${
-          -285 * (this.state.numberSliderSenMall - 2)
-        }px)`);
-    this.setState({
-      numberSliderSenMall:
-        this.state.numberSliderSenMall - 1 < 1
-          ? 1
-          : this.state.numberSliderSenMall - 1,
-    });
+  handleNext = (a, b, c) => {
+    let scrollWidth = document.getElementById(`${b}`).scrollWidth;
+    let eleWidth = document.querySelector(`${c}`).offsetWidth;
+    let scrollLeft = document.getElementById(`${b}`).scrollLeft;
+
+    let widthPerSlide = scrollWidth / a;
+    let numberSilder = Math.floor(scrollLeft / widthPerSlide);
+
+    Math.floor(scrollLeft / widthPerSlide) < scrollLeft / widthPerSlide
+      ? (numberSilder = Math.floor(scrollLeft / widthPerSlide) + 1)
+      : (numberSilder = Math.floor(scrollLeft / widthPerSlide));
+
+    scrollLeft >= scrollWidth - eleWidth
+      ? (document.getElementById(`${b}`).scrollLeft = scrollWidth - eleWidth)
+      : (document.getElementById(`${b}`).scrollLeft =
+          widthPerSlide * (numberSilder + 1));
+    console.log(numberSilder, "num");
+    console.log(document.getElementById(`${b}`).scrollLeft, "a");
+    console.log(scrollWidth, "swidth");
+    console.log(eleWidth, "eWidth");
   };
 
-  handleNextSenMall = (a) => {
-    document.getElementById("shopSendMall").style.transform = `translateX(${
-      this.state.numberSliderSenMall === a - 5
-        ? -285 * this.state.numberSliderSenMall + 228
-        : -285 * this.state.numberSliderSenMall
-    }px)`;
-    this.setState({
-      numberSliderSenMall:
-        this.state.numberSliderSenMall + 1 > a - 5
-          ? this.state.numberSliderSenMall
-          : this.state.numberSliderSenMall + 1,
-    });
+  handlePrev = (a, b, c) => {
+    let scrollWidth = document.getElementById(`${b}`).scrollWidth;
+    let eleWidth = document.querySelector(`${c}`).innerWidth;
+    let scrollLeft = document.getElementById(`${b}`).scrollLeft;
+    let numberSilder = Math.floor(scrollLeft / (scrollWidth / a));
+    let widthPerSlide = scrollWidth / a;
+
+    scrollLeft <= 0
+      ? (document.getElementById(`${b}`).scrollLeft = 0)
+      : (document.getElementById(`${b}`).scrollLeft =
+          widthPerSlide * numberSilder - 1);
   };
 
-  // Recommend
-  handlePrevRecommend = () => {
-    this.state.numberSliderRecommend === 1
-      ? (document.getElementById(
-          "productRecommend-container"
-        ).style.transform = `translateX(${
-          0 * (this.state.numberSliderRecommend - 2)
-        }px)`)
-      : (document.getElementById(
-          "productRecommend-container"
-        ).style.transform = `translateX(${
-          -210 * (this.state.numberSliderRecommend - 2)
-        }px)`);
-    this.setState({
-      numberSliderRecommend:
-        this.state.numberSliderRecommend - 1 < 1
-          ? 1
-          : this.state.numberSliderRecommend - 1,
-    });
-  };
-  handleNextRecommend = (a) => {
-    document.getElementById(
-      "productRecommend-container"
-    ).style.transform = `translateX(${
-      this.state.numberSliderRecommend === a - 6
-        ? -210 * this.state.numberSliderRecommend + 95
-        : -210 * this.state.numberSliderRecommend
-    }px)`;
-    this.setState({
-      numberSliderRecommend:
-        this.state.numberSliderRecommend + 1 > a - 6
-          ? this.state.numberSliderRecommend
-          : this.state.numberSliderRecommend + 1,
-    });
-  };
-
-  //TOPKEYWORD
-  handlePrevTopKeyWord = () => {
-    this.state.numberSliderRecommend === 1
-      ? (document.getElementById(
-          "productTopKeyWord-container"
-        ).style.transform = `translateX(${
-          0 * (this.state.numberSliderTopKeyWord - 2)
-        }px)`)
-      : (document.getElementById(
-          "productTopKeyWord-container"
-        ).style.transform = `translateX(${
-          -110 * (this.state.numberSliderTopKeyWord - 2)
-        }px)`);
-    this.setState({
-      numberSliderTopKeyWord:
-        this.state.numberSliderTopKeyWord - 1 < 1
-          ? 1
-          : this.state.numberSliderTopKeyWord - 1,
-    });
-  };
-  handleNextTopKeyWord = (a) => {
-    document.getElementById(
-      "productTopKeyWord-container"
-    ).style.transform = `translateX(${
-      this.state.numberSliderTopKeyWord === a - 12
-        ? -110 * this.state.numberSliderTopKeyWord + 45
-        : -110 * this.state.numberSliderTopKeyWord
-    }px)`;
-    this.setState({
-      numberSliderTopKeyWord:
-        this.state.numberSliderTopKeyWord + 1 > a - 12
-          ? this.state.numberSliderTopKeyWord
-          : this.state.numberSliderTopKeyWord + 1,
-    });
-  };
-
-  //FILTER
-  handlePrevFilter = () => {
-    this.state.numberSliderFilter === 1
-      ? (document.getElementById(
-          "productFilter-container"
-        ).style.transform = `translateX(${
-          0 * (this.state.numberSliderFilter - 2)
-        }px)`)
-      : (document.getElementById(
-          "productFilter-container"
-        ).style.transform = `translateX(${
-          -110 * (this.state.numberSliderFilter - 2)
-        }px)`);
-    this.setState({
-      numberSliderFilter:
-        this.state.numberSliderFilter - 1 < 1
-          ? 1
-          : this.state.numberSliderFilter - 1,
-    });
-  };
-  handleNextFilter = (a) => {
-    document.getElementById(
-      "productFilter-container"
-    ).style.transform = `translateX(${
-      this.state.numberSliderFilter === a - 12
-        ? -110 * this.state.numberSliderFilter + 45
-        : -110 * this.state.numberSliderFilter
-    }px)`;
-    this.setState({
-      numberSliderFilter:
-        this.state.numberSliderFilter + 1 > a - 12
-          ? this.state.numberSliderFilter
-          : this.state.numberSliderFilter + 1,
-    });
-  };
   render() {
     window.setTimeout(() => this.autoChange(), 7000);
     // console.log("endtime", this.state.end_time);\
@@ -263,78 +122,19 @@ class HomePage extends React.Component {
       );
     };
     return (
-      <div>
+      <div className="homepage">
         {/* Header */}
         <div className="slider-container">
           {/* Boostrap caurosel */}
-          <div
-            id="demo2"
-            className="carousel slide slider-container-image"
-            // data-ride="carousel"
-          >
-            {/* Image Caurosel */}
-            <div className="carousel-inner slider-container-image-inner">
-              {this.props.banner.map((ele, index) =>
-                index === this.state.number ? (
-                  <div
-                    className="carousel-item active"
-                    style={{ backgroundColor: `${ele.background_color}` }}
-                    key={index}
-                  >
-                    <img src={ele.image} alt={ele.title} />
-                  </div>
-                ) : (
-                  <div
-                    className="carousel-item"
-                    style={{ backgroundColor: `${ele.background_color}` }}
-                    key={index}
-                  >
-                    <img src={ele.image} alt={ele.title} />
-                  </div>
-                )
-              )}
-              {/* <!-- Left and right controls --> */}
-              <span
-                className="carousel-control-prev"
-                onClick={() => this.handlePrev()}
-              >
-                <span className="carousel-control-prev-icon"></span>
-              </span>
-              <span
-                className="carousel-control-next"
-                onClick={() => this.handleNext()}
-              >
-                <span className="carousel-control-next-icon"></span>
-              </span>
-
-              {/* Horizon Button */}
-              <ul className="carousel-indicators">
-                {this.props.banner.map((ele, index) =>
-                  index === this.state.number ? (
-                    <li
-                      // data-target="#demo1 #demo2"
-                      // data-target="#demo2"
-                      // data-slide-to={index}
-                      className="active"
-                      key={index}
-                      index={index}
-                      onClick={() => this.handleClick(index)}
-                    ></li>
-                  ) : (
-                    <li
-                      // data-target="#demo1 #demo2"
-                      // data-target="#demo2"
-                      // data-slide-to={index}
-                      key={index}
-                      index={index}
-                      onClick={() => this.handleClick(index)}
-                    ></li>
-                  )
-                )}
-              </ul>
+          {this.props.banner.length > 0 && (
+            <div className="navbar">
+              {this.props.sitemap.map((ele, index) => (
+                <a href={`/${ele.url_path}`} key={index}>
+                  <p>{ele.title}</p>
+                </a>
+              ))}
             </div>
-          </div>
-
+          )}
           <div
             id="demo1"
             className="carousel slide banner"
@@ -342,6 +142,74 @@ class HomePage extends React.Component {
           >
             {/* Banner Container */}
             <div className="carousel-inner banner-container-inner">
+              <div
+                id="demo2"
+                className="carousel slide slider-container-image"
+                // data-ride="carousel"
+              >
+                {/* Image Caurosel */}
+                <div className="carousel-inner slider-container-image-inner">
+                  {this.props.banner.map((ele, index) =>
+                    index === this.state.number ? (
+                      <div
+                        className="carousel-item active"
+                        style={{ backgroundColor: `${ele.background_color}` }}
+                        key={index}
+                      >
+                        <img src={ele.image} alt={ele.title} />
+                      </div>
+                    ) : (
+                      <div
+                        className="carousel-item"
+                        style={{ backgroundColor: `${ele.background_color}` }}
+                        key={index}
+                      >
+                        <img src={ele.image} alt={ele.title} />
+                      </div>
+                    )
+                  )}
+                  {/* <!-- Left and right controls --> */}
+                  <span
+                    className="carousel-control-prev"
+                    onClick={() => this.handlePrevBanner()}
+                  >
+                    <span className="carousel-control-prev-icon"></span>
+                  </span>
+                  <span
+                    className="carousel-control-next"
+                    onClick={() => this.handleNextBanner()}
+                  >
+                    <span className="carousel-control-next-icon"></span>
+                  </span>
+
+                  {/* Horizon Button */}
+                  <ul className="carousel-indicators">
+                    {this.props.banner.map((ele, index) =>
+                      index === this.state.number ? (
+                        <li
+                          // data-target="#demo1 #demo2"
+                          // data-target="#demo2"
+                          // data-slide-to={index}
+                          className="active"
+                          key={index}
+                          index={index}
+                          onClick={() => this.handleClick(index)}
+                        ></li>
+                      ) : (
+                        <li
+                          // data-target="#demo1 #demo2"
+                          // data-target="#demo2"
+                          // data-slide-to={index}
+                          key={index}
+                          index={index}
+                          onClick={() => this.handleClick(index)}
+                        ></li>
+                      )
+                    )}
+                  </ul>
+                </div>
+              </div>
+
               {this.props.banner.map((ele, index) =>
                 index === this.state.number ? (
                   <div
@@ -368,16 +236,6 @@ class HomePage extends React.Component {
                 <p dangerouslySetInnerHTML={{ __html: ele.label }} />
               </a>
             ))}
-
-            {this.props.banner.length > 0 && (
-              <div className="navbar">
-                {this.props.sitemap.map((ele, index) => (
-                  <a href={`/${ele.url_path}`} key={index}>
-                    <p>{ele.title}</p>
-                  </a>
-                ))}
-              </div>
-            )}
           </div>
         </div>
         <div className="themeEvent">
@@ -416,15 +274,23 @@ class HomePage extends React.Component {
                 <div className="productFlashSale">
                   <button
                     className="productFlashSale-prev"
-                    onClick={() => this.handlePrevFlashSale()}
+                    onClick={() =>
+                      this.handlePrev(
+                        this.props.productFlashSale.data.list.length,
+                        "productFlashSale-container",
+                        ".productFlashSale"
+                      )
+                    }
                   >
                     <span className="carousel-control-prev-icon"></span>
                   </button>
                   <button
                     className="productFlashSale-next"
                     onClick={() =>
-                      this.handleNextFlashSale(
-                        this.props.productFlashSale.data.list.length
+                      this.handleNext(
+                        this.props.productFlashSale.data.list.length,
+                        "productFlashSale-container",
+                        ".productFlashSale"
                       )
                     }
                   >
@@ -476,15 +342,23 @@ class HomePage extends React.Component {
             <div>
               <button
                 className="shopSenMall-prev"
-                onClick={() => this.handlePrevSenMall()}
+                onClick={() =>
+                  this.handlePrev(
+                    this.props.shopSenMall.result.data.length,
+                    "shopSendMall",
+                    ".shopSenMall-wraper"
+                  )
+                }
               >
                 <span className="carousel-control-prev-icon"></span>
               </button>
               <button
                 className="shopSenMall-next"
                 onClick={() =>
-                  this.handleNextSenMall(
-                    this.props.shopSenMall.result.data.length
+                  this.handleNext(
+                    this.props.shopSenMall.result.data.length,
+                    "shopSendMall",
+                    ".shopSenMall-wraper"
                   )
                 }
               >
@@ -507,15 +381,23 @@ class HomePage extends React.Component {
             <div className="productRecommend-wraper">
               <button
                 className="productRecommend-wraper-prev"
-                onClick={() => this.handlePrevRecommend()}
+                onClick={() =>
+                  this.handlePrev(
+                    this.props.productRecommend.length - 1,
+                    "productRecommend-container",
+                    ".productRecommend-wraper"
+                  )
+                }
               >
                 <span className="carousel-control-prev-icon"></span>
               </button>
               <button
                 className="productRecommend-wraper-next"
                 onClick={() =>
-                  this.handleNextRecommend(
-                    this.props.productRecommend.length - 1
+                  this.handleNext(
+                    this.props.productRecommend.length - 1,
+                    "productRecommend-container",
+                    ".productRecommend-wraper"
                   )
                 }
               >
@@ -549,15 +431,23 @@ class HomePage extends React.Component {
             <div className="productTopKeyWord-wraper">
               <button
                 className="productTopKeyWord-wraper-prev"
-                onClick={() => this.handlePrevTopKeyWord()}
+                onClick={() =>
+                  this.handlePrev(
+                    this.props.productTopKeyWord.result.data.length,
+                    "productTopKeyWord-container",
+                    ".productTopKeyWord-wraper"
+                  )
+                }
               >
                 <span className="carousel-control-prev-icon"></span>
               </button>
               <button
                 className="productTopKeyWord-wraper-next"
                 onClick={() =>
-                  this.handleNextTopKeyWord(
-                    this.props.productTopKeyWord.result.data.length
+                  this.handleNext(
+                    this.props.productTopKeyWord.result.data.length,
+                    "productTopKeyWord-container",
+                    ".productTopKeyWord-wraper"
                   )
                 }
               >

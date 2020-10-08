@@ -13,7 +13,7 @@ class ProductCardFILTER extends React.Component {
     }%, #c7c7cd 0);}`;
     return (
       <Link
-        to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.id}&name=${this.props.product.name}`}
+        to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.id}&name=${this.props.product.name}&adminid=${this.props.product.admin_id}`}
         className="productCardFILTER-Card"
         id={this.props.product.id}
       >
@@ -37,9 +37,11 @@ class ProductCardFILTER extends React.Component {
             <p className="finalPrice">
               {this.props.product.final_price.toLocaleString()}đ
             </p>
-            <p className="priceMax">
-              {this.props.product.price_max.toLocaleString()}
-            </p>
+            {this.props.product.promotion_percent !== 0 && (
+              <p className="priceMax">
+                {this.props.product.price_max.toLocaleString()}
+              </p>
+            )}
           </div>
 
           {/* rating star */}

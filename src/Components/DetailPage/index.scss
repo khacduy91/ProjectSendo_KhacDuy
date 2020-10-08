@@ -17,6 +17,7 @@
       width: 100%;
       position: absolute;
       padding-top: 100%;
+      overflow: hidden;
 
       img {
         position: absolute;
@@ -37,6 +38,7 @@
       margin-left: 10px;
       border: 1.5px solid #000000;
       box-shadow: 0 0 5px #000000;
+      overflow: hidden;
 
       img {
         position: absolute;
@@ -116,6 +118,7 @@
 
         .rating {
           display: flex;
+
           &::before {
             content: "\2605\2605\2605\2605\2605";
             -webkit-text-fill-color: transparent;
@@ -168,7 +171,7 @@
             input {
               display: block;
               text-align: center;
-              max-width: 100px;
+              max-width: 150px;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
@@ -182,8 +185,8 @@
               cursor: pointer;
 
               &:hover {
-                border-color: #e5101d;
-                color: #e5101d;
+                background-color: #e5101d;
+                color: white;
               }
             }
             .chosenValue {
@@ -233,11 +236,11 @@
       }
       &-benefit {
         display: flex;
-        align-items: center;
+
         padding: 12px;
         // border-bottom: 0.5px solid #00000030;
         border-width: thin;
-        flex-direction: row;
+        flex-direction: column;
         position: relative;
 
         .freeReturn {
@@ -247,7 +250,6 @@
             flex-direction: row;
             width: 100%;
             background-repeat: no-repeat;
-
             background-size: 20% 94%;
             color: white;
             font-weight: 500;
@@ -274,4 +276,129 @@
   margin-top: 20px;
   box-shadow: 0 0 8px #00000030;
   padding: 10px;
+
+  p:nth-child(1) {
+    max-height: 600px;
+    overflow: scroll;
+  }
+}
+
+.detailPage-ShopInfo {
+  display: flex;
+  flex-direction: row;
+  width: 1360px;
+  margin: 0 auto;
+  margin-top: 20px;
+  box-shadow: 0 0 5px #00000030;
+
+  &-Left {
+    width: 100%;
+    max-width: 33%;
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    border-right: 0.25px solid #00000030;
+
+    &-Image {
+      width: 125px;
+      position: relative;
+      padding-top: 125px;
+      display: block;
+
+      img {
+        width: 100%;
+        position: absolute;
+        border-radius: 50%;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+      }
+    }
+
+    &-Info {
+      width: 100%;
+      max-width: 66%;
+      padding-left: 12px;
+      text-decoration: none;
+      color: black;
+
+      &-Name {
+        font-size: 20px;
+        font-weight: bold;
+        color: black;
+        transition: 0.25s ease;
+        &:hover {
+          text-decoration: none;
+          color: #e5101d;
+        }
+      }
+
+      .ratingShop {
+        display: flex;
+        font-size: 18px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        &::before {
+          content: "\2605\2605\2605\2605\2605";
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          padding-right: 5px;
+          -webkit-background-clip: text;
+        }
+      }
+    }
+  }
+
+  &-Right {
+    width: 100%;
+    max-width: 66%;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    justify-content: center;
+    &-Row {
+      display: flex;
+      flex-direction: row;
+      &-item {
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 30%;
+
+        align-items: center;
+
+        p {
+          font-weight: 500;
+          color: black;
+          font-size: 18px;
+        }
+
+        #shopAge {
+          font-weight: 400;
+          font-size: 16px;
+        }
+        #responseTime {
+          font-weight: 400;
+          font-size: 16px;
+        }
+        #productAmount {
+          font-weight: 400;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+/*Responsive*/
+@media screen and (max-width: 1360px) {
+  .detailPage-ProductInfo {
+    width: 95%;
+  }
+  .detailPage-ShopInfo {
+    width: 95%;
+  }
+  .detailPage-Description {
+    width: 95%;
+  }
 }

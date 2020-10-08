@@ -15,6 +15,10 @@ import {
   GET_QUERY,
   GET_PATH_DEFAULT,
   GET_DETAIL_PRODUCT,
+  GET_DETAIL_SHOP,
+  ADD_TO_CART,
+  DELETE_PRODUCT_CART,
+  CHANGE_QUANITY,
 } from "./action";
 
 const initialState = {
@@ -27,14 +31,16 @@ const initialState = {
   banner: [],
   menu: [],
   sitemap: [],
-  query: "",
+  query: "quan jean",
   themeEvent: [],
   arrayFilter: [],
   defaultTerm: [],
   generalTerm: [],
   generalTerm_PositionTop: [],
   detailProduct: [],
+  detailShop: [],
   pathDefault: [],
+  cartProducts: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -125,6 +131,34 @@ const reducer = (state = initialState, action) => {
     }
     case GET_DETAIL_PRODUCT: {
       return { ...state, detailProduct: action.detailProduct };
+    }
+    case GET_DETAIL_SHOP: {
+      return { ...state, detailShop: action.detailShop };
+    }
+    case ADD_TO_CART: {
+      const product_AddToCart = action.product_AddToCart;
+
+      const length = state.cartProducts.length;
+      const cartProducts = state.cartProducts;
+
+      cartProducts[length] = product_AddToCart;
+
+      return { ...state, cartProducts: cartProducts };
+    }
+    case DELETE_PRODUCT_CART: {
+      const newCartProduct = action.cartProducts;
+      console.log(newCartProduct, "new");
+      return { ...state, cartProducts: newCartProduct };
+    }
+    case CHANGE_QUANITY: {
+      console.log(action.value, "value");
+      console.log(action.index, "index");
+      console.log(action.index, "index");
+      console.log(state.cartProducts[action.index].quanity, "quanity");
+
+      const new_cartProduct = state.cartProducts;
+      new_cartProduct[action.index].quanity = action.value;
+      return { ...state, cartProducts: new_cartProduct };
     }
     default:
       return state;

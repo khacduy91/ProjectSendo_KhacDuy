@@ -94,6 +94,29 @@ export const getDetail_Product = (detailProduct) => ({
   detailProduct,
 });
 
+export const GET_DETAIL_SHOP = "GET_DETAIL_SHOP(";
+export const getDetail_Shop = (detailShop) => ({
+  type: GET_DETAIL_SHOP,
+  detailShop,
+});
+
+export const ADD_TO_CART = "ADD_TO_CART";
+export const getProductToCart = (product_AddToCart) => ({
+  type: ADD_TO_CART,
+  product_AddToCart,
+});
+export const DELETE_PRODUCT_CART = "DELETE_PRODUCT_CART";
+export const deleteProductCart = (cartProducts) => ({
+  type: DELETE_PRODUCT_CART,
+  cartProducts,
+});
+
+export const CHANGE_QUANITY = "CHANGE_QUANITY";
+export const change_Quanity = (value, index) => ({
+  type: CHANGE_QUANITY,
+  value,
+  index,
+});
 export const getData = () => {
   return (dispatch) => {
     axios({
@@ -175,13 +198,14 @@ export const getProductFilter = (
   pathDefault,
   pathGeneral,
   query,
+  quanity,
   sortType
 ) => {
   return (dispatch) => {
     // https://www.sendo.vn/m/wap_v2/search/product?is_shop_plus=1&mau_sac=605&p=1&platform=web&promotion_app=1&q=ao&s=60&search_algo=algo6&sortType=rank
-
-    let url = `https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/search/product?${pathPositionTop}${pathDefault}&p=1&platform=web${pathGeneral}&q=${query}&s=32&search_algo=algo6&${sortType}`;
-    console.log(url, "path");
+    console.log(sortType);
+    let url = `https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/search/product?${pathPositionTop}${pathDefault}&p=1&platform=web${pathGeneral}&q=${query}&s=${quanity}&search_algo=algo6&${sortType}`;
+    console.log(url, "url");
 
     axios({
       method: "get",
@@ -219,5 +243,18 @@ export const getDetailProduct = (id) => {
         dispatch(getDetail_Product(res));
       })
       .catch((err) => console.log(err, "getDetailProduct"));
+  };
+};
+
+export const getDetailShop = (adminId) => {
+  return (dispatch) => {
+    axios({
+      method: "get",
+      url: `https://cors-anywhere.herokuapp.com/https://mapi.sendo.vn/mob/shop/${adminId}/detail`,
+    })
+      .then((res) => {
+        dispatch(getDetail_Shop(res));
+      })
+      .catch((err) => console.log(err, "getDetailShop"));
   };
 };

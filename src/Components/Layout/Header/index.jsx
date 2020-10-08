@@ -18,14 +18,23 @@ import {
 class Header extends React.Component {
   state = {
     query: "",
+    isMobileMenu: false,
   };
   componentDidMount() {
     this.props.getData();
     this.props.getDataSitemap();
   }
   handleSubmitSearch = (e) => {
-    this.setState({ ...this.state }, () =>
-      this.props.getProductFilter("", "", "", this.state.query, "sortType=rank")
+    // e.preventDefault();
+    console.log(this.state.query, "i");
+
+    this.props.getProductFilter(
+      "",
+      "",
+      "",
+      this.props.query,
+      "32",
+      "sortType=rank"
     );
 
     this.props.getArrayFilter(this.props.query);
@@ -38,6 +47,12 @@ class Header extends React.Component {
     );
   };
 
+  handleMobileMenu = () => {
+    this.state.isMobileMenu
+      ? (document.getElementById("mobileMenu").style.left = "0")
+      : (document.getElementById("mobileMenu").style.left = "-100%");
+    this.setState({ isMobileMenu: !this.state.isMobileMenu });
+  };
   render() {
     return (
       <div className="header">
@@ -59,12 +74,12 @@ class Header extends React.Component {
         <div className="mainMenu">
           <div className="mainMenu-row">
             <div className="mainMenu-row-item1">
-              <a href="/ProjectSendo_KhacDuy">
+              <Link to="/ProjectSendo_KhacDuy">
                 <img
                   src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/sendoLogo.svg"
                   alt="Sendo Logo"
                 />
-              </a>
+              </Link>
               <div>
                 <svg width="1em" height="1em" viewBox="0 0 24 24">
                   <path
@@ -77,7 +92,17 @@ class Header extends React.Component {
             </div>
             <div className="mainMenu-row-item2">
               <form
-              // onSubmit={() => <Link to="/ProjectSendo_KhacDuy/filter"></Link>}
+                // onSubmit={() => (
+
+                //   <Link to="/ProjectSendo_KhacDuy/filter">
+                //     {this.handleSubmitSearch()}
+                //   </Link>
+                // )}
+                onSubmit={() => (
+                  <Link to="/ProjectSendo_KhacDuy/filter">
+                    {(e) => this.handleSubmitSearch(e)}
+                  </Link>
+                )}
               >
                 <input
                   onChange={(e) => this.handleChangeSearch(e)}
@@ -88,18 +113,20 @@ class Header extends React.Component {
                 />
 
                 {this.state.query === "" ? (
-                  <p className="main-row-item2-input searchButton">Search</p>
+                  <button className="main-row-item2-input searchButton">
+                    Search
+                  </button>
                 ) : (
                   <Link
                     to="/ProjectSendo_KhacDuy/filter"
                     className="main-row-item2-input searchButton"
                   >
-                    <p
+                    <button
                       className="main-row-item2-input searchButton"
                       onClick={(e) => this.handleSubmitSearch(e)}
                     >
                       Search
-                    </p>
+                    </button>
                   </Link>
                 )}
               </form>
@@ -138,17 +165,46 @@ class Header extends React.Component {
               </div>
             </div>
             <div className="mainMenu-row-item4">
+              <Link to="/ProjectSendo_KhacDuy/cart">
+                <svg
+                  width="34px"
+                  height="34px"
+                  viewBox="0 0 24 24"
+                  className="iconCart_2ayd"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 18c-1.104 0-1.99.895-1.99 2 0 1.104.886 2 1.99 2a2 2 0 000-4m10 0c-1.104 0-1.99.895-1.99 2 0 1.104.886 2 1.99 2a2 2 0 000-4M4 2H1.999v1.999H4l3.598 7.588-1.353 2.451A2 2 0 008 17h12v-2H8.423a.249.249 0 01-.249-.25l.03-.121L9.102 13h7.449c.752 0 1.408-.415 1.75-1.029l3.574-6.489A1 1 0 0021 3.999H6.213l-.406-.854A1.997 1.997 0 004 2"
+                  ></path>
+                </svg>
+              </Link>
+            </div>
+            {/* mobileMenu */}
+            <div className="mobileMenu">
               <svg
                 width="34px"
                 height="34px"
                 viewBox="0 0 24 24"
-                className="iconCart_2ayd"
+                onClick={() => this.handleMobileMenu()}
               >
                 <path
-                  fillRule="evenodd"
-                  d="M8 18c-1.104 0-1.99.895-1.99 2 0 1.104.886 2 1.99 2a2 2 0 000-4m10 0c-1.104 0-1.99.895-1.99 2 0 1.104.886 2 1.99 2a2 2 0 000-4M4 2H1.999v1.999H4l3.598 7.588-1.353 2.451A2 2 0 008 17h12v-2H8.423a.249.249 0 01-.249-.25l.03-.121L9.102 13h7.449c.752 0 1.408-.415 1.75-1.029l3.574-6.489A1 1 0 0021 3.999H6.213l-.406-.854A1.997 1.997 0 004 2"
+                  d="M3 19h18v-2H3v2zm0-6h8v-2H3v2zm0-8v2h18V5H3zm10 5l4 4 4-4z"
+                  fill="#FFF"
                 ></path>
               </svg>
+
+              <div className="mobileMenu-container" id="mobileMenu">
+                <div className="mobileMenu-container-title">
+                  <p>Demo React Shopping App</p>
+                  <button onClick={() => this.handleMobileMenu()}>X</button>
+                </div>
+
+                <Link>Trang chủ</Link>
+                <Link>Đăng ký</Link>
+                <Link>Đăng nhập</Link>
+                <Link>Sản phẩm vừa xem</Link>
+                <Link>Giới thiệu</Link>
+              </div>
             </div>
           </div>
         </div>

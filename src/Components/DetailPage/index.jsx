@@ -7,17 +7,25 @@ import {
   getDataProduct,
   getProductFilter,
   getDetailProduct,
+  getDetailShop,
+  getProductToCart,
 } from "../../redux/action";
+import ProductRelated from "../../Atoms/ProductRelated";
 
 class DetailPage extends React.Component {
   state = {
     quanity: 1,
     indexThumbnail: 0,
+    arrAttribute: [],
+    arrValue: [],
+    product_AddToCart: {},
   };
   componentDidMount() {
     const parsed = queryString.parse(window.location.search);
     const id = parsed.id;
+    const adminid = parsed.adminid;
     this.props.getDetailProduct(id);
+    this.props.getDetailShop(adminid);
   }
 
   handleThumbnail = (i) => {
@@ -29,15 +37,82 @@ class DetailPage extends React.Component {
       const element = ele_ByName[i];
       element.classList.remove("chosenValue");
     }
-
     const ele_Id = document.getElementById(`value${i}${b}`);
     ele_Id.classList.add("chosenValue");
+
+    /*Chose*/
+
+    let attributeName = this.props.detailProduct.data.attribute[i].name;
+
+    let valueAtt;
+    this.props.detailProduct.data.attribute[i].value[b].name
+      ? (valueAtt = this.props.detailProduct.data.attribute[i].value[b].name)
+      : (valueAtt = this.props.detailProduct.data.attribute[i].value[b].value);
+
+    let arrAttribute = this.state.arrAttribute;
+    let arrValue = this.state.arrValue;
+
+    arrAttribute.push(attributeName);
+    arrValue.push(valueAtt);
+
+    for (let i = 0; i < arrAttribute.length - 1; i++) {
+      const arrAttribute_ele = arrAttribute[i];
+      if (arrAttribute_ele === attributeName) {
+        arrValue[i] = valueAtt;
+        arrValue.splice(arrAttribute.length - 1, 1);
+        arrAttribute.splice(arrAttribute.length - 1, 1);
+      }
+    }
+    this.setState({ arrAttribute: arrAttribute }, () =>
+      console.log(this.state.arrAttribute)
+    );
+    this.setState({ arrValue: arrValue }, () =>
+      console.log(this.state.arrValue)
+    );
+  };
+
+  handleAddToCart = () => {
+    if (
+      this.state.arrAttribute.length <
+      this.props.detailProduct.data.attribute.length
+    ) {
+      alert("dien day du thong tin moi mua dc ");
+    } else {
+      var product_AddToCart = {};
+      for (let i = 0; i < this.state.arrAttribute.length; i++) {
+        product_AddToCart[this.state.arrAttribute[i]] = this.state.arrValue[i];
+      }
+      product_AddToCart.quanity = this.state.quanity;
+      product_AddToCart.name = this.props.detailProduct.data.name;
+      product_AddToCart.thumbnail = this.props.detailProduct.data.images[0];
+      product_AddToCart.price = this.props.detailProduct.data.final_price;
+      product_AddToCart.totalPrice =
+        this.props.detailProduct.data.final_price * this.state.quanity;
+      console.log(product_AddToCart, "product_AddToCart");
+      this.props.getProductToCart(product_AddToCart);
+    }
+  };
+
+  handleChangeQuanity = (e) => {
+    console.log(e.target.value, "value");
+
+    e.target.value < 0
+      ? this.setState({ quanity: 0 })
+      : this.setState({ quanity: e.target.value });
   };
   render() {
     var styleElem = document.head.appendChild(document.createElement("style"));
     Object.keys(this.props.detailProduct).length > 0 &&
       (styleElem.innerHTML = `.rating::before {background: linear-gradient(90deg, #e5101d ${
         20 * this.props.detailProduct.data.rating_info.percent_star
+      }%, #c7c7cd 0);}`);
+
+    var styleElemShop = document.head.appendChild(
+      document.createElement("style")
+    );
+    Object.keys(this.props.detailShop).length > 0 &&
+      (styleElemShop.innerHTML = `.ratingShop::before {background: linear-gradient(90deg, #e5101d ${
+        20 * this.props.detailShop.data.rating_info.percent_star
       }%, #c7c7cd 0);}`);
     return (
       <>
@@ -145,7 +220,8 @@ class DetailPage extends React.Component {
                               ele.name ? (
                                 <input
                                   className="valueStyle"
-                                  key={index}
+                                  type="button"
+                                  key={indexb}
                                   onClick={() =>
                                     this.handleChose(index, indexb)
                                   }
@@ -156,6 +232,7 @@ class DetailPage extends React.Component {
                               ) : (
                                 <input
                                   className="valueStyle"
+                                  type="button"
                                   key={indexb}
                                   onClick={() =>
                                     this.handleChose(index, indexb)
@@ -175,14 +252,20 @@ class DetailPage extends React.Component {
                         <p>Số lượng</p>
                       </div>
                       <div className="attribute-value">
-                        <input type="number" value={this.state.quanity} />
+                        <input
+                          type="number"
+                          value={this.state.quanity}
+                          onChange={(e) => this.handleChangeQuanity(e)}
+                        />
                       </div>
                     </div>
                   </div>
                 )}
 
                 <div className="detailPage-ProductInfo-BasicInfo-row-addToCart">
-                  <button id="addToCart">Thêm vào giỏ hàng</button>
+                  <button id="addToCart" onClick={() => this.handleAddToCart()}>
+                    Thêm vào giỏ hàng
+                  </button>
                   <button id="quickBuy">Mua ngay</button>
                 </div>
                 <div className="detailPage-ProductInfo-BasicInfo-row-benefit">
@@ -202,16 +285,81 @@ class DetailPage extends React.Component {
                         <p dangerouslySetInnerHTML={{ __html: ele.tooltip }} />
                       </div>
                     )
-                    // ) : (
-                    //   <div className="checkProduct-COD">
-                    //     {ele.value} key={index}
-                    //   </div>
-                    // )
                   )}
                 </div>
                 <div className="detailPage-ProductInfo-BasicInfo-row benefit"></div>
               </div>
             </div>
+            {Object.keys(this.props.detailShop).length > 0 && (
+              <div className="detailPage-ShopInfo">
+                <div className="detailPage-ShopInfo-Left">
+                  <div className="detailPage-ShopInfo-Left-Image">
+                    <img
+                      src={this.props.detailShop.data.shop_logo}
+                      alt={this.props.detailShop.data.shop_name}
+                    />
+                  </div>
+                  <div className="detailPage-ShopInfo-Left-Info">
+                    <a
+                      href={this.props.detailShop.data.website}
+                      className="detailPage-ShopInfo-Left-Info-Name"
+                    >
+                      {this.props.detailShop.data.shop_name}
+                    </a>
+                    {this.props.detailShop.data.rating_info !== 0 && (
+                      <div className={`percentStar ratingShop`}>
+                        <p>
+                          {this.props.detailShop.data.rating_info.percent_star}
+                        </p>
+                        <p>{` (${this.props.detailShop.data.rating_info.total_rat} đánh giá) `}</p>
+                      </div>
+                    )}
+                    <p>
+                      Kho hàng:{" "}
+                      <span style={{ fontWeight: "bold" }}>
+                        {this.props.detailShop.data.warehouse_city_name}
+                      </span>
+                    </p>
+
+                    <p>
+                      Liên hệ :{" "}
+                      <span style={{ color: "darkgreen" }}>
+                        {this.props.detailShop.data.telephone}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div className="detailPage-ShopInfo-Right">
+                  <div className="detailPage-ShopInfo-Right-Row">
+                    <div className="detailPage-ShopInfo-Right-Row-item">
+                      <p>Đã hoạt động</p>
+                      <p id="shopAge">
+                        {this.props.detailShop.data.created_at_str}
+                      </p>
+                    </div>
+                    <div className="detailPage-ShopInfo-Right-Row-item">
+                      <p>Tổng sản phẩm</p>
+                      <p id="productAmount">
+                        {this.props.detailShop.data.product_total}
+                      </p>
+                    </div>
+                    <div className="detailPage-ShopInfo-Right-Row-item">
+                      <p>Thời gian phản hồi</p>
+                      <p id="responseTime">
+                        {this.props.detailShop.data.response_time}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {Object.keys(this.props.detailProduct).length > 0 && (
+              <ProductRelated
+                ProductRelated={this.props.detailProduct.data.product_relateds}
+              />
+            )}
+
             <div className="detailPage-Description">
               <p
                 dangerouslySetInnerHTML={{
@@ -237,6 +385,7 @@ const mapsStateToProps = (state) => ({
   sitemap: state.sitemap,
   themeEvent: state.themeEvent,
   detailProduct: state.detailProduct,
+  detailShop: state.detailShop,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -245,6 +394,8 @@ const mapDispatchToProps = (dispatch) => ({
       getDataProduct,
       getProductFilter,
       getDetailProduct,
+      getDetailShop,
+      getProductToCart,
     },
     dispatch
   ),

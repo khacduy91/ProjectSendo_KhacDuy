@@ -1,5 +1,5 @@
 .productCard_FLASHSALE {
-  margin-right: 5px;
+  padding-right: 5px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   width: 258px;
@@ -44,6 +44,15 @@
         border: 2px solid #f4a66d;
       }
       text-decoration: none;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .productCard_FLASHSALE {
+    width: 200px;
+    img {
+      width: 150px;
     }
   }
 }

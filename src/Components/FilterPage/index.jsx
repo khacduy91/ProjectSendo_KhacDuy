@@ -15,11 +15,18 @@ class FilterPage extends React.Component {
     pathPositionTop: "",
     pathGeneral: "",
     pathDefault: "",
-    sortType: "",
+    sortType: "sortType=rank",
   };
   componentDidMount() {
     this.props.getArrayFilter(this.props.query);
-    this.props.getProductFilter("", "", "", this.props.query);
+    this.props.getProductFilter(
+      "",
+      "",
+      "",
+      this.props.query,
+      "32",
+      "sortType=rank"
+    );
   }
   handleCheckBox_PositionTop = (length) => {
     //Position Top
@@ -36,6 +43,7 @@ class FilterPage extends React.Component {
         this.state.pathDefault,
         this.state.pathGeneral,
         this.props.query,
+        "32",
         this.state.sortType
       )
     );
@@ -54,12 +62,13 @@ class FilterPage extends React.Component {
         this.state.pathDefault,
         this.state.pathGeneral,
         this.props.query,
+        "32",
         this.state.sortType
       )
     );
   };
 
-  handleCheckBox_Default = (length, b) => {
+  handleCheckBox_Default = () => {
     //GeneralTerm
     let pathDefault_attribute_Key = [];
     let pathDefault_attribute_Value = [];
@@ -105,6 +114,7 @@ class FilterPage extends React.Component {
         this.state.pathDefault,
         this.state.pathGeneral,
         this.props.query,
+        "32",
         this.state.sortType
       )
     );
@@ -127,6 +137,7 @@ class FilterPage extends React.Component {
         this.state.pathDefault,
         this.state.pathGeneral,
         this.props.query,
+        32,
         this.state.sortType
       )
     );
