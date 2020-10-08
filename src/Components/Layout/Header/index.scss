@@ -197,7 +197,7 @@
   }
 }
 /*Reposive*/
-@media screen and (max-width: 1359px) {
+@media screen and (max-width: 1360px) {
   .header {
     width: 100%;
     &-topBar {
@@ -216,7 +216,7 @@
       justify-content: space-between;
 
       .mobileMenu {
-        display: block;
+        display: none;
         &-container {
           position: fixed;
           top: 0;
@@ -272,17 +272,72 @@
         width: 20%;
       }
       &-item2 {
+        width: 50%;
         form {
-          width: 500px;
-          .searchBox {
-            width: 500px;
-          }
+          width: 100%;
         }
       }
     }
   }
 }
-
+@media screen and (max-width: 1210px) {
+  .mainMenu {
+    &-row {
+      &-item1 {
+        width: 25%;
+      }
+      &-item3 {
+        width: 25%;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1050px) {
+  .mainMenu {
+    &-row {
+      &-item1 {
+        width: 28%;
+        div {
+          a {
+            font-size: 14.5px;
+          }
+        }
+      }
+      &-item2 {
+        width: 45%;
+        form {
+          width: 100%;
+        }
+      }
+      &-item3 {
+        width: 27%;
+      }
+    }
+  }
+}
+@media screen and (max-width: 925px) {
+  .mainMenu {
+    &-row {
+      &-item1 {
+        width: 30%;
+        div {
+          a {
+            font-size: 14px;
+          }
+        }
+      }
+      &-item2 {
+        width: 35%;
+        form {
+          width: 100%;
+        }
+      }
+      &-item3 {
+        width: 30%;
+      }
+    }
+  }
+}
 @media screen and (max-width: 800px) {
   .header {
     &-topBar {
@@ -298,31 +353,37 @@
     .mainMenu {
       &-row {
         &-item1 {
-          width: 50px;
+          width: 10%;
           div {
             display: none;
           }
         }
 
         &-item2 {
+          width: 70%;
           form {
-            width: 550px;
+            width: 100%;
           }
         }
         &-item3 {
           display: none;
         }
+        .mobileMenu {
+          display: block;
+        }
       }
     }
   }
 }
+
 @media screen and (max-width: 600px) {
   .header {
     .mainMenu {
       &-row {
         &-item2 {
+          width: 60%;
           form {
-            width: 400px;
+            width: 100%;
           }
         }
       }
@@ -331,49 +392,60 @@
 }
 
 @media screen and (max-width: 540px) {
-  .header .mainMenu-row-item2 form {
-    width: 350px;
+  .mainMenu {
+    &-row {
+      &-item2 {
+        width: 60%;
+        form {
+          width: 100%;
+        }
+      }
+    }
   }
 }
 
 @media screen and (max-width: 490px) {
-  .header .mainMenu-row-item2 form {
-    width: 300px;
-    .searchButton {
-      font-size: 14px;
-      padding: 0 4px;
-      box-shadow: none;
-      border: none;
+  .mainMenu {
+    &-row {
+      &-item2 {
+        width: 60%;
+        form {
+          width: 100%;
+        }
+      }
     }
   }
 }
-@media screen and (max-width: 440px) {
-  .header .mainMenu-row-item2 form {
-    width: 250px;
+// @media screen and (max-width: 440px) {
+//   .header .mainMenu-row-item2 form {
+//     width: 250px;
 
-    .searchButton {
-      font-size: 14px;
-      padding: 0 4px;
-    }
-  }
-}
+//     .searchButton {
+//       font-size: 14px;
+//       padding: 0 4px;
+//     }
+//   }
+// }
 
 @media screen and (max-width: 390px) {
-  .header .mainMenu-row-item2 form {
-    width: 150px;
-    .searchBox {
-      width: 100px;
+  .mainMenu {
+    &-row {
+      &-item2 {
+        width: 30%;
+        form {
+          width: 100%;
+          input {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
 
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .searchButton {
-      width: 50px;
-      font-size: 14px;
-      padding: 0 4px;
-      box-shadow: none;
-      border: none;
+          .searchButton {
+            font-size: 14px;
+            padding: 0 4px;
+          }
+        }
+      }
     }
   }
 }
