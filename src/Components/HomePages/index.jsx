@@ -126,105 +126,103 @@ class HomePage extends React.Component {
         {/* Header */}
         <div className="slider-container">
           {/* Boostrap caurosel */}
-          {this.props.banner.length > 0 && (
-            <div className="navbar">
-              {this.props.sitemap.map((ele, index) => (
-                <a href={`/${ele.url_path}`} key={index}>
-                  <p>{ele.title}</p>
-                </a>
-              ))}
-            </div>
-          )}
-          <div
-            id="demo1"
-            className="carousel slide banner"
-            // data-ride="carousel"
-          >
-            {/* Banner Container */}
-            <div className="carousel-inner banner-container-inner">
-              <div
-                id="demo2"
-                className="carousel slide slider-container-image"
-                // data-ride="carousel"
-              >
-                {/* Image Caurosel */}
-                <div className="carousel-inner slider-container-image-inner">
+
+          <div className="banner-background">
+            {this.props.banner.map((ele, index) =>
+              index === this.state.number ? (
+                <div
+                  className="carousel-item active banner-container-inner-color"
+                  style={{ backgroundColor: `${ele.background_color}` }}
+                  key={index}
+                ></div>
+              ) : (
+                <div
+                  className="carousel-item banner-container-inner-color"
+                  style={{ backgroundColor: `${ele.background_color}` }}
+                  key={index}
+                ></div>
+              )
+            )}
+          </div>
+
+          {/* Banner Container */}
+          <div className="carousel-inner banner-container-inner">
+            {/* Nav bar */}
+            {this.props.banner.length > 0 && (
+              <div className="navbar">
+                {this.props.sitemap.map((ele, index) => (
+                  <a href={`/${ele.url_path}`} key={index}>
+                    <p>{ele.title}</p>
+                  </a>
+                ))}
+              </div>
+            )}
+            <div
+              id="demo2"
+              className="carousel slide slider-container-image"
+              // data-ride="carousel"
+            >
+              {/* Image Caurosel */}
+              <div className="carousel-inner slider-container-image-inner">
+                {this.props.banner.map((ele, index) =>
+                  index === this.state.number ? (
+                    <div
+                      className="carousel-item active"
+                      style={{ backgroundColor: `${ele.background_color}` }}
+                      key={index}
+                    >
+                      <img src={ele.image} alt={ele.title} />
+                    </div>
+                  ) : (
+                    <div
+                      className="carousel-item"
+                      style={{ backgroundColor: `${ele.background_color}` }}
+                      key={index}
+                    >
+                      <img src={ele.image} alt={ele.title} />
+                    </div>
+                  )
+                )}
+                {/* <!-- Left and right controls --> */}
+                <span
+                  className="carousel-control-prev"
+                  onClick={() => this.handlePrevBanner()}
+                >
+                  <span className="carousel-control-prev-icon"></span>
+                </span>
+                <span
+                  className="carousel-control-next"
+                  onClick={() => this.handleNextBanner()}
+                >
+                  <span className="carousel-control-next-icon"></span>
+                </span>
+
+                {/* Horizon Button */}
+                <ul className="carousel-indicators">
                   {this.props.banner.map((ele, index) =>
                     index === this.state.number ? (
-                      <div
-                        className="carousel-item active"
-                        style={{ backgroundColor: `${ele.background_color}` }}
+                      <li
+                        // data-target="#demo1 #demo2"
+                        // data-target="#demo2"
+                        // data-slide-to={index}
+                        className="active"
                         key={index}
-                      >
-                        <img src={ele.image} alt={ele.title} />
-                      </div>
+                        index={index}
+                        onClick={() => this.handleClick(index)}
+                      ></li>
                     ) : (
-                      <div
-                        className="carousel-item"
-                        style={{ backgroundColor: `${ele.background_color}` }}
+                      <li
+                        // data-target="#demo1 #demo2"
+                        // data-target="#demo2"
+                        // data-slide-to={index}
                         key={index}
-                      >
-                        <img src={ele.image} alt={ele.title} />
-                      </div>
+                        index={index}
+                        onClick={() => this.handleClick(index)}
+                      ></li>
                     )
                   )}
-                  {/* <!-- Left and right controls --> */}
-                  <span
-                    className="carousel-control-prev"
-                    onClick={() => this.handlePrevBanner()}
-                  >
-                    <span className="carousel-control-prev-icon"></span>
-                  </span>
-                  <span
-                    className="carousel-control-next"
-                    onClick={() => this.handleNextBanner()}
-                  >
-                    <span className="carousel-control-next-icon"></span>
-                  </span>
-
-                  {/* Horizon Button */}
-                  <ul className="carousel-indicators">
-                    {this.props.banner.map((ele, index) =>
-                      index === this.state.number ? (
-                        <li
-                          // data-target="#demo1 #demo2"
-                          // data-target="#demo2"
-                          // data-slide-to={index}
-                          className="active"
-                          key={index}
-                          index={index}
-                          onClick={() => this.handleClick(index)}
-                        ></li>
-                      ) : (
-                        <li
-                          // data-target="#demo1 #demo2"
-                          // data-target="#demo2"
-                          // data-slide-to={index}
-                          key={index}
-                          index={index}
-                          onClick={() => this.handleClick(index)}
-                        ></li>
-                      )
-                    )}
-                  </ul>
-                </div>
+                </ul>
               </div>
-
-              {this.props.banner.map((ele, index) =>
-                index === this.state.number ? (
-                  <div
-                    className="carousel-item active banner-container-inner-color"
-                    style={{ backgroundColor: `${ele.background_color}` }}
-                    key={index}
-                  ></div>
-                ) : (
-                  <div
-                    className="carousel-item banner-container-inner-color"
-                    style={{ backgroundColor: `${ele.background_color}` }}
-                    key={index}
-                  ></div>
-                )
-              )}
             </div>
           </div>
         </div>

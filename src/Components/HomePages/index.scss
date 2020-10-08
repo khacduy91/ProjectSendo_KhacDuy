@@ -3,6 +3,7 @@
     width: 100%;
     margin: 0 auto;
     position: relative;
+    overflow: hidden;
 
     &-image {
       width: 100%;
@@ -13,7 +14,7 @@
       &-inner {
         width: 100%;
         display: block;
-        position: absolute;
+        // position: absolute;
         right: 0;
         padding-left: 20%;
 
@@ -28,7 +29,7 @@
       position: absolute;
       left: 0;
       height: 100%;
-      z-index: 999;
+      z-index: 10;
       padding: 0;
       margin: 0;
       display: flex;
@@ -61,10 +62,18 @@
 
   .banner {
     width: 100%;
+
+    &-background {
+      position: absolute;
+      width: 100%;
+    }
     &-container-inner {
+      position: relative;
+      width: 1360px;
+      margin: 0 auto;
       &-color {
         width: 100%;
-        padding-top: 23%;
+        padding-top: 30%;
       }
     }
   }
@@ -80,6 +89,9 @@
     }
 
     &-control {
+      &-prev {
+        left: 15%;
+      }
       &-next {
         width: 5%;
       }
@@ -103,9 +115,10 @@
     padding-bottom: 5px;
     border-top: 0.5px solid #0000003b;
     border-bottom: 0.5px solid #0000003b;
+    background-color: white;
     &-container {
       display: flex;
-      width: 100%;
+      width: 1360px;
       margin: 0 auto;
       flex-direction: row;
       justify-content: space-around;
@@ -638,6 +651,19 @@
     //     width: 20%;
     //   }
     // }
+
+    .banner {
+      &-container {
+        &-inner {
+          width: 100%;
+        }
+      }
+    }
+    .menu {
+      &-container {
+        width: 100%;
+      }
+    }
     .productFlashSale {
       width: 95%;
     }

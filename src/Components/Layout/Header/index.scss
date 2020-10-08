@@ -52,13 +52,13 @@
   background-color: #e54d3e;
 
   &-row {
-    width: 100%;
+    width: 1360px;
     height: 60px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 12px;
+    padding: 12px 0px;
 
     .mobileMenu {
       display: none;
@@ -81,6 +81,9 @@
           color: white;
           text-transform: uppercase;
           font-weight: 600;
+          &:hover {
+            text-decoration: none;
+          }
         }
       }
     }
