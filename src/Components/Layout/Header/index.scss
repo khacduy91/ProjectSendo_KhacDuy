@@ -96,6 +96,32 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: relative;
+
+        #historyQuery {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          top: 100%;
+          left: 0;
+          z-index: 20;
+
+          background: white;
+          transform: scale(0);
+          transition: transform 0.25s ease;
+
+          input {
+            text-align: left;
+            background-color: white;
+            padding-left: 5px;
+
+            &:hover {
+              // background-color: #e54d3e;
+              color: #e54d3e;
+            }
+          }
+        }
         input {
           height: 36px;
           border: none;

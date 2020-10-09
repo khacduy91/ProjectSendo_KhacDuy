@@ -13,6 +13,8 @@ import {
   getDataProduct,
   getQuery,
   getArrayFilter,
+  get_HistoryQuery,
+  get_HistoryProduct,
 } from "../../../redux/action";
 
 class Header extends React.Component {
@@ -24,9 +26,14 @@ class Header extends React.Component {
     this.props.getData();
     this.props.getDataSitemap();
   }
+  handleSubmitValue = (e) => {
+    this.props.getProductFilter("", "", "", e, "32", "sortType=rank");
+    this.props.get_HistoryQuery(e);
+    this.props.getArrayFilter(e);
+    this.setState({ query: e });
+  };
   handleSubmitSearch = (e) => {
     // e.preventDefault();
-    console.log(this.state.query, "i");
 
     this.props.getProductFilter(
       "",
@@ -36,10 +43,9 @@ class Header extends React.Component {
       "32",
       "sortType=rank"
     );
-
+    this.props.get_HistoryQuery(this.props.query);
     this.props.getArrayFilter(this.props.query);
-    // this.setState({ query: "" }, () => this.props.getQuery(""));
-    // // this.props.getQuery(this.state.query);
+    this.setState({ query: "" });
   };
   handleChangeSearch = (e) => {
     this.setState({ ...this.state, query: e.target.value }, () =>
@@ -53,7 +59,14 @@ class Header extends React.Component {
       : (document.getElementById("mobileMenu").style.left = "-100%");
     this.setState({ isMobileMenu: !this.state.isMobileMenu });
   };
+
   render() {
+    window.onclick = function (event) {
+      if (event.target.className !== "main-row-item2-input searchBox") {
+        document.getElementById("historyQuery").style.transform = "scale(0)";
+        document.getElementById("historyQuery").style.opacity = "0";
+      }
+    };
     return (
       <div className="header">
         <div className="header-topBar">
@@ -92,24 +105,38 @@ class Header extends React.Component {
             </div>
             <div className="mainMenu-row-item2">
               <form
-                // onSubmit={() => (
-
-                //   <Link to="/ProjectSendo_KhacDuy/filter">
-                //     {this.handleSubmitSearch()}
-                //   </Link>
-                // )}
                 onSubmit={() => (
                   <Link to="/ProjectSendo_KhacDuy/filter">
                     {(e) => this.handleSubmitSearch(e)}
                   </Link>
                 )}
               >
+                <div id="historyQuery">
+                  {this.props.historyQuery.length > 0 &&
+                    this.props.historyQuery.map((ele, index) => (
+                      <input
+                        type="button"
+                        key={index}
+                        value={ele}
+                        onClick={(e) => this.handleSubmitValue(e.target.value)}
+                      />
+                    ))}
+                </div>
+
                 <input
                   onChange={(e) => this.handleChangeSearch(e)}
                   type="text"
                   placeholder="Tìm kiếm trên Sendo"
                   className="main-row-item2-input searchBox"
+                  onClick={() =>
+                    this.props.historyQuery.length > 0 &&
+                    ((document.getElementById("historyQuery").style.transform =
+                      "scale(1)"),
+                    (document.getElementById("historyQuery").style.opacity =
+                      "1"))
+                  }
                   defaultValue={this.state.query}
+                  value={this.state.query}
                 />
 
                 {this.state.query === "" ? (
@@ -132,36 +159,17 @@ class Header extends React.Component {
               </form>
             </div>
             <div className="mainMenu-row-item3">
-              <span>Sản phẩm vừa xem</span>
+              <span>
+                Sản phẩm vừa xem{" "}
+                {`(${(this.props.historyProduct.length =
+                  0 && this.props.historyProduct.length)})`}
+              </span>
+
               <div className="mainMenu-row-item3-images">
-                <img
-                  src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/avatarUser1.jpg"
-                  alt="img1"
-                />
-                <img
-                  src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/avatarUser1.jpg"
-                  alt="img2"
-                />
-                <img
-                  src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/avatarUser1.jpg"
-                  alt="img3"
-                />
-              </div>
-              <div className="mainMenu-row-item3-button showMoreButton">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  height="24"
-                  className="icon icon-medium"
-                >
-                  <g data-name="Layer 2">
-                    <g data-name="Layer 1">
-                      <path d="M17,14,12,9,7,14Z"></path>
-                      <path d="M24,24H0V0H24Z" fill="none"></path>
-                    </g>
-                  </g>
-                </svg>
+                {this.props.historyProduct.length > 0 &&
+                  this.props.historyProduct.map((ele, index) => (
+                    <img src={ele.img} alt={ele.name} key={index} />
+                  ))}
               </div>
             </div>
             <div className="mainMenu-row-item4">
@@ -221,6 +229,8 @@ const mapsStateToProps = (state) => ({
   themeEvent: state.themeEvent,
   query: state.query,
   arrayFilter: state.arrayFilter,
+  historyQuery: state.historyQuery,
+  historyProduct: state.historyProduct,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -235,6 +245,8 @@ const mapDispatchToProps = (dispatch) => ({
       getProductFilter,
       getQuery,
       getArrayFilter,
+      get_HistoryQuery,
+      get_HistoryProduct,
     },
     dispatch
   ),

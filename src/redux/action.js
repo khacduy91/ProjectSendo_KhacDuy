@@ -117,6 +117,19 @@ export const change_Quanity = (value, index) => ({
   value,
   index,
 });
+
+export const HISTORY_QUERY = "HISTORY_QUERY";
+export const get_HistoryQuery = (historyQuery) => ({
+  type: HISTORY_QUERY,
+  historyQuery,
+});
+
+export const HISTORY_PRODUCT = "HISTORY_PRODUCT";
+export const get_HistoryProduct = (product) => ({
+  type: HISTORY_PRODUCT,
+  product,
+});
+
 export const getData = () => {
   return (dispatch) => {
     axios({

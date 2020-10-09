@@ -1,8 +1,18 @@
 import React from "react";
 import "./index.scss";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { get_HistoryProduct } from "../../redux/action";
 
 class ProductCardFILTER extends React.Component {
+  handleHistoryProduct = (a, b, c) => {
+    var product = Object();
+    product.id = a;
+    product.img = b;
+    product.name = c;
+    this.props.get_HistoryProduct(product);
+  };
   render() {
     var styleElem = document.head.appendChild(document.createElement("style"));
 
@@ -16,6 +26,13 @@ class ProductCardFILTER extends React.Component {
         to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.id}&name=${this.props.product.name}&adminid=${this.props.product.admin_id}`}
         className="productCardFILTER-Card"
         id={this.props.product.id}
+        onClick={() =>
+          this.handleHistoryProduct(
+            this.props.product.id,
+            this.props.product.image,
+            this.props.product.name
+          )
+        }
       >
         <div className="productCardFILTER-Card-wraper">
           <img
@@ -83,5 +100,16 @@ class ProductCardFILTER extends React.Component {
     );
   }
 }
+const mapsStateToProps = (state) => ({
+  historyProduct: state.historyProduct,
+});
 
-export default ProductCardFILTER;
+const mapDispatchToProps = (dispatch) => ({
+  ...bindActionCreators(
+    {
+      get_HistoryProduct,
+    },
+    dispatch
+  ),
+});
+export default connect(mapsStateToProps, mapDispatchToProps)(ProductCardFILTER);

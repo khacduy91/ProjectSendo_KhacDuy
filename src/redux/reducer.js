@@ -19,6 +19,8 @@ import {
   ADD_TO_CART,
   DELETE_PRODUCT_CART,
   CHANGE_QUANITY,
+  HISTORY_QUERY,
+  HISTORY_PRODUCT,
 } from "./action";
 
 const initialState = {
@@ -41,6 +43,8 @@ const initialState = {
   detailShop: [],
   pathDefault: [],
   cartProducts: [],
+  historyQuery: [],
+  historyProduct: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -151,14 +155,25 @@ const reducer = (state = initialState, action) => {
       return { ...state, cartProducts: newCartProduct };
     }
     case CHANGE_QUANITY: {
-      console.log(action.value, "value");
-      console.log(action.index, "index");
-      console.log(action.index, "index");
-      console.log(state.cartProducts[action.index].quanity, "quanity");
-
       const new_cartProduct = state.cartProducts;
       new_cartProduct[action.index].quanity = action.value;
       return { ...state, cartProducts: new_cartProduct };
+    }
+    case HISTORY_QUERY: {
+      const newHistoryQuery = state.historyQuery;
+      newHistoryQuery.push(action.historyQuery);
+      for (let i = 0; i < newHistoryQuery.length - 1; i++) {
+        const ele = newHistoryQuery[i];
+        ele === action.historyQuery && newHistoryQuery.splice(i, 1);
+      }
+
+      return { ...state, historyQuery: newHistoryQuery };
+    }
+    case HISTORY_PRODUCT: {
+      const newHistoryProduct = state.historyProduct;
+      newHistoryProduct.push(action.product);
+      newHistoryProduct.length > 3 && newHistoryProduct.splice(0, 1);
+      return { ...state, historyProduct: newHistoryProduct };
     }
     default:
       return state;
