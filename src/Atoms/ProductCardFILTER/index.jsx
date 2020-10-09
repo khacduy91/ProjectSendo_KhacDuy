@@ -3,7 +3,7 @@ import "./index.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { get_HistoryProduct } from "../../redux/action";
+import { get_HistoryProduct, change_isUpdate } from "../../redux/action";
 
 class ProductCardFILTER extends React.Component {
   handleHistoryProduct = (a, b, c) => {
@@ -12,6 +12,7 @@ class ProductCardFILTER extends React.Component {
     product.img = b;
     product.name = c;
     this.props.get_HistoryProduct(product);
+    this.props.change_isUpdate(!this.props.isUpdate);
   };
   render() {
     var styleElem = document.head.appendChild(document.createElement("style"));
@@ -102,12 +103,14 @@ class ProductCardFILTER extends React.Component {
 }
 const mapsStateToProps = (state) => ({
   historyProduct: state.historyProduct,
+  isUpdate: state.isUpdate,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
     {
       get_HistoryProduct,
+      change_isUpdate,
     },
     dispatch
   ),

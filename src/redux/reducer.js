@@ -21,6 +21,7 @@ import {
   CHANGE_QUANITY,
   HISTORY_QUERY,
   HISTORY_PRODUCT,
+  CHANGE_ISUPDATE,
 } from "./action";
 
 const initialState = {
@@ -45,12 +46,16 @@ const initialState = {
   cartProducts: [],
   historyQuery: [],
   historyProduct: [],
+  isUpdate: false,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case FILTER: {
       return { ...state, category: action.category };
+    }
+    case CHANGE_ISUPDATE: {
+      return { ...state, isUpdate: action.isUpdate };
     }
     case TEST_COUNT_NUMBER_TANG: {
       initialState.countNumber++;

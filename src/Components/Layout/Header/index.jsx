@@ -15,6 +15,7 @@ import {
   getArrayFilter,
   get_HistoryQuery,
   get_HistoryProduct,
+  change_isUpdate,
 } from "../../../redux/action";
 
 class Header extends React.Component {
@@ -62,12 +63,12 @@ class Header extends React.Component {
   };
 
   componentDidUpdate() {
-    if (this.props.historyProduct !== this.state.historyProduct) {
+    if (this.props.isUpdate) {
       console.log("co khac do bay");
       this.setState({
         ...this.state,
-        historyProduct: this.props.historyProduct,
       });
+      this.props.change_isUpdate(!this.props.isUpdate);
     }
   }
 
@@ -170,17 +171,15 @@ class Header extends React.Component {
               </form>
             </div>
             <div className="mainMenu-row-item3">
-              <span>
-                Sản phẩm vừa xem
-                {/* {`(${(this.props.historyProduct.length =
-                  0 && this.props.historyProduct.length)})`} */}
-              </span>
-
               <div className="mainMenu-row-item3-images">
-                {this.props.historyProduct.length > 0 &&
-                  this.props.historyProduct.map((ele, index) => (
-                    <img src={ele.img} alt={ele.name} key={index} />
-                  ))}
+                {this.props.historyProduct.length > 0 && (
+                  <div style={{ display: "flex" }}>
+                    <span>Sản phẩm vừa xem</span>
+                    {this.props.historyProduct.map((ele, index) => (
+                      <img src={ele.img} alt={ele.name} key={index} />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
             <div className="mainMenu-row-item4">
@@ -242,6 +241,7 @@ const mapsStateToProps = (state) => ({
   arrayFilter: state.arrayFilter,
   historyQuery: state.historyQuery,
   historyProduct: state.historyProduct,
+  isUpdate: state.isUpdate,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -258,6 +258,7 @@ const mapDispatchToProps = (dispatch) => ({
       getArrayFilter,
       get_HistoryQuery,
       get_HistoryProduct,
+      change_isUpdate,
     },
     dispatch
   ),

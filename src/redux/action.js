@@ -130,6 +130,12 @@ export const get_HistoryProduct = (historyProduct) => ({
   historyProduct,
 });
 
+export const CHANGE_ISUPDATE = "CHANGE_ISUPDATE";
+export const change_isUpdate = (isUpdate) => ({
+  type: CHANGE_ISUPDATE,
+  isUpdate,
+});
+
 export const getData = () => {
   return (dispatch) => {
     axios({
