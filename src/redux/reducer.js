@@ -170,8 +170,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, historyQuery: newHistoryQuery };
     }
     case HISTORY_PRODUCT: {
-      const newHistoryProduct = state.historyProduct;
-      newHistoryProduct.push(action.product);
+      let newHistoryProduct = state.historyProduct;
+      newHistoryProduct.push(action.historyProduct);
       newHistoryProduct.length > 3 && newHistoryProduct.splice(0, 1);
       return { ...state, historyProduct: newHistoryProduct };
     }

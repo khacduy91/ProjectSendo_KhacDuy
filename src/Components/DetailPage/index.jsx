@@ -19,13 +19,14 @@ class DetailPage extends React.Component {
     arrAttribute: [],
     arrValue: [],
     product_AddToCart: {},
+    updated: true,
   };
   componentDidMount() {
     const parsed = queryString.parse(window.location.search);
     const id = parsed.id;
-    const adminid = parsed.adminid;
+    // const adminid = parsed.adminid;
+
     this.props.getDetailProduct(id);
-    this.props.getDetailShop(adminid);
   }
 
   handleThumbnail = (i) => {
@@ -100,6 +101,14 @@ class DetailPage extends React.Component {
       ? this.setState({ quanity: 0 })
       : this.setState({ quanity: e.target.value });
   };
+
+  // componentDidUpdate() {
+  //   if ((this.props.detailProduct.length > 0) & (this.state.updated === true)) {
+  //     this.setState({ ...this.state, updated: false });
+  //     this.props.getDetailShop(this.props.detailProduct.data.admin_id);
+  //     console.log("oo");
+  //   }
+  // }
   render() {
     var styleElem = document.head.appendChild(document.createElement("style"));
     Object.keys(this.props.detailProduct).length > 0 &&

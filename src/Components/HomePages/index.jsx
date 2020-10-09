@@ -89,15 +89,11 @@ class HomePage extends React.Component {
       ? (document.getElementById(`${b}`).scrollLeft = scrollWidth - eleWidth)
       : (document.getElementById(`${b}`).scrollLeft =
           widthPerSlide * (numberSilder + 1));
-    console.log(numberSilder, "num");
-    console.log(document.getElementById(`${b}`).scrollLeft, "a");
-    console.log(scrollWidth, "swidth");
-    console.log(eleWidth, "eWidth");
   };
 
   handlePrev = (a, b, c) => {
     let scrollWidth = document.getElementById(`${b}`).scrollWidth;
-    let eleWidth = document.querySelector(`${c}`).innerWidth;
+
     let scrollLeft = document.getElementById(`${b}`).scrollLeft;
     let numberSilder = Math.floor(scrollLeft / (scrollWidth / a));
     let widthPerSlide = scrollWidth / a;

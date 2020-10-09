@@ -125,9 +125,9 @@ export const get_HistoryQuery = (historyQuery) => ({
 });
 
 export const HISTORY_PRODUCT = "HISTORY_PRODUCT";
-export const get_HistoryProduct = (product) => ({
+export const get_HistoryProduct = (historyProduct) => ({
   type: HISTORY_PRODUCT,
-  product,
+  historyProduct,
 });
 
 export const getData = () => {
@@ -254,6 +254,14 @@ export const getDetailProduct = (id) => {
     })
       .then((res) => {
         dispatch(getDetail_Product(res));
+        axios({
+          method: "get",
+          url: `https://cors-anywhere.herokuapp.com/https://mapi.sendo.vn/mob/shop/${res.data.admin_id}/detail`,
+        })
+          .then((res) => {
+            dispatch(getDetail_Shop(res));
+          })
+          .catch((err) => console.log(err, "getDetailShop"));
       })
       .catch((err) => console.log(err, "getDetailProduct"));
   };

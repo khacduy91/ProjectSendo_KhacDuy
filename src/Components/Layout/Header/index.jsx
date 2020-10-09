@@ -21,6 +21,7 @@ class Header extends React.Component {
   state = {
     query: "",
     isMobileMenu: false,
+    historyProduct: [],
   };
   componentDidMount() {
     this.props.getData();
@@ -59,6 +60,16 @@ class Header extends React.Component {
       : (document.getElementById("mobileMenu").style.left = "-100%");
     this.setState({ isMobileMenu: !this.state.isMobileMenu });
   };
+
+  componentDidUpdate() {
+    if (this.props.historyProduct !== this.state.historyProduct) {
+      console.log("co khac do bay");
+      this.setState({
+        ...this.state,
+        historyProduct: this.props.historyProduct,
+      });
+    }
+  }
 
   render() {
     window.onclick = function (event) {
@@ -160,9 +171,9 @@ class Header extends React.Component {
             </div>
             <div className="mainMenu-row-item3">
               <span>
-                Sản phẩm vừa xem{" "}
-                {`(${(this.props.historyProduct.length =
-                  0 && this.props.historyProduct.length)})`}
+                Sản phẩm vừa xem
+                {/* {`(${(this.props.historyProduct.length =
+                  0 && this.props.historyProduct.length)})`} */}
               </span>
 
               <div className="mainMenu-row-item3-images">
@@ -207,11 +218,11 @@ class Header extends React.Component {
                   <button onClick={() => this.handleMobileMenu()}>X</button>
                 </div>
 
-                <Link>Trang chủ</Link>
-                <Link>Đăng ký</Link>
-                <Link>Đăng nhập</Link>
-                <Link>Sản phẩm vừa xem</Link>
-                <Link>Giới thiệu</Link>
+                <Link to="/">Trang chủ</Link>
+                <Link to="/">Đăng ký</Link>
+                <Link to="/">Đăng nhập</Link>
+                <Link to="/">Sản phẩm vừa xem</Link>
+                <Link to="/">Giới thiệu</Link>
               </div>
             </div>
           </div>
