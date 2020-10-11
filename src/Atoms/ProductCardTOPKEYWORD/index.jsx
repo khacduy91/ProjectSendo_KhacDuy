@@ -12,15 +12,17 @@ class ProductCardTOPKEYWORD extends React.Component {
   };
   render() {
     return (
-      <Link
-        to="/ProjectSendo_KhacDuy/filter"
-        className="productCardTOPKEYWORD-Card"
-        onClick={() => this.handleClick_TOPKEYWORD()}
-      >
-        <img src={this.props.product.image} alt="" />
-        <p>{this.props.product.name}</p>
+      <div className="productCardTOPKEYWORD-Card">
+        <Link
+          to="/ProjectSendo_KhacDuy/filter"
+          onClick={() => this.handleClick_TOPKEYWORD()}
+        >
+          <img src={this.props.product.image} alt="" />
+          <p>{this.props.product.name}</p>
+        </Link>
+
         <div className="productCardTOPKEYWORD-Card-color"></div>
-      </Link>
+      </div>
     );
   }
 }

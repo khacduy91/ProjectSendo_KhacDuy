@@ -9,6 +9,7 @@ import {
   getDetailProduct,
   getDetailShop,
   getProductToCart,
+  change_isUpdate,
 } from "../../redux/action";
 import ProductRelated from "../../Atoms/ProductRelated";
 
@@ -91,6 +92,7 @@ class DetailPage extends React.Component {
         this.props.detailProduct.data.final_price * this.state.quanity;
       console.log(product_AddToCart, "product_AddToCart");
       this.props.getProductToCart(product_AddToCart);
+      this.props.change_isUpdate(!this.props.isUpdate);
     }
   };
 
@@ -395,6 +397,7 @@ const mapsStateToProps = (state) => ({
   themeEvent: state.themeEvent,
   detailProduct: state.detailProduct,
   detailShop: state.detailShop,
+  isUpdate: state.isUpdate,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -405,6 +408,7 @@ const mapDispatchToProps = (dispatch) => ({
       getDetailProduct,
       getDetailShop,
       getProductToCart,
+      change_isUpdate,
     },
     dispatch
   ),

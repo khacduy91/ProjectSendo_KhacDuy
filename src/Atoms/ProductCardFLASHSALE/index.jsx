@@ -18,19 +18,21 @@ class ProductCardFLASHSALE extends React.Component {
 
     return (
       <div className="productCard_FLASHSALE">
-        <Link
-          to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.product_id}&name=${this.props.product.name}&adminid=${this.props.product.deal_id}`}
-          className="productCardFILTER-Card"
-          id={this.props.product.id}
-          onClick={() =>
-            this.handleHistoryProduct(
-              this.props.product.product_id,
-              this.props.product.mg_url_mob,
-              this.props.product.name
-            )
-          }
-        >
-          <img src={product.img_url_mob} alt={product.name} />
+        <div className="productCardFILTER-Card">
+          <Link
+            to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.product_id}&name=${this.props.product.name}&adminid=${this.props.product.deal_id}`}
+            id={this.props.product.id}
+            onClick={() =>
+              this.handleHistoryProduct(
+                this.props.product.product_id,
+                this.props.product.mg_url_mob,
+                this.props.product.name
+              )
+            }
+          >
+            <img src={product.img_url_mob} alt={product.name} />
+          </Link>
+
           <p className="productCard_FLASHSALE-price">
             {product.price.toLocaleString()}đ
           </p>
@@ -41,7 +43,7 @@ class ProductCardFLASHSALE extends React.Component {
               style={{ width: `${product.stock_percent}%` }}
             ></div>
           </div>
-        </Link>
+        </div>
       </div>
     );
   }

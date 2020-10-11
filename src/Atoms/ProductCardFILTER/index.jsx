@@ -23,24 +23,29 @@ class ProductCardFILTER extends React.Component {
       20 * this.props.product.percent_star
     }%, #c7c7cd 0);}`;
     return (
-      <Link
+      <div
         to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.id}&name=${this.props.product.name}&adminid=${this.props.product.admin_id}`}
         className="productCardFILTER-Card"
-        id={this.props.product.id}
-        onClick={() =>
-          this.handleHistoryProduct(
-            this.props.product.id,
-            this.props.product.image,
-            this.props.product.name
-          )
-        }
       >
         <div className="productCardFILTER-Card-wraper">
-          <img
-            className="productCardFILTER-Card-wraper-img"
-            src={this.props.product.image}
-            alt=""
-          />
+          <Link
+            to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.id}&name=${this.props.product.name}&adminid=${this.props.product.admin_id}`}
+            id={this.props.product.id}
+            onClick={() =>
+              this.handleHistoryProduct(
+                this.props.product.id,
+                this.props.product.image,
+                this.props.product.name
+              )
+            }
+          >
+            <img
+              className="productCardFILTER-Card-wraper-img"
+              src={this.props.product.image}
+              alt=""
+            />
+          </Link>
+
           <div className="productCardFILTER-Card-wraper-title">
             {this.props.product.shop_badge_url && (
               <img
@@ -49,7 +54,19 @@ class ProductCardFILTER extends React.Component {
                 alt=""
               />
             )}
-            <p>{this.props.product.name}</p>
+            <Link
+              to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.id}&name=${this.props.product.name}&adminid=${this.props.product.admin_id}`}
+              id={this.props.product.id}
+              onClick={() =>
+                this.handleHistoryProduct(
+                  this.props.product.id,
+                  this.props.product.image,
+                  this.props.product.name
+                )
+              }
+            >
+              <p>{this.props.product.name}</p>
+            </Link>
           </div>
           <div className="productCardFILTER-Card-wraper-price">
             <p className="finalPrice">
@@ -97,7 +114,7 @@ class ProductCardFILTER extends React.Component {
         <div className="shopName">
           <p>{this.props.product.shop_name}</p>
         </div>
-      </Link>
+      </div>
     );
   }
 }

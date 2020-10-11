@@ -217,10 +217,27 @@
       }
     }
     &-item4 {
+      position: relative;
       svg {
         width: 36px;
         fill: white;
         cursor: pointer;
+      }
+      span {
+        position: absolute;
+        top: -7px;
+        right: -5px;
+        background: red;
+        width: 17px;
+        height: 17px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        color: white;
+        justify-content: center;
+        border: 1px solid white;
+        font-size: 0.8em;
+        font-weight: 500;
       }
     }
   }

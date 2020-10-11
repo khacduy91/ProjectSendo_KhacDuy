@@ -12,13 +12,20 @@ class ProductCardRECOMMEND extends React.Component {
   };
   render() {
     return (
-      <Link
-        to="/ProjectSendo_KhacDuy/filter"
-        className="productCardRECOMMEND-Card"
-        onClick={() => this.handleClickRECOMMEND()}
-      >
-        <img src={this.props.product.product_list[0].img_url} alt="" />
-        <p>{this.props.product.category_name}</p>
+      <div className="productCardRECOMMEND-Card">
+        <Link
+          to="/ProjectSendo_KhacDuy/filter"
+          onClick={() => this.handleClickRECOMMEND()}
+        >
+          <img src={this.props.product.product_list[0].img_url} alt="" />
+        </Link>
+
+        <Link
+          to="/ProjectSendo_KhacDuy/filter"
+          onClick={() => this.handleClickRECOMMEND()}
+        >
+          <p>{this.props.product.category_name}</p>
+        </Link>
         <div
           className="productCardRECOMMEND-Card-color"
           style={{
@@ -32,7 +39,7 @@ class ProductCardRECOMMEND extends React.Component {
                 : "#82d8e3",
           }}
         ></div>
-      </Link>
+      </div>
     );
   }
 }

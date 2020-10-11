@@ -195,6 +195,14 @@ class Header extends React.Component {
                     d="M8 18c-1.104 0-1.99.895-1.99 2 0 1.104.886 2 1.99 2a2 2 0 000-4m10 0c-1.104 0-1.99.895-1.99 2 0 1.104.886 2 1.99 2a2 2 0 000-4M4 2H1.999v1.999H4l3.598 7.588-1.353 2.451A2 2 0 008 17h12v-2H8.423a.249.249 0 01-.249-.25l.03-.121L9.102 13h7.449c.752 0 1.408-.415 1.75-1.029l3.574-6.489A1 1 0 0021 3.999H6.213l-.406-.854A1.997 1.997 0 004 2"
                   ></path>
                 </svg>
+                <span
+                  style={{
+                    display: this.props.cartProducts.length === 0 && "none",
+                  }}
+                >
+                  {this.props.cartProducts.length !== 0 &&
+                    this.props.cartProducts.length}
+                </span>
               </Link>
             </div>
             {/* mobileMenu */}
@@ -242,6 +250,7 @@ const mapsStateToProps = (state) => ({
   historyQuery: state.historyQuery,
   historyProduct: state.historyProduct,
   isUpdate: state.isUpdate,
+  cartProducts: state.cartProducts,
 });
 
 const mapDispatchToProps = (dispatch) => ({

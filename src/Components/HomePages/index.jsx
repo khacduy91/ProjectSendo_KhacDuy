@@ -1,7 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getDataProduct, getProductFilter } from "../../redux/action";
+import {
+  getDataProduct,
+  getProductFilter,
+  getQuery,
+  get_HistoryQuery,
+} from "../../redux/action";
+import { Link } from "react-router-dom";
 import ProductCardFLASHSALE from "../../Atoms/ProductCardFLASHSALE";
 import ShopCardSENMALL from "../../Atoms/ShopCardSENMALL";
 import ProductCardTOPKEYWORD from "../../Atoms/ProductCardTOPKEYWORD";
@@ -103,7 +109,29 @@ class HomePage extends React.Component {
       : (document.getElementById(`${b}`).scrollLeft =
           widthPerSlide * numberSilder - 1);
   };
+  // Navbar
+  handleClick_Navbar = (a) => {
+    this.props.getQuery(a);
+    this.props.get_HistoryQuery(a);
+  };
+  // handleOnFocusNavBar = () => {
+  //   console.log("ali34");
+  //   const ele1 = document.getElementById("sliderContainer");
+  //   const ele2 = document.querySelector(".carousel-inner");
+  //   ele1.style.overflow = "visible";
+  //   ele2.style.overflow = "visible";
+  // };
 
+  // changeOverFlow = (e) => {
+  //   const elSlider = document.querySelector(".slider-container");
+  //   const elBanner = document.querySelector(".banner-container-inner");
+  //   let elClass = e.target.className;
+  //   console.log(elClass, "ee");
+  //   elClass =
+  //     "navbar-link" &&
+  //     ((elSlider.style.overflow = "visible"),
+  //     (elBanner.style.overflow = "visible"));
+  // };
   render() {
     window.setTimeout(() => this.autoChange(), 7000);
     // console.log("endtime", this.state.end_time);\
@@ -117,10 +145,11 @@ class HomePage extends React.Component {
         </div>
       );
     };
+
     return (
       <div className="homepage">
         {/* Header */}
-        <div className="slider-container">
+        <div className="slider-container" id="sliderContainer">
           {/* Boostrap caurosel */}
 
           <div className="banner-background">
@@ -144,15 +173,81 @@ class HomePage extends React.Component {
           {/* Banner Container */}
           <div className="carousel-inner banner-container-inner">
             {/* Nav bar */}
-            {this.props.banner.length > 0 && (
-              <div className="navbar">
-                {this.props.sitemap.map((ele, index) => (
-                  <a href={`/${ele.url_path}`} key={index}>
-                    <p>{ele.title}</p>
-                  </a>
-                ))}
-              </div>
-            )}
+
+            {/* <div className="navbar" onMouseOver={(e) => this.changeOverFlow(e)}> */}
+            <div className="navbar">
+              <Link
+                to="/ProjectSendo_KhacDuy/filter"
+                onClick={() => this.handleClick_Navbar("Thời trang nữ")}
+                className="navbar-link"
+              >
+                Thời trang nữ
+              </Link>
+              <Link
+                to="/ProjectSendo_KhacDuy/filter"
+                onClick={() => this.handleClick_Navbar("Đầm nữ")}
+                className="navbar-link"
+              >
+                Đầm nữ
+              </Link>
+              <Link
+                to="/ProjectSendo_KhacDuy/filter"
+                onClick={() => this.handleClick_Navbar("Sandal nữ")}
+                className="navbar-link"
+              >
+                Sandal nữ
+              </Link>
+              <Link
+                to="/ProjectSendo_KhacDuy/filter"
+                onClick={() => this.handleClick_Navbar("thời trang nam")}
+                className="navbar-link"
+              >
+                Thời trang nam
+              </Link>
+              <Link
+                to="/ProjectSendo_KhacDuy/filter"
+                onClick={() => this.handleClick_Navbar("Dép nam")}
+                className="navbar-link"
+              >
+                Dép nam
+              </Link>
+              <Link
+                to="/ProjectSendo_KhacDuy/filter"
+                onClick={() => this.handleClick_Navbar("Áo thun nam")}
+                className="navbar-link"
+              >
+                Áo thun nam
+              </Link>
+              <Link
+                to="/ProjectSendo_KhacDuy/filter"
+                onClick={() => this.handleClick_Navbar("Điện thoại")}
+                className="navbar-link"
+              >
+                Điện thoại
+              </Link>
+              <Link
+                to="/ProjectSendo_KhacDuy/filter"
+                onClick={() => this.handleClick_Navbar("Laptop")}
+                className="navbar-link"
+              >
+                Laptop
+              </Link>
+              <Link
+                to="/ProjectSendo_KhacDuy/filter"
+                onClick={() => this.handleClick_Navbar("Phụ kiện gia dụng")}
+                className="navbar-link"
+              >
+                Phụ kiện gia dụng
+              </Link>
+              <Link
+                to="/ProjectSendo_KhacDuy/filter"
+                onClick={() => this.handleClick_Navbar("Điện máy")}
+                className="navbar-link"
+              >
+                Điện máy
+              </Link>
+            </div>
+
             <div
               id="demo2"
               className="carousel slide slider-container-image"
@@ -167,7 +262,13 @@ class HomePage extends React.Component {
                       style={{ backgroundColor: `${ele.background_color}` }}
                       key={index}
                     >
-                      <img src={ele.image} alt={ele.title} />
+                      <a
+                        href={ele.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={ele.image} alt={ele.title} />
+                      </a>
                     </div>
                   ) : (
                     <div
@@ -175,7 +276,13 @@ class HomePage extends React.Component {
                       style={{ backgroundColor: `${ele.background_color}` }}
                       key={index}
                     >
-                      <img src={ele.image} alt={ele.title} />
+                      <a
+                        href={ele.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={ele.image} alt={ele.title} />
+                      </a>
                     </div>
                   )
                 )}
@@ -523,6 +630,8 @@ const mapDispatchToProps = (dispatch) => ({
     {
       getDataProduct,
       getProductFilter,
+      getQuery,
+      get_HistoryQuery,
     },
     dispatch
   ),
