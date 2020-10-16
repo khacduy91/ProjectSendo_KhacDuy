@@ -17,5 +17,20 @@ var firebaseConfig = {
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const storage = firebaseApp.storage();
+const getFireBaseToken = () => {
+  const currentUser = firebaseApp.auth().currentUser;
+  if (currentUser) {
+    currentUser.getIdToken();
+  }
 
-export { storage, firebaseApp as default };
+  //Not Login
+  const hasRememberAccount = localStorage.getItem(
+    "firebaseui::rememberedAccounts"
+  );
+
+  if (hasRememberAccount) return null;
+
+  //Login but current User is no fetch -> wait 10s
+};
+
+export { getFireBaseToken, storage, firebaseApp as default };

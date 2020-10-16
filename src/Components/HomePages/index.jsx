@@ -29,7 +29,7 @@ class HomePage extends React.Component {
     x: new Date(),
   };
   componentDidMount() {
-    this.props.getProductFilter("", "", "", "quần jean", "30", "sortType=rank");
+    this.props.getProductFilter("", "", "", "", "30", "sortType=rank");
     this.props.getDataProduct();
   }
 
@@ -328,6 +328,8 @@ class HomePage extends React.Component {
                 <a
                   href={ele.url}
                   key={index}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={this.handleThemeEventStyle(
                     ele.top,
                     ele.left,

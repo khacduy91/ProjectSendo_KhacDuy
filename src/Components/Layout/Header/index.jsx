@@ -135,12 +135,13 @@ class Header extends React.Component {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...this.state, isLoggedSuccess: true, isLogged: true });
+        firebaseApp.auth().onAuthStateChanged();
         let user = firebaseApp.auth().currentUser;
         if (user != null) {
           this.setState({
             ...this.state,
             name: user.displayName,
-            photoURL: user.photoURL,
+            photoUrl: user.photoURL,
           });
         }
       })
@@ -380,23 +381,21 @@ class Header extends React.Component {
                   value={this.state.query}
                 />
 
-                {this.state.query === "" ? (
-                  <button className="main-row-item2-input searchButton">
+                {/* {this.state.query === "" ? (
+                  <p className="main-row-item2-input searchButton"> Search</p>
+                ) : ( */}
+                <Link
+                  to="/ProjectSendo_KhacDuy/filter"
+                  className="main-row-item2-input searchButton"
+                >
+                  <button
+                    className="main-row-item2-input searchButton"
+                    onClick={(e) => this.handleSubmitSearch(e)}
+                  >
                     Search
                   </button>
-                ) : (
-                  <Link
-                    to="/ProjectSendo_KhacDuy/filter"
-                    className="main-row-item2-input searchButton"
-                  >
-                    <button
-                      className="main-row-item2-input searchButton"
-                      onClick={(e) => this.handleSubmitSearch(e)}
-                    >
-                      Search
-                    </button>
-                  </Link>
-                )}
+                </Link>
+                {/* )} */}
               </form>
             </div>
             <div className="mainMenu-row-item3">

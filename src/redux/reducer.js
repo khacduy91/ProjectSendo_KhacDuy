@@ -34,7 +34,7 @@ const initialState = {
   banner: [],
   menu: [],
   sitemap: [],
-  query: "quan jean",
+  query: "",
   themeEvent: [],
   arrayFilter: [],
   defaultTerm: [],
@@ -157,7 +157,7 @@ const reducer = (state = initialState, action) => {
     case DELETE_PRODUCT_CART: {
       const newCartProduct = action.cartProducts;
       console.log(newCartProduct, "new");
-      return { ...state, cartProducts: newCartProduct };
+      return { ...state, cartProducts: newCartProduct, isUpdate: true };
     }
     case CHANGE_QUANITY: {
       const new_cartProduct = state.cartProducts;

@@ -18,15 +18,15 @@ class FilterPage extends React.Component {
     sortType: "sortType=rank",
   };
   componentDidMount() {
-    this.props.getArrayFilter(this.props.query);
-    this.props.getProductFilter(
-      "",
-      "",
-      "",
-      this.props.query,
-      "32",
-      "sortType=rank"
-    );
+    // this.props.getArrayFilter("");
+    // this.props.getProductFilter(
+    //   "",
+    //   "",
+    //   "",
+    //   this.props.query,
+    //   "32",
+    //   "sortType=rank"
+    // );
   }
   handleCheckBox_PositionTop = (length) => {
     //Position Top
