@@ -45,6 +45,10 @@
     width: 20px;
     height: 20px;
   }
+  button {
+    border: 0.5px solid black;
+    margin-left: 5px;
+  }
 }
 
 .mainMenu {
@@ -242,6 +246,151 @@
     }
   }
 }
+/*Modal Login*/
+.modal-wraper {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  flex-direction: column;
+  background-color: #060606db;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  overflow-y: hidden;
+
+  .modal-title {
+    background-color: #ee2a25;
+    height: 50px;
+    width: 40rem;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 1.1rem;
+    justify-content: space-between;
+    padding-right: 10px;
+    button {
+      border: none;
+    }
+  }
+  .modal-body {
+    padding: 3rem;
+    width: 40rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    flex: inherit;
+
+    #login {
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+
+      input {
+        width: 100%;
+        height: 3rem;
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+        background-color: white;
+        border: none;
+        border-bottom: 0.5px solid black;
+        ::-webkit-input-placeholder {
+          /* Edge */
+          color: #e54d3e;
+        }
+        :-ms-input-placeholder {
+          /* Internet Explorer 10-11 */
+          color: #e54d3e;
+        }
+        ::placeholder {
+          color: #e54d3e;
+        }
+
+        &:focus {
+          outline: none;
+          border: none;
+          background-color: white;
+          // color: #e54d3e;
+          border-bottom: 0.5px solid #e54d3e;
+        }
+      }
+    }
+
+    #logout {
+      button {
+        outline: none;
+        border: 0.5px solid black;
+        margin-left: 0.5rem;
+        &:hover {
+          background-color: #e54d3e;
+          color: white;
+        }
+      }
+    }
+    #register {
+      display: flex;
+      flex-direction: column;
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+
+      input {
+        width: 100%;
+        height: 3rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.8rem;
+        background-color: white;
+        border: none;
+        border-bottom: 0.5px solid black;
+        ::-webkit-input-placeholder {
+          /* Edge */
+          color: #e54d3e;
+        }
+        :-ms-input-placeholder {
+          /* Internet Explorer 10-11 */
+          color: #e54d3e;
+        }
+        ::placeholder {
+          color: #e54d3e;
+        }
+
+        &:focus {
+          outline: none;
+          border: none;
+          background-color: white;
+          // color: #e54d3e;
+          border-bottom: 0.5px solid #e54d3e;
+        }
+      }
+    }
+    .modal-container-button {
+      display: flex;
+      flex-direction: column;
+      outline: none;
+      align-items: flex-end;
+      p {
+        font-size: 1rem;
+      }
+      button {
+        width: 8rem;
+        margin-bottom: 0.5rem;
+        margin-left: 0.5rem;
+        border: 0.5px solid darkgray;
+        transition: 0.2s ease;
+        &:hover {
+          background-color: #e54d3e;
+          color: white;
+        }
+      }
+    }
+  }
+}
 /*Reposive*/
 @media screen and (max-width: 1360px) {
   .header {
@@ -419,6 +568,23 @@
         }
       }
     }
+    .modal-wraper {
+      .modal-title {
+        width: 30rem;
+      }
+      .modal-body {
+        width: 30rem;
+        .modal-container-button {
+          button {
+            font-size: 0.8rem;
+            width: 5rem;
+          }
+          p {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -438,12 +604,35 @@
 }
 
 @media screen and (max-width: 540px) {
-  .mainMenu {
-    &-row {
-      &-item2 {
-        width: 60%;
-        form {
-          width: 100%;
+  .header {
+    .mainMenu {
+      &-row {
+        &-item2 {
+          width: 60%;
+          form {
+            width: 100%;
+          }
+        }
+      }
+    }
+    .modal-wraper {
+      .modal-title {
+        width: 20rem;
+      }
+      .modal-body {
+        width: 20rem;
+        padding: 1rem;
+        .modal-container-button {
+          button {
+            font-size: 0.8rem;
+            width: 5rem;
+          }
+          p {
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+          }
         }
       }
     }

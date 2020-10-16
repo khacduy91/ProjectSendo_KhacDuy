@@ -36,7 +36,6 @@ class HomePage extends React.Component {
   componentWillMount() {
     window.clearTimeout(this.autoChange);
   }
-
   //Header
   handleClick = (index) => {
     let z = new Date();
@@ -65,7 +64,6 @@ class HomePage extends React.Component {
     return style;
     // return style;
   };
-
   autoChange() {
     let y = new Date();
 
@@ -114,24 +112,7 @@ class HomePage extends React.Component {
     this.props.getQuery(a);
     this.props.get_HistoryQuery(a);
   };
-  // handleOnFocusNavBar = () => {
-  //   console.log("ali34");
-  //   const ele1 = document.getElementById("sliderContainer");
-  //   const ele2 = document.querySelector(".carousel-inner");
-  //   ele1.style.overflow = "visible";
-  //   ele2.style.overflow = "visible";
-  // };
 
-  // changeOverFlow = (e) => {
-  //   const elSlider = document.querySelector(".slider-container");
-  //   const elBanner = document.querySelector(".banner-container-inner");
-  //   let elClass = e.target.className;
-  //   console.log(elClass, "ee");
-  //   elClass =
-  //     "navbar-link" &&
-  //     ((elSlider.style.overflow = "visible"),
-  //     (elBanner.style.overflow = "visible"));
-  // };
   render() {
     window.setTimeout(() => this.autoChange(), 7000);
     // console.log("endtime", this.state.end_time);\
@@ -476,7 +457,6 @@ class HomePage extends React.Component {
             </div>
           )}
         </div>
-
         <div className="productRecommend">
           {Object.keys(this.props.productRecommend).length > 0 && (
             <div className="productRecommend-wraper">
@@ -526,7 +506,6 @@ class HomePage extends React.Component {
             </div>
           )}
         </div>
-
         <div className="productTopKeyWord">
           {Object.keys(this.props.productTopKeyWord).length > 0 && (
             <div className="productTopKeyWord-wraper">
@@ -573,7 +552,6 @@ class HomePage extends React.Component {
             </div>
           )}
         </div>
-
         <div className="productFilter">
           {Object.keys(this.props.productFilter).length > 0 && (
             <div className="productFilter-wraper">

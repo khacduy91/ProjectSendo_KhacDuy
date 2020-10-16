@@ -3,6 +3,9 @@ import "./index.scss";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { storage } from "../../../firebase/firebaseConfig"; //storage cua FireBase
+
+import firebaseApp from "../../../firebase/firebaseConfig";
 import {
   getData,
   getBanner,
@@ -23,6 +26,12 @@ class Header extends React.Component {
     query: "",
     isMobileMenu: false,
     historyProduct: [],
+    isLoggedSuccess: false,
+    notRegister: false,
+    isLogged: false,
+    name: "",
+    photo: "",
+    photoUrl: "",
   };
   componentDidMount() {
     this.props.getData();
@@ -61,14 +70,219 @@ class Header extends React.Component {
       : (document.getElementById("mobileMenu").style.left = "-100%");
     this.setState({ isMobileMenu: !this.state.isMobileMenu });
   };
+  // Login
+  clearErrors = () => {
+    document.getElementById("register_Error").innerHTML = "";
+    document.getElementById("login_Error").innerHTML = "";
+  };
+  clearInput = () => {
+    document.getElementById("login_Email").value = "";
+    document.getElementById("login_Password").value = "";
+    document.getElementById("register_Email").value = "";
+    document.getElementById("register_Password").value = "";
+  };
+  handleCloseModal = () => {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("logout").style.display = "none";
+    document.getElementById("loginSuccess").style.display = "none";
+    document.getElementById("register").style.display = "none";
+    document.getElementById("root").style.position = "unset";
+    document.getElementById("root").style.width = "100%";
+    document.querySelector(".modal-wraper").style.display = "none";
+  };
+  handleLogin = () => {
+    this.setState({ ...this.state, notRegister: true });
+    document.getElementById("login").style.display = "flex";
+    document.getElementById("logout").style.display = "none";
+    document.getElementById("loginSuccess").style.display = "none";
+    document.getElementById("register").style.display = "none";
+    document.getElementById("root").style.position = "fixed";
+    document.getElementById("root").style.width = "100%";
+    document.querySelector(".modal-wraper").style.display = "flex";
+  };
+
+  handleRegister = () => {
+    this.setState({ ...this.state, notRegister: false });
+    document.getElementById("login").style.display = "none";
+    document.getElementById("logout").style.display = "none";
+    document.getElementById("loginSuccess").style.display = "none";
+    document.getElementById("register").style.display = "flex";
+    document.getElementById("root").style.position = "fixed";
+    document.getElementById("root").style.width = "100%";
+    document.querySelector(".modal-wraper").style.display = "flex";
+  };
+  handleLogout = () => {
+    this.setState({ ...this.state, notRegister: true, isLoggedSuccess: false });
+    document.getElementById("login").style.display = "none";
+    document.getElementById("logout").style.display = "flex";
+    document.getElementById("loginSuccess").style.display = "none";
+    document.getElementById("register").style.display = "none";
+    document.getElementById("root").style.position = "fixed";
+    document.getElementById("root").style.width = "100%";
+    document.querySelector(".modal-wraper").style.display = "flex";
+  };
+
+  // FireBase
+  // Login Firebase
+  loginFireBase = () => {
+    let email = document.getElementById("login_Email").value;
+    let password = document.getElementById("login_Password").value;
+    // Login Function
+    this.clearErrors();
+    this.clearInput();
+    firebaseApp
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState({ ...this.state, isLoggedSuccess: true, isLogged: true });
+        let user = firebaseApp.auth().currentUser;
+        if (user != null) {
+          this.setState({
+            ...this.state,
+            name: user.displayName,
+            photoURL: user.photoURL,
+          });
+        }
+      })
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        // document.getElementById("errorLogin").innerHTML = errorCode;
+        switch (errorCode) {
+          case "auth/invalid-email":
+            document.getElementById("login_Error").innerHTML =
+              "Email phải đúng định dạng";
+            break;
+          case "auth/wrong-password":
+            document.getElementById("login_Error").innerHTML =
+              "Bạn đã điền sai Password";
+            break;
+          case "auth/user-not-found":
+            document.getElementById("login_Error").innerHTML =
+              "Email này chưa được đăng ký";
+            break;
+          default:
+            break;
+        }
+      });
+  };
+  // Logout FireBase
+  logoutFireBase = () => {
+    document.querySelector(".modal-wraper").style.display = "none";
+    document.getElementById("root").style.position = "unset";
+    document.getElementById("root").style.width = "100%";
+    firebaseApp
+      .auth()
+      .signOut()
+      .then(() => this.setState({ ...this.state, isLogged: false }));
+  };
+
+  // Register FireBase
+  registerFireBase = () => {
+    let email = document.getElementById("register_Email").value;
+    let password = document.getElementById("register_Password").value;
+    let name = document.getElementById("register_Name").value;
+
+    this.clearInput();
+    this.clearErrors();
+    firebaseApp
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        //Khai bai User da dang nhap FireBase
+        let user = firebaseApp.auth().currentUser;
+
+        console.log(this.state.photo);
+        //Upload avatart len FireBase de lay URL
+        const uploadTask = storage
+          .ref(`images/${this.state.photo.name}`)
+          .put(this.state.photo);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {},
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            storage
+              .ref("images")
+              .child(this.state.photo.name)
+              .getDownloadURL()
+              .then((url) => {
+                this.setState({ ...this.state, photoUrl: url });
+                console.log(this.state.photoUrl);
+              })
+              .then(() => {
+                //Cap nhat vao provide User
+                user
+                  .updateProfile({
+                    displayName: name,
+                    photoURL: this.state.photoUrl,
+                  })
+                  .then(function (res) {
+                    // Update successful.
+                  })
+                  .catch(function (error) {
+                    // An error happened.
+                    console.log(error, "eee");
+                  });
+              });
+          }
+        );
+      })
+      .then(() =>
+        this.setState({
+          ...this.state,
+          isLogged: true,
+          isLoggedSuccess: true,
+        })
+      )
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        // document.getElementById("errorLogin").innerHTML = errorCode;
+        switch (errorCode) {
+          case "auth/email-already-in-use":
+            document.getElementById("register_Error").innerHTML =
+              "Email đã được đăng ký";
+            break;
+          case "auth/invalid-email":
+            document.getElementById("register_Error").innerHTML =
+              "Email phải đúng định dạng";
+            break;
+          case "auth/weak-password":
+            document.getElementById("register_Error").innerHTML =
+              "Password cần it nhất 6";
+            break;
+          default:
+            break;
+        }
+      });
+  };
 
   componentDidUpdate() {
     if (this.props.isUpdate) {
-      console.log("co khac do bay");
       this.setState({
         ...this.state,
       });
       this.props.change_isUpdate(!this.props.isUpdate);
+    }
+
+    if (this.state.isLoggedSuccess) {
+      document.getElementById("logout").style.display = "none";
+      document.getElementById("login").style.display = "none";
+      document.getElementById("register").style.display = "none";
+      document.getElementById("loginSuccess").style.display = "flex";
+      let user = firebaseApp.auth().currentUser;
+      console.log(user, "user");
+      // if (user != null) {
+      //   console.log("Sign-in provider: " + user.user);
+      //   console.log("  Provider-specific UID: " + user.uid);
+      //   console.log("  Name: " + user.displayName);
+      //   console.log("  Email: " + user.email);
+      //   console.log("  Photo URL: " + user.photoURL);
+      // }
     }
   }
 
@@ -78,6 +292,12 @@ class Header extends React.Component {
         document.getElementById("historyQuery").style.transform = "scale(0)";
         document.getElementById("historyQuery").style.opacity = "0";
       }
+      if (event.target.className === "modalLogin-wraper") {
+        document.querySelector(".modalLogin-wraper").style.display = "none";
+        document.getElementById("root").style.position = "unset";
+        document.getElementById("root").style.width = "100%";
+      }
+      // console.log(event.target.className, "target");
     };
     return (
       <div className="header">
@@ -93,6 +313,15 @@ class Header extends React.Component {
                 className="avatarUser"
               />
               <p>Vũ Khắc Duy</p>
+              {!this.state.isLogged && (
+                <button onClick={() => this.handleLogin()}>Login</button>
+              )}
+              {this.state.isLogged && (
+                <button onClick={() => this.handleLogout()}>Logout</button>
+              )}
+              {this.state.isLogged === false && (
+                <button onClick={() => this.handleRegister()}>Register</button>
+              )}
             </div>
           </div>
         </div>
@@ -230,6 +459,69 @@ class Header extends React.Component {
                 <Link to="/">Đăng nhập</Link>
                 <Link to="/">Sản phẩm vừa xem</Link>
                 <Link to="/">Giới thiệu</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Login Modal */}
+        <div className="modal-wraper">
+          <div className="modal-title">
+            {this.state.notRegister ? <p>Login</p> : <p>Register</p>}
+            <button onClick={() => this.handleCloseModal()}>x</button>
+          </div>
+          <div className="modal-body">
+            <div className="modal-container" id="login">
+              <input type="text" placeholder="Email" id="login_Email" />
+              <input
+                type="password"
+                placeholder="Password"
+                id="login_Password"
+              />
+              <p id="login_Error"></p>
+
+              <div className="modal-container-button">
+                <button onClick={() => this.loginFireBase()}>Đăng nhập</button>
+                <p>
+                  Bạn chưa có tài khoản?
+                  <button onClick={() => this.handleRegister()}>Đăng ký</button>
+                </p>
+              </div>
+            </div>
+            <div className="modal-container" id="loginSuccess">
+              <p>Xin chào ....</p>
+              <button onClick={() => this.handleCloseModal()}>
+                Bắt đầu mùa sắm nào!
+              </button>
+            </div>
+            <div className="modal-container" id="logout">
+              <p>Bạn muốn đăng xuất?</p>
+              <button onClick={() => this.logoutFireBase()}>Có</button>
+              <button onClick={() => this.handleCloseModal()}>Không</button>
+            </div>
+            <div className="modal-container" id="register">
+              <input type="text" placeholder="Email" id="register_Email" />
+              <input
+                type="password"
+                placeholder="Password"
+                id="register_Password"
+              />
+              <input type="text" placeholder="Name" id="register_Name" />
+              <input
+                type="file"
+                id="register_PhotoUrl"
+                accept=".jpg, .jpeg, .png"
+                onChange={(e) =>
+                  this.setState({ ...this.state, photo: e.target.files[0] })
+                }
+              />
+
+              <p id="register_Error"></p>
+              <div className="modal-container-button">
+                <button onClick={() => this.registerFireBase()}>Đăng ký</button>
+                <p>
+                  Bạn đã có tài khoản ?
+                  <button onClick={() => this.handleLogin()}>Đăng nhập</button>
+                </p>
               </div>
             </div>
           </div>
