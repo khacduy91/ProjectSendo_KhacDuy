@@ -29,7 +29,7 @@ class HomePage extends React.Component {
     x: new Date(),
   };
   componentDidMount() {
-    this.props.getProductFilter("", "", "", "", "30", "sortType=rank");
+    this.props.getProductFilter("", "", "", "áo khoác", "30", "sortType=rank");
     this.props.getDataProduct();
   }
 

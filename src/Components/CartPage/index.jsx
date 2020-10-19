@@ -25,10 +25,13 @@ class CartPage extends React.Component {
   };
 
   handleChange_Quanity = (e, index) => {
-    console.log(e.target.value, "value");
-    console.log(index, "index");
-    this.props.change_Quanity(e.target.value, index);
-    this.setState({ ...this.state });
+    if (e.target.value >= 0) {
+      this.props.change_Quanity(e.target.value, index);
+      this.setState({ ...this.state });
+    } else {
+      this.props.change_Quanity(e.target.value, index);
+      this.setState({ ...this.state });
+    }
   };
   render() {
     let totalP = 0;

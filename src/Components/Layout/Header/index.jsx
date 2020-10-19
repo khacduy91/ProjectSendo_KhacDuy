@@ -10,7 +10,7 @@ import {
   getData,
   getBanner,
   getMenu,
-  getDataSitemap,
+  // getDataSitemap,
   getThemeEvent,
   getProductFilter,
   getDataProduct,
@@ -33,9 +33,10 @@ class Header extends React.Component {
     photo: "",
     photoUrl: "",
   };
+
   componentDidMount() {
     this.props.getData();
-    this.props.getDataSitemap();
+    // this.props.getDataSitemap();
   }
   handleSubmitValue = (e) => {
     this.props.getProductFilter("", "", "", e, "32", "sortType=rank");
@@ -46,16 +47,16 @@ class Header extends React.Component {
   handleSubmitSearch = (e) => {
     // e.preventDefault();
 
-    this.props.getProductFilter(
-      "",
-      "",
-      "",
-      this.props.query,
-      "32",
-      "sortType=rank"
-    );
+    // this.props.getProductFilter(
+    //   "",
+    //   "",
+    //   "",
+    //   this.props.query,
+    //   "32",
+    //   "sortType=rank"
+    // );
     this.props.get_HistoryQuery(this.props.query);
-    this.props.getArrayFilter(this.props.query);
+    // this.props.getArrayFilter(this.props.query);
     this.setState({ query: "" });
   };
   handleChangeSearch = (e) => {
@@ -381,9 +382,6 @@ class Header extends React.Component {
                   value={this.state.query}
                 />
 
-                {/* {this.state.query === "" ? (
-                  <p className="main-row-item2-input searchButton"> Search</p>
-                ) : ( */}
                 <Link
                   to="/ProjectSendo_KhacDuy/filter"
                   className="main-row-item2-input searchButton"
@@ -395,7 +393,6 @@ class Header extends React.Component {
                     Search
                   </button>
                 </Link>
-                {/* )} */}
               </form>
             </div>
             <div className="mainMenu-row-item3">
@@ -404,7 +401,12 @@ class Header extends React.Component {
                   <div style={{ display: "flex" }}>
                     <span>Sản phẩm vừa xem</span>
                     {this.props.historyProduct.map((ele, index) => (
-                      <img src={ele.img} alt={ele.name} key={index} />
+                      <Link
+                        to={`/ProjectSendo_KhacDuy/detail?id=${ele.id}&name=${ele.name}&adminid=${ele.admin_id}`}
+                        key={index}
+                      >
+                        <img src={ele.img} alt={ele.name} />
+                      </Link>
                     ))}
                   </div>
                 )}
@@ -547,7 +549,7 @@ const mapsStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators(
     {
-      getDataSitemap,
+      // getDataSitemap,
       getData,
       getBanner,
       getMenu,

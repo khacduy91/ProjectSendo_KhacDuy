@@ -21,9 +21,11 @@ class DetailPage extends React.Component {
     arrValue: [],
     product_AddToCart: {},
     updated: true,
+    url: ",",
   };
   componentDidMount() {
     const parsed = queryString.parse(window.location.search);
+    this.setState({ ...this.state, url: window.location.search });
     const id = parsed.id;
     // const adminid = parsed.adminid;
 
@@ -90,7 +92,8 @@ class DetailPage extends React.Component {
       product_AddToCart.price = this.props.detailProduct.data.final_price;
       product_AddToCart.totalPrice =
         this.props.detailProduct.data.final_price * this.state.quanity;
-      console.log(product_AddToCart, "product_AddToCart");
+      product_AddToCart.id = this.props.detailProduct.data.id;
+
       this.props.getProductToCart(product_AddToCart);
       this.props.change_isUpdate(!this.props.isUpdate);
     }
@@ -104,13 +107,16 @@ class DetailPage extends React.Component {
       : this.setState({ quanity: e.target.value });
   };
 
-  // componentDidUpdate() {
-  //   if ((this.props.detailProduct.length > 0) & (this.state.updated === true)) {
-  //     this.setState({ ...this.state, updated: false });
-  //     this.props.getDetailShop(this.props.detailProduct.data.admin_id);
-  //     console.log("oo");
-  //   }
-  // }
+  componentDidUpdate() {
+    if (this.state.url !== window.location.search) {
+      const parsed = queryString.parse(window.location.search);
+      this.setState({ ...this.state, url: window.location.search });
+      const id = parsed.id;
+      // const adminid = parsed.adminid;
+
+      this.props.getDetailProduct(id);
+    }
+  }
   render() {
     var styleElem = document.head.appendChild(document.createElement("style"));
     Object.keys(this.props.detailProduct).length > 0 &&
@@ -365,11 +371,11 @@ class DetailPage extends React.Component {
               </div>
             )}
 
-            {Object.keys(this.props.detailProduct).length > 0 && (
+            {/* {Object.keys(this.props.detailProduct).length > 0 && (
               <ProductRelated
                 ProductRelated={this.props.detailProduct.data.product_relateds}
               />
-            )}
+            )} */}
 
             <div className="detailPage-Description">
               <p

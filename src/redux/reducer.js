@@ -5,11 +5,12 @@ import {
   GET_PRODUCT_FLASHSALE,
   GET_BANNER,
   GET_MENU,
-  GET_SITEMAP,
+  // GET_SITEMAP,
   GET_THEME_EVENT,
   GET_SHOP_SEN_MALL,
   GET_PRODUCT_RECOMMEND,
   GET_PRODUCT_TOPKEYWORD,
+  DELETE_OLD_PRODUCT,
   GET_PRODUCT_FILTER,
   GET_ARRAY_FILTER,
   GET_QUERY,
@@ -22,6 +23,8 @@ import {
   HISTORY_QUERY,
   HISTORY_PRODUCT,
   CHANGE_ISUPDATE,
+  GET_PRODUCT_FILTER_START,
+  GET_DETAIL_PRODUCT_START,
 } from "./action";
 
 const initialState = {
@@ -34,7 +37,7 @@ const initialState = {
   banner: [],
   menu: [],
   sitemap: [],
-  query: "",
+  query: "ao khoac",
   themeEvent: [],
   arrayFilter: [],
   defaultTerm: [],
@@ -74,9 +77,9 @@ const reducer = (state = initialState, action) => {
     case GET_MENU: {
       return { ...state, menu: action.menu };
     }
-    case GET_SITEMAP: {
-      return { ...state, sitemap: action.sitemap };
-    }
+    // case GET_SITEMAP: {
+    //   return { ...state, sitemap: action.sitemap };
+    // }
     case GET_THEME_EVENT: {
       return { ...state, themeEvent: action.themeEvent };
     }
@@ -94,6 +97,12 @@ const reducer = (state = initialState, action) => {
       const newArray_PathDefault = [...pathDefault, action.pathDefault];
 
       return { ...state, pathDefault: newArray_PathDefault };
+    }
+    case DELETE_OLD_PRODUCT: {
+      return { ...state, productFilter: action.productFilter };
+    }
+    case GET_PRODUCT_FILTER_START: {
+      return { ...state, productFilter: [] };
     }
     case GET_PRODUCT_FILTER: {
       return { ...state, productFilter: action.productFilter };
@@ -138,6 +147,9 @@ const reducer = (state = initialState, action) => {
     case GET_QUERY: {
       return { ...state, query: action.query };
     }
+    case GET_DETAIL_PRODUCT_START: {
+      return { ...state, detailProduct: [] };
+    }
     case GET_DETAIL_PRODUCT: {
       return { ...state, detailProduct: action.detailProduct };
     }
@@ -151,6 +163,19 @@ const reducer = (state = initialState, action) => {
       const cartProducts = state.cartProducts;
 
       cartProducts[length] = product_AddToCart;
+      for (let i = 0; i < cartProducts.length - 1; i++) {
+        const product = cartProducts[i];
+        if (
+          (product.id === product_AddToCart.id) &
+          (product["Màu sắc"] === product_AddToCart["Màu sắc"]) &
+          (product["Kích thước"] === product_AddToCart["Kích thước"])
+        ) {
+          console.log("giong");
+          cartProducts.splice(length, 1);
+          product.quanity = product.quanity + 1;
+        }
+      }
+      console.log(cartProducts, "cartProduct");
 
       return { ...state, cartProducts: cartProducts };
     }

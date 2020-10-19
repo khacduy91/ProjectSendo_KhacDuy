@@ -18,11 +18,11 @@ export const testCountNumber_giam = (countNumber) => ({
   countNumber,
 });
 
-export const GET_SITEMAP = "GET_SITEMAP";
-export const getSitemap = (sitemap) => ({
-  type: GET_SITEMAP,
-  sitemap,
-});
+// export const GET_SITEMAP = "GET_SITEMAP";
+// export const getSitemap = (sitemap) => ({
+//   type: GET_SITEMAP,
+//   sitemap,
+// });
 export const GET_PRODUCT_FLASHSALE = "GET_PRODUCT_FLASHSALE";
 export const getProduct_FlashSale = (productFlashSale) => ({
   type: GET_PRODUCT_FLASHSALE,
@@ -88,13 +88,19 @@ export const getPath_Default = (pathDefault) => ({
   pathDefault,
 });
 
+export const GET_DETAIL_PRODUCT_START = "GET_DETAIL_PRODUCT_START";
+export const getDetailProductStart = (detailProduct) => ({
+  type: GET_DETAIL_PRODUCT_START,
+  detailProduct,
+});
+
 export const GET_DETAIL_PRODUCT = "GET_DETAIL_PRODUCT";
 export const getDetail_Product = (detailProduct) => ({
   type: GET_DETAIL_PRODUCT,
   detailProduct,
 });
 
-export const GET_DETAIL_SHOP = "GET_DETAIL_SHOP(";
+export const GET_DETAIL_SHOP = "GET_DETAIL_SHOP";
 export const getDetail_Shop = (detailShop) => ({
   type: GET_DETAIL_SHOP,
   detailShop,
@@ -136,6 +142,18 @@ export const change_isUpdate = (isUpdate) => ({
   isUpdate,
 });
 
+export const DELETE_OLD_PRODUCT = "DELETE_OLD_PRODUCT";
+export const deleteOldProduct = (productFilter) => ({
+  type: DELETE_OLD_PRODUCT,
+  productFilter,
+});
+
+export const GET_PRODUCT_FILTER_START = "GET_PRODUCT_FILTER_START";
+export const getProductFilterStart = (productFilter) => ({
+  type: GET_PRODUCT_FILTER_START,
+  productFilter,
+});
+
 export const getData = () => {
   return (dispatch) => {
     axios({
@@ -153,19 +171,19 @@ export const getData = () => {
   };
 };
 
-export const getDataSitemap = () => {
-  return (dispatch) => {
-    axios({
-      method: "get",
-      url:
-        "https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/category/sitemap",
-    })
-      .then((res) => {
-        dispatch(getSitemap(res.data.result.data));
-      })
-      .catch((err) => console.log(err, "getSiteMap"));
-  };
-};
+// export const getDataSitemap = () => {
+//   return (dispatch) => {
+//     axios({
+//       method: "get",
+//       url:
+//         "https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/category/sitemap",
+//     })
+//       .then((res) => {
+//         dispatch(getSitemap(res.data.result.data));
+//       })
+//       .catch((err) => console.log(err, "getSiteMap"));
+//   };
+// };
 
 export const getDataProduct = () => {
   return (dispatch) => {
@@ -218,22 +236,27 @@ export const getProductFilter = (
   pathGeneral,
   query,
   quanity,
-  sortType
+  sortType,
+  productFilter
 ) => {
   return (dispatch) => {
+    dispatch(getProductFilterStart(productFilter));
     // https://www.sendo.vn/m/wap_v2/search/product?is_shop_plus=1&mau_sac=605&p=1&platform=web&promotion_app=1&q=ao&s=60&search_algo=algo6&sortType=rank
     console.log(sortType);
     let url = `https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/search/product?${pathPositionTop}${pathDefault}&p=1&platform=web${pathGeneral}&q=${query}&s=${quanity}&search_algo=algo6&${sortType}`;
     console.log(url, "url");
-
-    axios({
-      method: "get",
-      url: url,
-    })
-      .then((res) => {
-        dispatch(getProduct_Filter(res.data));
+    setTimeout(function () {
+      console.log("alo");
+      axios({
+        method: "get",
+        url: url,
       })
-      .catch((err) => console.log(err, "getProduct_Filter"));
+        .then((res) => {
+          // dispatch(deleteOldProduct([]));
+          dispatch(getProduct_Filter(res.data));
+        })
+        .catch((err) => console.log(err, "getProduct_Filter"));
+    }, 2000);
   };
 };
 
@@ -254,6 +277,7 @@ export const getArrayFilter = (query) => {
 
 export const getDetailProduct = (id) => {
   return (dispatch) => {
+    dispatch(getDetailProductStart());
     axios({
       method: "get",
       url: `https://cors-anywhere.herokuapp.com/https://mapi.sendo.vn/mob/product/${id}/detail`,

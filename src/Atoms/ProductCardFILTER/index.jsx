@@ -6,11 +6,12 @@ import { bindActionCreators } from "redux";
 import { get_HistoryProduct, change_isUpdate } from "../../redux/action";
 
 class ProductCardFILTER extends React.Component {
-  handleHistoryProduct = (a, b, c) => {
+  handleHistoryProduct = (a, b, c, d) => {
     var product = Object();
     product.id = a;
     product.img = b;
     product.name = c;
+    product.admin_id = d;
     this.props.get_HistoryProduct(product);
     this.props.change_isUpdate(!this.props.isUpdate);
   };
@@ -35,7 +36,8 @@ class ProductCardFILTER extends React.Component {
               this.handleHistoryProduct(
                 this.props.product.id,
                 this.props.product.image,
-                this.props.product.name
+                this.props.product.name,
+                this.props.product.admin_id
               )
             }
           >

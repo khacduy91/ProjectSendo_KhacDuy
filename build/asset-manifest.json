@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/ProjectSendo_KhacDuy/static/css/main.7e320707.chunk.css",
-    "main.js": "/ProjectSendo_KhacDuy/static/js/main.1cdbbfef.chunk.js",
-    "main.js.map": "/ProjectSendo_KhacDuy/static/js/main.1cdbbfef.chunk.js.map",
+    "main.js": "/ProjectSendo_KhacDuy/static/js/main.58d90b75.chunk.js",
+    "main.js.map": "/ProjectSendo_KhacDuy/static/js/main.58d90b75.chunk.js.map",
     "runtime-main.js": "/ProjectSendo_KhacDuy/static/js/runtime-main.c7ef5bfb.js",
     "runtime-main.js.map": "/ProjectSendo_KhacDuy/static/js/runtime-main.c7ef5bfb.js.map",
     "static/js/2.3622311b.chunk.js": "/ProjectSendo_KhacDuy/static/js/2.3622311b.chunk.js",
     "static/js/2.3622311b.chunk.js.map": "/ProjectSendo_KhacDuy/static/js/2.3622311b.chunk.js.map",
     "index.html": "/ProjectSendo_KhacDuy/index.html",
-    "precache-manifest.1ee922cc288cc8ddc73cafecd55d01e6.js": "/ProjectSendo_KhacDuy/precache-manifest.1ee922cc288cc8ddc73cafecd55d01e6.js",
+    "precache-manifest.2a0ef51855bd3bb93983804010de1dcc.js": "/ProjectSendo_KhacDuy/precache-manifest.2a0ef51855bd3bb93983804010de1dcc.js",
     "service-worker.js": "/ProjectSendo_KhacDuy/service-worker.js",
     "static/css/main.7e320707.chunk.css.map": "/ProjectSendo_KhacDuy/static/css/main.7e320707.chunk.css.map",
     "static/js/2.3622311b.chunk.js.LICENSE.txt": "/ProjectSendo_KhacDuy/static/js/2.3622311b.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.c7ef5bfb.js",
     "static/js/2.3622311b.chunk.js",
     "static/css/main.7e320707.chunk.css",
-    "static/js/main.1cdbbfef.chunk.js"
+    "static/js/main.58d90b75.chunk.js"
   ]
 }

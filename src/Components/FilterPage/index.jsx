@@ -17,17 +17,19 @@ class FilterPage extends React.Component {
     pathDefault: "",
     sortType: "sortType=rank",
   };
+
   componentDidMount() {
-    // this.props.getArrayFilter("");
-    // this.props.getProductFilter(
-    //   "",
-    //   "",
-    //   "",
-    //   this.props.query,
-    //   "32",
-    //   "sortType=rank"
-    // );
+    this.props.getArrayFilter(this.props.query);
+    this.props.getProductFilter(
+      "",
+      "",
+      "",
+      this.props.query,
+      "32",
+      "sortType=rank"
+    );
   }
+
   handleCheckBox_PositionTop = (length) => {
     //Position Top
     let pathPositionTop = [];
@@ -108,6 +110,7 @@ class FilterPage extends React.Component {
       const value = pathDefault_attribute_Value[i];
       path.push(`${key}=${value}`);
     }
+
     this.setState({ pathDefault: path.join("&") }, () =>
       this.props.getProductFilter(
         this.state.pathPositionTop,

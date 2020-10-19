@@ -2,13 +2,18 @@ import React from "react";
 import "./index.scss";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getQuery, get_HistoryQuery } from "../../redux/action";
+import {
+  getQuery,
+  get_HistoryQuery,
+  change_isUpdate,
+} from "../../redux/action";
 import { Link } from "react-router-dom";
 
 class ProductCardRECOMMEND extends React.Component {
   handleClickRECOMMEND = () => {
     this.props.getQuery(this.props.product.category_name);
     this.props.get_HistoryQuery(this.props.product.category_name);
+    this.props.change_isUpdate(!this.props.isUpdate);
   };
   render() {
     return (
@@ -45,6 +50,7 @@ class ProductCardRECOMMEND extends React.Component {
 }
 const mapsStateToProps = (state) => ({
   query: state.query,
+  isUpdate: state.isUpdate,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -52,6 +58,7 @@ const mapDispatchToProps = (dispatch) => ({
     {
       getQuery,
       get_HistoryQuery,
+      change_isUpdate,
     },
     dispatch
   ),
