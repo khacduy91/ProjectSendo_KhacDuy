@@ -7,6 +7,7 @@ import {
   getProductFilter,
   getArrayFilter,
   getPath_Default,
+  change_isUpdate,
 } from "../../redux/action";
 import ProductCardFILTER from "../../Atoms/ProductCardFILTER";
 
@@ -43,16 +44,6 @@ class FilterPage extends React.Component {
     this.setState(
       { pathPositionTop: `${pathPositionTop.join("&")}`, page: 1 },
       () => {
-        const elArr = document.getElementsByName("page-item");
-        console.log(elArr, "aaa");
-        for (let i = 0; i < elArr.length; i++) {
-          const eleId = document.getElementById(`page-item-${i + 1}`);
-          eleId.classList.remove("active");
-        }
-        // document.getElementsByName("page-item").classList.remove("active");
-        document
-          .getElementById(`page-item-${this.state.page}`)
-          .classList.add("active");
         this.props.getProductFilter(
           this.state.pathPositionTop,
           this.state.pathDefault,
@@ -73,16 +64,6 @@ class FilterPage extends React.Component {
     }
 
     this.setState({ pathGeneral: `&${pathGeneral.join("&")}`, page: 1 }, () => {
-      const elArr = document.getElementsByName("page-item");
-      console.log(elArr, "aaa");
-      for (let i = 0; i < elArr.length; i++) {
-        const eleId = document.getElementById(`page-item-${i + 1}`);
-        eleId.classList.remove("active");
-      }
-      // document.getElementsByName("page-item").classList.remove("active");
-      document
-        .getElementById(`page-item-${this.state.page}`)
-        .classList.add("active");
       this.props.getProductFilter(
         this.state.pathPositionTop,
         this.state.pathDefault,
@@ -134,14 +115,6 @@ class FilterPage extends React.Component {
     }
 
     this.setState({ pathDefault: path.join("&"), page: 1 }, () => {
-      const elArr = document.getElementsByName("page-item");
-      for (let i = 0; i < elArr.length; i++) {
-        const eleId = document.getElementById(`page-item-${i + 1}`);
-        eleId.classList.remove("active");
-      }
-      document
-        .getElementById(`page-item-${this.state.page}`)
-        .classList.add("active");
       this.props.getProductFilter(
         this.state.pathPositionTop,
         this.state.pathDefault,
@@ -241,15 +214,15 @@ class FilterPage extends React.Component {
 
   // Filter Mobile
   handleCloseFilter = (a) => {
-    document.getElementById(`${a}`).style.marginLeft = "-100%";
+    document.getElementById(`${a}`).style.left = "-100%";
     document.getElementById("root").style.position = "unset";
     document.getElementById("root").style.width = "100%";
     document.getElementById(`button${a}`).style.display = "none";
-    document.getElementById(`${a}Title`).style.marginLeft = "-100%";
+    document.getElementById(`${a}Title`).style.left = "-100%";
   };
   filterMobile = (a) => {
-    document.getElementById(`${a}`).style.marginLeft = "0";
-    document.getElementById(`${a}Title`).style.marginLeft = "0";
+    document.getElementById(`${a}`).style.left = "0";
+    document.getElementById(`${a}Title`).style.left = "0";
     document.getElementById("root").style.position = "fixed";
     document.getElementById("filterTermTitle").style.display = "block";
     document.getElementById("root").style.width = "100%";
@@ -344,6 +317,29 @@ class FilterPage extends React.Component {
     this.handleCloseFilter("filterTerm");
   };
 
+  componentDidUpdate() {
+    if (this.props.isUpdate) {
+      this.props.getProductFilter(
+        this.state.pathPositionTop,
+        this.state.pathDefault,
+        this.state.pathGeneral,
+        this.props.query,
+        "96",
+        this.state.sortType
+      );
+      const elArr = document.getElementsByName("page-item");
+      console.log(elArr, "aaa");
+      for (let i = 0; i < elArr.length; i++) {
+        const eleId = document.getElementById(`page-item-${i + 1}`);
+        eleId.classList.remove("active");
+      }
+      // document.getElementsByName("page-item").classList.remove("active");
+      document
+        .getElementById(`page-item-${this.state.page}`)
+        .classList.add("active");
+      this.props.change_isUpdate(false);
+    }
+  }
   //render
   render() {
     return (
@@ -799,6 +795,7 @@ const mapsStateToProps = (state) => ({
   query: state.query,
   pathDefault: state.pathDefault,
   errMsg: state.errMsg,
+  isUpdate: state.isUpdate,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -808,6 +805,7 @@ const mapDispatchToProps = (dispatch) => ({
       getProductFilter,
       getArrayFilter,
       getPath_Default,
+      change_isUpdate,
     },
     dispatch
   ),

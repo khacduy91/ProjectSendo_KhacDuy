@@ -29,7 +29,7 @@ class HomePage extends React.Component {
     x: new Date(),
   };
   componentDidMount() {
-    this.props.getProductFilter("", "", "", "áo khoác", "32", "sortType=rank");
+    this.props.getProductFilter("", "", "", "áo khoác", "36", "sortType=rank");
     this.props.getDataProduct();
   }
 
@@ -113,42 +113,9 @@ class HomePage extends React.Component {
     this.props.get_HistoryQuery(a);
   };
 
-  //Loadmore Button
-  // handleLoadmore = () => {
-  //   console.log("loadmore");
-  //   this.props.getProductFilter(
-  //     "",
-  //     "",
-  //     "",
-  //     "áo khoác",
-  //     "32",
-  //     "sortType=rank",
-  //     2,
-  //     true
-  //   );
-  // };
-  componentDidUpdate = () => {
-    // let x = document.getElementById("root").offsetHeight * 0.8 * 1;
-    // let y = window.pageYOffset;
-    // window.addEventListener("scroll", () => {
-    //   if (x === y) {
-    //     console.log("chay");
-    //     // this.props.getProductFilter(
-    //     //   "",
-    //     //   "",
-    //     //   "",
-    //     //   "áo khoác",
-    //     //   "32",
-    //     //   "sortType=rank"
-    //     // );
-    //   }
-    // });
-  };
+  componentDidUpdate = () => {};
   render() {
     window.setTimeout(() => this.autoChange(), 7000);
-
-    // console.log("endtime", this.state.end_time);\
-
     const renderer = ({ hours, minutes, seconds }) => {
       return (
         <div className="block-countdown">
@@ -186,8 +153,6 @@ class HomePage extends React.Component {
           {/* Banner Container */}
           <div className="carousel-inner banner-container-inner">
             {/* Nav bar */}
-
-            {/* <div className="navbar" onMouseOver={(e) => this.changeOverFlow(e)}> */}
             <div className="navbar">
               <Link
                 to="/ProjectSendo_KhacDuy/filter"
@@ -589,20 +554,6 @@ class HomePage extends React.Component {
         <div className="productFilter">
           {Object.keys(this.props.productFilter).length > 0 && (
             <div className="productFilter-wraper">
-              <button
-                className="productFilter-wraper-prev"
-                onClick={() => this.handlePrevFilter()}
-              >
-                <span className="carousel-control-prev-icon"></span>
-              </button>
-              <button
-                className="productFilter-wraper-next"
-                onClick={() =>
-                  this.handleNextFilter(this.props.productFilter.length)
-                }
-              >
-                <span className="carousel-control-next-icon"></span>
-              </button>
               <div className="productFilter-title">
                 <p>DÀNH RIÊNG CHO BẠN</p>
               </div>

@@ -263,6 +263,13 @@ class Header extends React.Component {
       });
   };
 
+  //NavBar
+  handleClick_Navbar = (a) => {
+    this.props.getQuery(a);
+    this.props.get_HistoryQuery(a);
+    this.props.change_isUpdate(!this.props.isUpdate);
+  };
+
   componentDidUpdate() {
     if (this.props.isUpdate) {
       this.setState({
@@ -278,13 +285,6 @@ class Header extends React.Component {
       document.getElementById("loginSuccess").style.display = "flex";
       let user = firebaseApp.auth().currentUser;
       console.log(user, "user");
-      // if (user != null) {
-      //   console.log("Sign-in provider: " + user.user);
-      //   console.log("  Provider-specific UID: " + user.uid);
-      //   console.log("  Name: " + user.displayName);
-      //   console.log("  Email: " + user.email);
-      //   console.log("  Photo URL: " + user.photoURL);
-      // }
     }
   }
 
@@ -303,7 +303,7 @@ class Header extends React.Component {
     };
 
     return (
-      <div className="header">
+      <div className="header" id="header">
         <div className="header-topBar">
           <div className="header-topBar-container">
             <div className="left_topBar">
@@ -337,14 +337,86 @@ class Header extends React.Component {
                   alt="Sendo Logo"
                 />
               </Link>
-              <div>
+              <div id="navbarHover">
+                <div className="navbar-header">
+                  <Link
+                    to="/ProjectSendo_KhacDuy/filter"
+                    onClick={() => this.handleClick_Navbar("Thời trang nữ")}
+                    className="navbar-header-link"
+                  >
+                    Thời trang nữ
+                  </Link>
+                  <Link
+                    to="/ProjectSendo_KhacDuy/filter"
+                    onClick={() => this.handleClick_Navbar("Đầm nữ")}
+                    className="navbar-header-link"
+                  >
+                    Đầm nữ
+                  </Link>
+                  <Link
+                    to="/ProjectSendo_KhacDuy/filter"
+                    onClick={() => this.handleClick_Navbar("Sandal nữ")}
+                    className="navbar-header-link"
+                  >
+                    Sandal nữ
+                  </Link>
+                  <Link
+                    to="/ProjectSendo_KhacDuy/filter"
+                    onClick={() => this.handleClick_Navbar("thời trang nam")}
+                    className="navbar-header-link"
+                  >
+                    Thời trang nam
+                  </Link>
+                  <Link
+                    to="/ProjectSendo_KhacDuy/filter"
+                    onClick={() => this.handleClick_Navbar("Dép nam")}
+                    className="navbar-header-link"
+                  >
+                    Dép nam
+                  </Link>
+                  <Link
+                    to="/ProjectSendo_KhacDuy/filter"
+                    onClick={() => this.handleClick_Navbar("Áo thun nam")}
+                    className="navbar-header-link"
+                  >
+                    Áo thun nam
+                  </Link>
+                  <Link
+                    to="/ProjectSendo_KhacDuy/filter"
+                    onClick={() => this.handleClick_Navbar("Điện thoại")}
+                    className="navbar-header-link"
+                  >
+                    Điện thoại
+                  </Link>
+                  <Link
+                    to="/ProjectSendo_KhacDuy/filter"
+                    onClick={() => this.handleClick_Navbar("Laptop")}
+                    className="navbar-header-link"
+                  >
+                    Laptop
+                  </Link>
+                  <Link
+                    to="/ProjectSendo_KhacDuy/filter"
+                    onClick={() => this.handleClick_Navbar("Phụ kiện gia dụng")}
+                    className="navbar-header-link"
+                  >
+                    Phụ kiện gia dụng
+                  </Link>
+                  <Link
+                    to="/ProjectSendo_KhacDuy/filter"
+                    onClick={() => this.handleClick_Navbar("Điện máy")}
+                    className="navbar-header-link"
+                  >
+                    Điện máy
+                  </Link>
+                </div>
                 <svg width="1em" height="1em" viewBox="0 0 24 24">
                   <path
                     d="M3 19h18v-2H3v2zm0-6h8v-2H3v2zm0-8v2h18V5H3zm10 5l4 4 4-4z"
                     fill="#FFF"
                   ></path>
                 </svg>
-                <a href="/">TẤT CẢ DANH MỤC</a>
+                <a href="#root">TẤT CẢ DANH MỤC</a>
               </div>
             </div>
             <div className="mainMenu-row-item2">

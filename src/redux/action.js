@@ -249,6 +249,7 @@ export const getProductFilter = (
   productFilter
 ) => {
   return (dispatch) => {
+    dispatch(getErrMsg(""));
     dispatch(getProductFilterStart(productFilter, isLoadmore));
     let url = `https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/search/product?${pathPositionTop}${pathDefault}&p=${
       page || 1
