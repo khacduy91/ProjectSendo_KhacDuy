@@ -3,14 +3,101 @@
   width: 1360px;
   margin: 0 auto;
   justify-content: space-between;
+  padding-top: 97px;
+  button {
+    outline: none;
+    &:hover {
+      outline: none;
+    }
+  }
+  .filterIcon {
+    display: none;
+    position: fixed;
+    width: 2.5em;
+    padding: 6px;
+    background-color: #e54d3e;
+    margin-top: 10px;
+    right: 0;
+    border-radius: 2px;
+    z-index: 20;
+    box-shadow: 0 0 5px #00000060;
+    svg {
+      color: white;
+    }
+  }
+
+  .filterTerm {
+    margin-left: -100%;
+    position: fixed;
+    width: 100vw;
+    height: calc(100% - 100px);
+    z-index: 21;
+    background-color: white;
+    transition: 1s ease;
+    overflow: scroll;
+    padding-bottom: 20px;
+    padding-top: 30px;
+    padding-left: 15px;
+
+    // position: relative;
+    #filterTermTitle {
+      position: fixed;
+      background-color: #da5451;
+      color: white;
+      margin-bottom: 0;
+      display: flex;
+      height: 30px;
+      align-items: center;
+      padding-left: 10px;
+      font-size: 1em;
+      font-weight: 500;
+      width: 100%;
+      top: 96px;
+      left: 0;
+      margin-top: 0;
+      display: none;
+    }
+    div > p {
+      background-color: #da5451;
+      width: fit-content;
+      color: white;
+      padding: 0px 5px;
+      margin-bottom: 0;
+      margin-top: 10px;
+    }
+    button {
+      display: none;
+      position: fixed;
+      border: 0;
+      right: 7px;
+      top: 97px;
+      background: none;
+      color: white;
+      padding: 0;
+      font-size: 1.2em;
+      font-weight: 900;
+      z-index: 5000;
+      display: none;
+    }
+    #mobileSearch {
+      display: flex;
+      position: unset;
+      background-color: #f5a623;
+      font-weight: 500;
+      font-size: 1.1em;
+      padding: 5px;
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+  }
 
   &-left {
-    width: 240px;
+    width: 25%;
 
     &-container-DefaultTerm {
       .DefaultTerm-header {
         background: white;
-        padding: 5px 10px;
+        padding: 0.5em;
         border-bottom: 0px;
         &-link {
           display: inline-block;
@@ -19,17 +106,25 @@
           font-family: Arial, Helvetica, sans-serif;
           font-weight: bold;
           text-transform: uppercase;
-          font-size: 14px;
+          font-size: 0.9em;
         }
         &-body {
           display: flex;
           flex-direction: column;
+          padding: 1em;
+          font-size: 1em;
+          .form-check-inline {
+            align-items: flex-start;
+            input {
+              margin-top: 0.4em;
+            }
+          }
         }
       }
     }
   }
   &-right {
-    width: 1120px;
+    width: 75%;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -37,7 +132,7 @@
     &-container-PositionTop {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       margin-top: 10px;
       &-left {
         display: flex;
@@ -82,6 +177,95 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-start;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+  .pagination {
+    justify-content: center;
+    li {
+      outline: none;
+    }
+
+    // color: #ff0e15;
+    .page-link {
+      color: #ff0e15;
+      outline: none;
+    }
+    .active .page-link {
+      background-color: #ff0e15;
+      border-color: #ff0e15;
+      color: white;
+    }
+    button {
+      outline: none;
+      &:hover {
+        outline: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1360px) {
+  .FilterPage-wraper {
+    width: 100%;
+    &-left {
+      width: 25%;
+    }
+    &-right {
+      width: 75%;
+    }
+    .DefaultTerm {
+      &-header {
+        &-header-link {
+          font-size: 0.9em;
+        }
+        &-body {
+          padding: 0 0.6em;
+          padding-bottom: 1em;
+          label {
+            font-size: 0.95em;
+          }
+        }
+      }
+    }
+    .FilterPage-wraper-right-container-PositionTop-left {
+      flex-wrap: wrap;
+    }
+    .FilterPage-wraper-right-container-PositionTop-right {
+      .btn-group {
+        margin-right: 0.5em;
+        button,
+        select {
+          width: 6.5em;
+          font-size: 0.9em;
+        }
+      }
+    }
+    .FilterPage-wraper-right-container-ProductCardFILTER {
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+  }
+}
+@media screen and (max-width: 800px) {
+  .FilterPage-wraper {
+    .filterIcon {
+      display: block;
+    }
+    &-left {
+      display: none;
+    }
+    &-right {
+      width: 100%;
+      &-container-PositionTop {
+        &-left {
+          display: none;
+        }
+        &-right {
+          margin-left: 25px;
+        }
+      }
     }
   }
 }

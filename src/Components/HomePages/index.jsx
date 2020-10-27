@@ -29,7 +29,7 @@ class HomePage extends React.Component {
     x: new Date(),
   };
   componentDidMount() {
-    this.props.getProductFilter("", "", "", "áo khoác", "30", "sortType=rank");
+    this.props.getProductFilter("", "", "", "áo khoác", "32", "sortType=rank");
     this.props.getDataProduct();
   }
 
@@ -113,8 +113,40 @@ class HomePage extends React.Component {
     this.props.get_HistoryQuery(a);
   };
 
+  //Loadmore Button
+  // handleLoadmore = () => {
+  //   console.log("loadmore");
+  //   this.props.getProductFilter(
+  //     "",
+  //     "",
+  //     "",
+  //     "áo khoác",
+  //     "32",
+  //     "sortType=rank",
+  //     2,
+  //     true
+  //   );
+  // };
+  componentDidUpdate = () => {
+    // let x = document.getElementById("root").offsetHeight * 0.8 * 1;
+    // let y = window.pageYOffset;
+    // window.addEventListener("scroll", () => {
+    //   if (x === y) {
+    //     console.log("chay");
+    //     // this.props.getProductFilter(
+    //     //   "",
+    //     //   "",
+    //     //   "",
+    //     //   "áo khoác",
+    //     //   "32",
+    //     //   "sortType=rank"
+    //     // );
+    //   }
+    // });
+  };
   render() {
     window.setTimeout(() => this.autoChange(), 7000);
+
     // console.log("endtime", this.state.end_time);\
 
     const renderer = ({ hours, minutes, seconds }) => {
@@ -566,9 +598,7 @@ class HomePage extends React.Component {
               <button
                 className="productFilter-wraper-next"
                 onClick={() =>
-                  this.handleNextFilter(
-                    this.props.productFilter.result.data.length
-                  )
+                  this.handleNextFilter(this.props.productFilter.length)
                 }
               >
                 <span className="carousel-control-next-icon"></span>
@@ -581,9 +611,11 @@ class HomePage extends React.Component {
                 className="productFilter-container"
                 id="productFilter-container"
               >
-                {this.props.productFilter.result.data.map((ele, index) => (
+                {this.props.productFilter.map((ele, index) => (
                   <ProductCardFILTER product={ele} key={index} index={index} />
                 ))}
+
+                {/* <button onClick={() => this.handleLoadmore()}>Loadmore</button> */}
               </div>
             </div>
           )}

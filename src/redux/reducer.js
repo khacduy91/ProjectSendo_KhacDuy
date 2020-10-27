@@ -25,6 +25,7 @@ import {
   CHANGE_ISUPDATE,
   GET_PRODUCT_FILTER_START,
   GET_DETAIL_PRODUCT_START,
+  GET_ERR_MSG,
 } from "./action";
 
 const initialState = {
@@ -50,6 +51,8 @@ const initialState = {
   historyQuery: [],
   historyProduct: [],
   isUpdate: false,
+  isSuccess: true,
+  errMsg: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -102,10 +105,24 @@ const reducer = (state = initialState, action) => {
       return { ...state, productFilter: action.productFilter };
     }
     case GET_PRODUCT_FILTER_START: {
-      return { ...state, productFilter: [] };
+      return {
+        ...state,
+        productFilter: action.isLoadmore ? state.productFilter : [],
+      };
     }
     case GET_PRODUCT_FILTER: {
-      return { ...state, productFilter: action.productFilter };
+      const loadMoreProducts = [
+        ...state.productFilter,
+        ...action.productFilter,
+      ];
+      const productFilter = action.productFilter;
+
+      console.log(loadMoreProducts, "new");
+
+      return {
+        ...state,
+        productFilter: action.isLoadmore ? loadMoreProducts : productFilter,
+      };
     }
     case GET_ARRAY_FILTER: {
       let newArrayDefaultTerm = [];
@@ -204,6 +221,10 @@ const reducer = (state = initialState, action) => {
       newHistoryProduct.push(action.historyProduct);
       newHistoryProduct.length > 3 && newHistoryProduct.splice(0, 1);
       return { ...state, historyProduct: newHistoryProduct };
+    }
+
+    case GET_ERR_MSG: {
+      return { ...state, errMsg: action.errMsg };
     }
     default:
       return state;

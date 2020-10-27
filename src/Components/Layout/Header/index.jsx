@@ -47,16 +47,16 @@ class Header extends React.Component {
   handleSubmitSearch = (e) => {
     // e.preventDefault();
 
-    // this.props.getProductFilter(
-    //   "",
-    //   "",
-    //   "",
-    //   this.props.query,
-    //   "32",
-    //   "sortType=rank"
-    // );
+    this.props.getProductFilter(
+      "",
+      "",
+      "",
+      this.props.query,
+      "96",
+      "sortType=rank"
+    );
     this.props.get_HistoryQuery(this.props.query);
-    // this.props.getArrayFilter(this.props.query);
+    this.props.getArrayFilter(this.props.query);
     this.setState({ query: "" });
   };
   handleChangeSearch = (e) => {
@@ -301,6 +301,7 @@ class Header extends React.Component {
       }
       // console.log(event.target.className, "target");
     };
+
     return (
       <div className="header">
         <div className="header-topBar">
@@ -379,7 +380,7 @@ class Header extends React.Component {
                       "1"))
                   }
                   defaultValue={this.state.query}
-                  value={this.state.query}
+                  // value={this.state.query}
                 />
 
                 <Link

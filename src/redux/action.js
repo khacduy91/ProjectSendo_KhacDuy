@@ -47,9 +47,10 @@ export const getProduct_TopKeyWord = (productTopKeyWord) => ({
 });
 
 export const GET_PRODUCT_FILTER = "GET_PRODUCT_FILTER";
-export const getProduct_Filter = (productFilter) => ({
+export const getProduct_Filter = (productFilter, isLoadmore) => ({
   type: GET_PRODUCT_FILTER,
   productFilter,
+  isLoadmore,
 });
 
 export const GET_BANNER = "GET_BANNER";
@@ -149,11 +150,17 @@ export const deleteOldProduct = (productFilter) => ({
 });
 
 export const GET_PRODUCT_FILTER_START = "GET_PRODUCT_FILTER_START";
-export const getProductFilterStart = (productFilter) => ({
+export const getProductFilterStart = (productFilter, isLoadmore) => ({
   type: GET_PRODUCT_FILTER_START,
   productFilter,
+  isLoadmore,
 });
 
+export const GET_ERR_MSG = "GET_ERR_MSG";
+export const getErrMsg = (errMsg) => ({
+  type: GET_ERR_MSG,
+  errMsg,
+});
 export const getData = () => {
   return (dispatch) => {
     axios({
@@ -237,25 +244,27 @@ export const getProductFilter = (
   query,
   quanity,
   sortType,
+  page,
+  isLoadmore = false,
   productFilter
 ) => {
   return (dispatch) => {
-    dispatch(getProductFilterStart(productFilter));
-    // https://www.sendo.vn/m/wap_v2/search/product?is_shop_plus=1&mau_sac=605&p=1&platform=web&promotion_app=1&q=ao&s=60&search_algo=algo6&sortType=rank
-    console.log(sortType);
-    let url = `https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/search/product?${pathPositionTop}${pathDefault}&p=1&platform=web${pathGeneral}&q=${query}&s=${quanity}&search_algo=algo6&${sortType}`;
-    console.log(url, "url");
+    dispatch(getProductFilterStart(productFilter, isLoadmore));
+    let url = `https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/search/product?${pathPositionTop}${pathDefault}&p=${
+      page || 1
+    }&platform=web${pathGeneral}&q=${query}&s=${quanity}&search_algo=algo6&${sortType}`;
     setTimeout(function () {
-      console.log("alo");
       axios({
         method: "get",
         url: url,
       })
         .then((res) => {
-          // dispatch(deleteOldProduct([]));
-          dispatch(getProduct_Filter(res.data));
+          dispatch(getProduct_Filter(res.data.result.data, isLoadmore));
         })
-        .catch((err) => console.log(err, "getProduct_Filter"));
+        .catch((err) => {
+          dispatch(getErrMsg("Không có sản phẩm phù hợp"));
+          console.log(err, "getProduct_Filter");
+        });
     }, 2000);
   };
 };

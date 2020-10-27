@@ -4,6 +4,8 @@
   flex-direction: column;
   padding: 0;
   margin: 0;
+  position: fixed;
+  z-index: 200;
 
   &-topBar {
     width: 100%;
@@ -31,15 +33,19 @@
 }
 
 .left_topBar {
-  width: 80%;
+  width: 70%;
 }
 
 .right_topBar {
-  width: 20%;
+  width: 30%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+
+  p {
+    font-size: 1em;
+  }
 
   .avatarUser {
     width: 20px;
@@ -492,14 +498,16 @@
     &-row {
       &-item1 {
         width: 28%;
+
         div {
+          padding: 0px 0.4em;
           a {
-            font-size: 14.5px;
+            font-size: 0.85em;
           }
         }
       }
       &-item2 {
-        width: 45%;
+        width: 50%;
         form {
           width: 100%;
         }
@@ -516,13 +524,14 @@
       &-item1 {
         width: 30%;
         div {
+          padding: 0px 0.4em;
           a {
-            font-size: 14px;
+            font-size: 0.85em;
           }
         }
       }
       &-item2 {
-        width: 35%;
+        width: 42%;
         form {
           width: 100%;
         }
@@ -596,6 +605,9 @@
           width: 60%;
           form {
             width: 100%;
+            .searchButton {
+              display: none;
+            }
           }
         }
       }
@@ -678,6 +690,7 @@
           .searchButton {
             font-size: 14px;
             padding: 0 4px;
+            display: none;
           }
         }
       }

@@ -11,7 +11,7 @@ import {
   getProductToCart,
   change_isUpdate,
 } from "../../redux/action";
-import ProductRelated from "../../Atoms/ProductRelated";
+// import ProductRelated from "../../Atoms/ProductRelated";
 
 class DetailPage extends React.Component {
   state = {

@@ -1,7 +1,13 @@
 .App {
   text-align: center;
 }
-
+button,
+input {
+  outline: none;
+}
+button:hover {
+  outline: none;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
