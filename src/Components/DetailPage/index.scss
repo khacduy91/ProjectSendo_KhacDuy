@@ -197,6 +197,10 @@
                 color: white;
               }
             }
+            #quanityInput {
+              width: 50px;
+              margin-left: 10px;
+            }
             .chosenValue {
               background-color: #e5101d;
               color: white;
@@ -408,5 +412,69 @@
   }
   .detailPage-Description {
     width: 95%;
+    img {
+      width: 100%;
+    }
+  }
+}
+@media screen and (max-width: 800px) {
+  .detailPage-ProductInfo {
+    flex-direction: column;
+    &-Gallery {
+      max-width: 100%;
+      &-image0 {
+        height: 100%;
+      }
+    }
+    &-BasicInfo {
+      max-width: 100%;
+      &-row {
+        &-addToCart {
+          justify-content: space-between;
+        }
+        &-attribute {
+          .attribute {
+            justify-content: space-between;
+            &-value {
+              justify-content: flex-end;
+            }
+          }
+        }
+      }
+    }
+  }
+  .detailPage-ShopInfo {
+    flex-direction: column;
+    &-Left {
+      max-width: 100%;
+      border-right: none;
+      p {
+        margin-block-end: 0;
+      }
+      &-Image {
+        width: 20%;
+        img {
+          border: 1px solid #00000030;
+        }
+      }
+      &-Info {
+        width: 80%;
+        max-width: none;
+        p {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+    &-Right {
+      max-width: 100%;
+      &-Row {
+        flex-direction: column;
+        &-item {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+    }
   }
 }

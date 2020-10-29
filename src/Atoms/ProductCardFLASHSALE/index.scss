@@ -54,6 +54,8 @@
   a {
     width: 200px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
     &:hover {
       img {
         border: 2px solid #f4a66d;

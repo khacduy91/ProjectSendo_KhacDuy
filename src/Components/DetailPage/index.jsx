@@ -273,6 +273,7 @@ class DetailPage extends React.Component {
                           type="number"
                           value={this.state.quanity}
                           onChange={(e) => this.handleChangeQuanity(e)}
+                          id="quanityInput"
                         />
                       </div>
                     </div>
