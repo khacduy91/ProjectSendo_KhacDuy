@@ -1,17 +1,54 @@
 import React from "react";
 import "./index.scss";
+import ProductCardTOPKEYWORD from "../../Atoms/ProductCardTOPKEYWORD";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
   getProductToCart,
   deleteProductCart,
   change_Quanity,
+  getDataProduct,
 } from "../../redux/action";
+import { Link } from "react-router-dom";
 
 class CartPage extends React.Component {
+  componentDidMount() {
+    this.props.productTopKeyWord.length === 0 && this.props.getDataProduct();
+  }
   state = {
     // totalP: 0,
     // cartProducts: [],
+  };
+
+  handleNext = (a, b, c) => {
+    let scrollWidth = document.getElementById(`${b}`).scrollWidth;
+    let eleWidth = document.querySelector(`${c}`).offsetWidth;
+    let scrollLeft = document.getElementById(`${b}`).scrollLeft;
+
+    let widthPerSlide = scrollWidth / a;
+    let numberSilder = Math.floor(scrollLeft / widthPerSlide);
+
+    Math.floor(scrollLeft / widthPerSlide) < scrollLeft / widthPerSlide
+      ? (numberSilder = Math.floor(scrollLeft / widthPerSlide) + 1)
+      : (numberSilder = Math.floor(scrollLeft / widthPerSlide));
+
+    scrollLeft >= scrollWidth - eleWidth
+      ? (document.getElementById(`${b}`).scrollLeft = scrollWidth - eleWidth)
+      : (document.getElementById(`${b}`).scrollLeft =
+          widthPerSlide * (numberSilder + 1));
+  };
+
+  handlePrev = (a, b, c) => {
+    let scrollWidth = document.getElementById(`${b}`).scrollWidth;
+
+    let scrollLeft = document.getElementById(`${b}`).scrollLeft;
+    let numberSilder = Math.floor(scrollLeft / (scrollWidth / a));
+    let widthPerSlide = scrollWidth / a;
+
+    scrollLeft <= 0
+      ? (document.getElementById(`${b}`).scrollLeft = 0)
+      : (document.getElementById(`${b}`).scrollLeft =
+          widthPerSlide * numberSilder - 1);
   };
 
   handleDelete = (i) => {
@@ -29,7 +66,7 @@ class CartPage extends React.Component {
       this.props.change_Quanity(e.target.value, index);
       this.setState({ ...this.state });
     } else {
-      this.props.change_Quanity(e.target.value, index);
+      this.props.change_Quanity(0, index);
       this.setState({ ...this.state });
     }
   };
@@ -45,48 +82,112 @@ class CartPage extends React.Component {
       <div className="CartPage">
         <div className="CartPage-title">
           <p>Giỏ hàng của bạn</p>
+          {this.props.cartProducts.length > 0 && (
+            <span id="totalProduct">
+              {this.props.cartProducts.length} sản phẩm
+            </span>
+          )}
+          <span id="totalPrice">Tổng tiền: {totalP.toLocaleString()}</span>
         </div>
-        <table>
-          <tr>
-            <th>Sản phẩm</th>
-            <th>Kích thước</th>
-            <th>Màu sắc</th>
-            <th>Giá</th>
-            <th>Số lượng</th>
-            <th>Tổng cộng</th>
-          </tr>
-          {this.props.cartProducts.length > 0 &&
-            this.props.cartProducts.map((ele, index) => (
-              <tr key={index}>
-                <td>
-                  <p>{ele.name}</p>
+
+        {this.props.cartProducts.length > 0 ? (
+          <>
+            {this.props.cartProducts.map((ele, index) => (
+              <div className="cartContainer">
+                <div className="cartContainer-Image">
                   <img
                     src={`https://media3.scdn.vn/${ele.thumbnail}`}
                     alt={ele.name}
                   />
-                </td>
-                <td>{ele["Kích thước"] ? ele["Kích thước"] : "none"}</td>
-                <td>{ele["Màu sắc"] ? ele["Màu sắc"] : "none"}</td>
-                <td>{ele.price.toLocaleString()}</td>
-                <td className="quanity">
+                </div>
+                <div className="cartContainer-Info">
+                  <p>{ele.name}</p>
+                  <p>
+                    Kích thước :{ele["Kích thước"] ? ele["Kích thước"] : "none"}
+                  </p>
+                  <p>Màu sắc :{ele["Màu sắc"] ? ele["Màu sắc"] : "none"}</p>
+                </div>
+                <div className="cartContainer-Quanity">
+                  <p>Số lượng</p>
                   <input
                     type="number"
                     defaultValue={ele.quanity}
                     onChange={(e) => this.handleChange_Quanity(e, index)}
                   />
-                </td>
-                <td className="totalPrice">
+                </div>
+                <div className="cartContainer-Price">
                   <input
                     type="numer"
                     defaultValue={(ele.price * ele.quanity).toLocaleString()}
                     value={(ele.price * ele.quanity).toLocaleString()}
-                  />{" "}
-                  <button onClick={() => this.handleDelete(index)}>xoa</button>
-                </td>
-              </tr>
+                  />
+                  <button onClick={() => this.handleDelete(index)}>x</button>
+                </div>
+              </div>
             ))}
-        </table>
-        <div>{totalP}</div>
+            <div className="cartButton">
+              <button>Tiếp tục mua sắm</button>
+              <button id="paid">Thanh toán</button>
+            </div>
+          </>
+        ) : (
+          <div className="initialCart">
+            <img
+              src="https://pwa-web.scdn.vn/static/media/cart-empty.e2664e0f.svg"
+              alt="gio hang trong"
+            />
+            <Link to="/ProjectSendo_KhacDuy/filter">
+              <button>Tiếp tục mua sắm</button>
+            </Link>
+          </div>
+        )}
+
+        <div className="productTopKeyWord">
+          {Object.keys(this.props.productTopKeyWord).length > 0 && (
+            <div className="productTopKeyWord-wraper">
+              <button
+                className="productTopKeyWord-wraper-prev"
+                onClick={() =>
+                  this.handlePrev(
+                    this.props.productTopKeyWord.result.data.length,
+                    "productTopKeyWord-container",
+                    ".productTopKeyWord-wraper"
+                  )
+                }
+              >
+                <span className="carousel-control-prev-icon"></span>
+              </button>
+              <button
+                className="productTopKeyWord-wraper-next"
+                onClick={() =>
+                  this.handleNext(
+                    this.props.productTopKeyWord.result.data.length,
+                    "productTopKeyWord-container",
+                    ".productTopKeyWord-wraper"
+                  )
+                }
+              >
+                <span className="carousel-control-next-icon"></span>
+              </button>
+              <div className="productTopKeyWord-title">
+                <p>XU HƯỚNG TÌM KIẾM</p>
+              </div>
+
+              <div
+                className="productTopKeyWord-container"
+                id="productTopKeyWord-container"
+              >
+                {this.props.productTopKeyWord.result.data.map((ele, index) => (
+                  <ProductCardTOPKEYWORD
+                    product={ele}
+                    key={index}
+                    index={index}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     );
   }
@@ -94,6 +195,7 @@ class CartPage extends React.Component {
 
 const mapsStateToProps = (state) => ({
   cartProducts: state.cartProducts,
+  productTopKeyWord: state.productTopKeyWord,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -102,6 +204,7 @@ const mapDispatchToProps = (dispatch) => ({
       getProductToCart,
       deleteProductCart,
       change_Quanity,
+      getDataProduct,
     },
     dispatch
   ),

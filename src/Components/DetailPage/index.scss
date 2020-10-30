@@ -14,11 +14,12 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 20px;
+    height: 100%;
 
     &-image0 {
       display: block;
       width: 100%;
-      height: 450px;
+      // height: 450px;
       margin-bottom: 10px;
       // position: absolute;
       // padding-top: 100%;
@@ -262,7 +263,8 @@
             flex-direction: row;
             width: 100%;
             background-repeat: no-repeat;
-            background-size: 20% 94%;
+            background-size: 10em;
+            font-size: 1em;
             color: white;
             font-weight: 500;
 
@@ -320,7 +322,7 @@
       img {
         width: 100%;
         position: absolute;
-        border-radius: 50%;
+        // border-radius: 50%;
         top: 0;
         bottom: 0;
         right: 0;
@@ -334,6 +336,12 @@
       padding-left: 12px;
       text-decoration: none;
       color: black;
+
+      p {
+        font-size: 0.95em;
+        display: flex;
+        justify-content: space-between;
+      }
 
       &-Name {
         font-size: 20px;
@@ -417,6 +425,53 @@
     }
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .detailPage-ShopInfo {
+    &-Left {
+      &-Info {
+        p {
+          font-size: 0.85em;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+    &-Right {
+      width: 100%;
+      max-width: 66%;
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+      /* justify-content: center; */
+      align-items: flex-start;
+      // justify-content: space-between;
+
+      &-Row {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        justify-content: space-evenly;
+        &-item {
+          display: flex;
+          flex-direction: row;
+          /* flex: 0 0 30%; */
+          align-items: flex-end;
+          justify-content: space-between;
+          width: 100%;
+          p {
+            font-size: 1em;
+          }
+          #shopAge {
+            font-size: 1em;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 800px) {
   .detailPage-ProductInfo {
     flex-direction: column;
@@ -450,6 +505,7 @@
       border-right: none;
       p {
         margin-block-end: 0;
+        font-size: 1em;
       }
       &-Image {
         width: 20%;
@@ -460,6 +516,9 @@
       &-Info {
         width: 80%;
         max-width: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
         p {
           display: flex;
           justify-content: space-between;

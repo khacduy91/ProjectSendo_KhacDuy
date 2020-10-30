@@ -265,6 +265,7 @@ export const getProductFilter = (
         .catch((err) => {
           dispatch(getErrMsg("Không có sản phẩm phù hợp"));
           console.log(err, "getProduct_Filter");
+          console.log(url, "url");
         });
     }, 2000);
   };

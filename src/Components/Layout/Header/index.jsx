@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { storage } from "../../../firebase/firebaseConfig"; //storage cua FireBase
-
 import firebaseApp from "../../../firebase/firebaseConfig";
 import {
   getData,

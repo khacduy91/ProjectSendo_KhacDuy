@@ -1,0 +1,105 @@
+.footer {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #e54d3e;
+  margin-top: 10px;
+
+  &-wraper {
+    width: 1360px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+
+  &-Paid {
+    p {
+      margin-block-end: 0;
+      color: white;
+      font-size: 1.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    &-Images {
+      ul {
+        list-style: none;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 0 0 20px;
+
+        li {
+          margin-right: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 15px;
+          border: 1px solid #e8e8e8;
+          border-radius: 4px;
+          margin-bottom: 0.6rem;
+          min-width: 150px;
+          background: #fff;
+          flex: 1 0 10%;
+
+          img {
+            max-width: 110px;
+            max-height: 30px;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+  }
+
+  &-Ship {
+    p {
+      margin-block-end: 0;
+      color: white;
+      font-size: 1.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    &-Images {
+      ul {
+        list-style: none;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 0 0 20px;
+
+        li {
+          margin-right: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 15px;
+          border: 1px solid #e8e8e8;
+          border-radius: 4px;
+          margin-bottom: 0.6rem;
+          min-width: 150px;
+          background: #fff;
+          flex: 1 0 20%;
+
+          img {
+            max-width: 110px;
+            max-height: 30px;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1360px) {
+  .footer {
+    &-wraper {
+      width: 95%;
+      padding: 30px 10px;
+    }
+  }
+}

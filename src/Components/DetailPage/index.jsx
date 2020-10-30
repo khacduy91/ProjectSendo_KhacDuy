@@ -11,6 +11,7 @@ import {
   getProductToCart,
   change_isUpdate,
 } from "../../redux/action";
+import { Link } from "react-router-dom";
 // import ProductRelated from "../../Atoms/ProductRelated";
 
 class DetailPage extends React.Component {
@@ -284,7 +285,23 @@ class DetailPage extends React.Component {
                   <button id="addToCart" onClick={() => this.handleAddToCart()}>
                     Thêm vào giỏ hàng
                   </button>
-                  <button id="quickBuy">Mua ngay</button>
+
+                  {this.state.arrAttribute.length <
+                  this.props.detailProduct.data.attribute.length ? (
+                    <button
+                      id="quickBuy"
+                      onClick={() => this.handleAddToCart()}
+                    >
+                      Mua ngay
+                    </button>
+                  ) : (
+                    <Link
+                      to="/ProjectSendo_KhacDuy/cart"
+                      onClick={() => this.handleAddToCart()}
+                    >
+                      <button id="quickBuy">Mua ngay</button>
+                    </Link>
+                  )}
                 </div>
                 <div className="detailPage-ProductInfo-BasicInfo-row-benefit">
                   {this.props.detailProduct.data.customer_benefits.benefits.map(
@@ -340,7 +357,7 @@ class DetailPage extends React.Component {
                     </p>
 
                     <p>
-                      Liên hệ :{" "}
+                      Liên hệ:
                       <span style={{ color: "darkgreen" }}>
                         {this.props.detailShop.data.telephone}
                       </span>
