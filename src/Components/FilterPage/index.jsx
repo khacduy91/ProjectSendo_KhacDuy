@@ -8,6 +8,7 @@ import {
   getArrayFilter,
   getPath_Default,
   change_isUpdate,
+  getStatusFilter,
 } from "../../redux/action";
 import ProductCardFILTER from "../../Atoms/ProductCardFILTER";
 
@@ -30,13 +31,16 @@ class FilterPage extends React.Component {
       "96",
       "sortType=rank"
     );
+    // this.props.getStatusFilter("startLoading");
   }
 
   handleCheckBox_PositionTop = (length) => {
+    // this.props.getStatusFilter("startLoading");
     //Position Top
     let pathPositionTop = [];
     for (let i = 0; i < length; i++) {
       const eleId_PositionTop = document.getElementById(`PositionTop${i}`);
+      console.log(eleId_PositionTop, "checked");
       eleId_PositionTop.checked === true &&
         pathPositionTop.push(eleId_PositionTop.value);
     }
@@ -44,6 +48,7 @@ class FilterPage extends React.Component {
     this.setState(
       { pathPositionTop: `${pathPositionTop.join("&")}`, page: 1 },
       () => {
+        console.log(pathPositionTop, "pathPositionTop");
         this.props.getProductFilter(
           this.state.pathPositionTop,
           this.state.pathDefault,
@@ -56,6 +61,7 @@ class FilterPage extends React.Component {
     );
   };
   handleCheckBox_General = (length) => {
+    // this.props.getStatusFilter("startLoading");
     //GeneralTerm
     let pathGeneral = [];
     for (let i = 0; i < length; i++) {
@@ -76,6 +82,7 @@ class FilterPage extends React.Component {
   };
 
   handleCheckBox_Default = () => {
+    // this.props.getStatusFilter("startLoading");
     //GeneralTerm
     let pathDefault_attribute_Key = [];
     let pathDefault_attribute_Value = [];
@@ -319,6 +326,7 @@ class FilterPage extends React.Component {
 
   componentDidUpdate() {
     if (this.props.isUpdate) {
+      console.log("isupdate");
       this.props.getProductFilter(
         this.state.pathPositionTop,
         this.state.pathDefault,
@@ -495,7 +503,7 @@ class FilterPage extends React.Component {
         )}
         {/* End Filter Container Mobile */}
         <div className="FilterPage-wraper-left">
-          {this.props.defaultTerm.length > 0 && (
+          {this.props.defaultTerm.length > 0 ? (
             <div
               className="FilterPage-wraper-left-container-DefaultTerm"
               id="accordion"
@@ -590,11 +598,105 @@ class FilterPage extends React.Component {
                 </div>
               ))}
             </div>
+          ) : (
+            <div
+              className="FilterPage-wraper-left-container-DefaultTerm"
+              id="accordion"
+            >
+              <div className="DefaultTerm">
+                <div className="card">
+                  <div className="card-header DefaultTerm-header">
+                    <a
+                      className="card-link DefaultTerm-header-link"
+                      data-toggle="collapse"
+                      href="#general"
+                    >
+                      BỘ LỌC SẢN PHẨM
+                    </a>
+                  </div>
+                  <div id="general" className="collapse show">
+                    <div className="card-body DefaultTerm-header-body">
+                      <div className="form-check-inline">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          id="General0"
+                          value="is_pay_later=1"
+                        />
+                        <label className="form-check-label">
+                          Mua trước trả sau
+                        </label>
+                      </div>
+                      <div class="form-check-inline">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          id="General1"
+                          value="is_combo_discount=1"
+                        />
+                        <label className="form-check-label">
+                          Mua gói siêu hời
+                        </label>
+                      </div>
+                      <div className="form-check-inline">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          id="General2"
+                          value="is_quantity_discount=1"
+                        />
+                        <label className="form-check-label">
+                          Mua nhiều giảm giá
+                        </label>
+                      </div>
+                      <div className="form-check-inline">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          id="General3"
+                          value="is_promotion=1"
+                        />
+                        <label className="form-check-label">Khuyến mãi</label>
+                      </div>
+                      <div className="form-check-inline">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          id="General4"
+                          value="is_using_instant=1"
+                        />
+                        <label className="form-check-label">Hỏa tốc 3h</label>
+                      </div>
+                      <div className="form-check-inline">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          id="General5"
+                          value="promotion_app=1"
+                        />
+                        <label className="form-check-label">
+                          Khuyến mãi app
+                        </label>
+                      </div>
+                      <div className="form-check-inline">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          id="General6"
+                          value="is_installment=1"
+                        />
+                        <label className="form-check-label">Trả góp 0%</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           )}
         </div>
         <div className="FilterPage-wraper-right">
           <div className="FilterPage-wraper-right-container-PositionTop">
-            {this.props.generalTerm_PositionTop.length > 0 && (
+            {this.props.generalTerm_PositionTop.length > 0 ? (
               <>
                 <div
                   className="FilterPage-wraper-right-container-PositionTop-left"
@@ -617,7 +719,7 @@ class FilterPage extends React.Component {
                             value={`${ele.attribute_key}=${
                               ele.attribute_value[ele.attribute_key]
                             }`}
-                            className="form-check-input"
+                            className="form-check-input checked"
                           />
                           {ele.attribute_img && (
                             <img src={ele.attribute_img} alt="isEvent" />
@@ -706,10 +808,77 @@ class FilterPage extends React.Component {
                   </div>
                 </div>
               </>
+            ) : (
+              <div className="FilterPage-wraper-right-container-PositionTop-right">
+                <div className="btn-group">
+                  <button
+                    type="button"
+                    className="btn btn-danger button sortType=rank activeSort"
+                    id="sortType=rank"
+                    name="listOption"
+                    onClick={(e) =>
+                      this.handleSort("sortType=rank", "sortType=rank")
+                    }
+                  >
+                    Đề cử
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger button sortType=norder_30_desc"
+                    name="listOption"
+                    id="sortType=norder_30_desc"
+                    onClick={(e) =>
+                      this.handleSort(
+                        "sortType=norder_30_desc",
+                        "sortType=norder_30_desc"
+                      )
+                    }
+                  >
+                    Bán Chạy
+                  </button>
+                  <div className="btn-group btn-danger">
+                    <select
+                      id="listOption"
+                      className="listOption sortType=price_asc sortType=price_desc sortType=like_desc"
+                      name="listOption"
+                      onChange={(e) =>
+                        this.handleSort(e.target.value, "listOption")
+                      }
+                    >
+                      <option
+                        value="sortType=price_asc"
+                        id="sortType=price_asc"
+                      >
+                        Gía thấp
+                      </option>
+                      <option
+                        value="sortType=price_desc"
+                        id="sortType=price_desc"
+                      >
+                        Giá cao
+                      </option>
+                      <option
+                        value="sortType=like_desc"
+                        id="sortType=like_desc"
+                      >
+                        Lượt yêu thích
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
           {/* <p>Sản phẩm</p> */}
           <div className="FilterPage-wraper-right-container-ProductCardFILTER">
+            {this.props.statusFilter === "startLoading" && (
+              <div className="loadingImg">
+                <img
+                  src="https://raw.githubusercontent.com/khacduy91/DuyVuCV/gh-pages/newgif.gif"
+                  alt="loading"
+                ></img>
+              </div>
+            )}
             <p>{this.props.errMsg}</p>
             {Object.keys(this.props.productFilter).length > 0 &&
               this.props.productFilter.map(
@@ -796,6 +965,7 @@ const mapsStateToProps = (state) => ({
   pathDefault: state.pathDefault,
   errMsg: state.errMsg,
   isUpdate: state.isUpdate,
+  statusFilter: state.statusFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -806,6 +976,7 @@ const mapDispatchToProps = (dispatch) => ({
       getArrayFilter,
       getPath_Default,
       change_isUpdate,
+      getStatusFilter,
     },
     dispatch
   ),

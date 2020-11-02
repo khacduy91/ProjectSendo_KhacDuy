@@ -5,6 +5,7 @@ import Footer from "./Footer";
 
 class Layout extends React.Component {
   render(props) {
+    console.log(this.props.children, "aa");
     return (
       <div>
         <Header />

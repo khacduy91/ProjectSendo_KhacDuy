@@ -134,7 +134,15 @@ class DetailPage extends React.Component {
       }%, #c7c7cd 0);}`);
     return (
       <>
-        {Object.keys(this.props.detailProduct).length > 0 && (
+        {this.props.statusDetail === "startLoading" && (
+          <div className="loadingImg">
+            <img
+              src="https://raw.githubusercontent.com/khacduy91/DuyVuCV/gh-pages/newgif.gif"
+              alt="loading"
+            ></img>
+          </div>
+        )}
+        {Object.keys(this.props.detailProduct).length > 0 ? (
           <>
             <div className="detailPage-ProductInfo">
               <div className="detailPage-ProductInfo-Gallery">
@@ -403,6 +411,13 @@ class DetailPage extends React.Component {
               />
             </div>
           </>
+        ) : (
+          <div className="loadingImg">
+            <img
+              src="https://raw.githubusercontent.com/khacduy91/DuyVuCV/gh-pages/newgif.gif"
+              alt="loading"
+            ></img>
+          </div>
         )}
       </>
     );
@@ -422,6 +437,7 @@ const mapsStateToProps = (state) => ({
   detailProduct: state.detailProduct,
   detailShop: state.detailShop,
   isUpdate: state.isUpdate,
+  statusDetail: state.statusDetail,
 });
 
 const mapDispatchToProps = (dispatch) => ({

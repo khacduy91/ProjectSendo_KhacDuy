@@ -56,7 +56,7 @@ class Header extends React.Component {
     );
     this.props.get_HistoryQuery(this.props.query);
     this.props.getArrayFilter(this.props.query);
-    this.setState({ query: "" });
+    this.setState({ ...this.state, query: "" });
   };
   handleChangeSearch = (e) => {
     this.setState({ ...this.state, query: e.target.value }, () =>
@@ -450,6 +450,7 @@ class Header extends React.Component {
                     (document.getElementById("historyQuery").style.opacity =
                       "1"))
                   }
+                  value={this.state.query}
                   defaultValue={this.state.query}
                   // value={this.state.query}
                 />

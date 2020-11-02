@@ -1,3 +1,11 @@
+.loadingImg {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .detailPage-ProductInfo {
   display: flex;
   width: 1360px;
@@ -5,6 +13,7 @@
   box-shadow: 0px 0px 5px #00000030;
   justify-content: space-between;
   padding-top: 100px;
+
   &-Gallery {
     width: 100%;
     max-width: 33%;

@@ -7,7 +7,7 @@
   &-wraper {
     width: 1360px;
     margin: 0 auto;
-    padding: 30px;
+    padding: 30px 10px 10px;
   }
 
   &-Paid {
@@ -93,13 +93,22 @@
       }
     }
   }
+
+  &-CopyRight {
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    /* padding: 1rem; */
+    margin-block-end: 0;
+  }
 }
 
 @media screen and (max-width: 1360px) {
   .footer {
     &-wraper {
       width: 95%;
-      padding: 30px 10px;
+      padding: 30px 10px 10px;
     }
   }
 }

@@ -10,6 +10,13 @@
       outline: none;
     }
   }
+  .loadingImg {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .filterIcon {
     display: none;
     position: fixed;

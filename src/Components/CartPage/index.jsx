@@ -70,7 +70,10 @@ class CartPage extends React.Component {
       this.setState({ ...this.state });
     }
   };
+
+  //render
   render() {
+    //total Price
     let totalP = 0;
     for (let i = 0; i < this.props.cartProducts.length; i++) {
       const ele_Price =
@@ -126,7 +129,9 @@ class CartPage extends React.Component {
               </div>
             ))}
             <div className="cartButton">
-              <button>Tiếp tục mua sắm</button>
+              <Link to="/ProjectSendo_KhacDuy/filter">
+                <button>Tiếp tục mua sắm</button>
+              </Link>
               <button id="paid">Thanh toán</button>
             </div>
           </>

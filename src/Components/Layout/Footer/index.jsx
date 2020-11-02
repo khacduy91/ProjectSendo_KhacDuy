@@ -55,6 +55,7 @@ class Footer extends React.Component {
               </ul>
             </div>
           </div>
+
           <div className="footer-Ship">
             <p>Đối tác vận chuyển</p>
             <div className="footer-Ship-Images">
@@ -133,6 +134,10 @@ class Footer extends React.Component {
                 </li>
               </ul>
             </div>
+          </div>
+
+          <div className="footer-CopyRight">
+            <p>The demo version is built on API Sendo</p>
           </div>
         </div>
       </div>

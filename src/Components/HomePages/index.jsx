@@ -552,12 +552,19 @@ class HomePage extends React.Component {
           )}
         </div>
         <div className="productFilter">
-          {Object.keys(this.props.productFilter).length > 0 && (
-            <div className="productFilter-wraper">
-              <div className="productFilter-title">
-                <p>DÀNH RIÊNG CHO BẠN</p>
+          <div className="productFilter-wraper">
+            <div className="productFilter-title">
+              <p>DÀNH RIÊNG CHO BẠN</p>
+            </div>
+            {this.props.statusFilter === "startLoading" && (
+              <div className="loadingImg">
+                <img
+                  src="https://raw.githubusercontent.com/khacduy91/DuyVuCV/gh-pages/newgif.gif"
+                  alt="loading"
+                ></img>
               </div>
-
+            )}
+            {Object.keys(this.props.productFilter).length > 0 && (
               <div
                 className="productFilter-container"
                 id="productFilter-container"
@@ -568,8 +575,8 @@ class HomePage extends React.Component {
 
                 {/* <button onClick={() => this.handleLoadmore()}>Loadmore</button> */}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     );
@@ -586,6 +593,7 @@ const mapsStateToProps = (state) => ({
   menu: state.menu,
   sitemap: state.sitemap,
   themeEvent: state.themeEvent,
+  statusFilter: state.statusFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -25,7 +25,7 @@ class App extends React.Component {
                 component={FilterPage}
               />
               <Route
-                exact
+                // exact
                 path="/ProjectSendo_KhacDuy/detail"
                 component={DetailPage}
               />

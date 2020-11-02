@@ -165,12 +165,15 @@
     width: 100%;
     margin-top: 20px;
     transition: 0.5s ease;
+    // padding: 0px 5px;
+    margin-bottom: 10px;
     &-wraper {
-      width: 1360px;
+      width: 1200px;
       margin: 0 auto;
       border: 0.5px solid #00000030;
       overflow: hidden;
       position: relative;
+
       &-prev {
         position: absolute;
         height: 30px;

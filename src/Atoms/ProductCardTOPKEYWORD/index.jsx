@@ -11,9 +11,9 @@ import {
 } from "../../redux/action";
 
 class ProductCardTOPKEYWORD extends React.Component {
-  handleClick_TOPKEYWORD = () => {
-    this.props.getQuery(this.props.product.name);
-    this.props.get_HistoryQuery(this.props.product.name);
+  handleClick_TOPKEYWORD = (a) => {
+    this.props.getQuery(a);
+    this.props.get_HistoryQuery(a);
     // this.props.getProductFilter(
     //   "",
     //   "",
@@ -29,7 +29,7 @@ class ProductCardTOPKEYWORD extends React.Component {
       <div className="productCardTOPKEYWORD-Card">
         <Link
           to="/ProjectSendo_KhacDuy/filter"
-          onClick={() => this.handleClick_TOPKEYWORD()}
+          onClick={() => this.handleClick_TOPKEYWORD(this.props.product.name)}
         >
           <img src={this.props.product.image} alt="" />
           <p>{this.props.product.name}</p>

@@ -26,6 +26,8 @@ import {
   GET_PRODUCT_FILTER_START,
   GET_DETAIL_PRODUCT_START,
   GET_ERR_MSG,
+  GET_STATUS_FILTER,
+  GET_STATUS_DETAIL,
 } from "./action";
 
 const initialState = {
@@ -53,6 +55,8 @@ const initialState = {
   isUpdate: false,
   isSuccess: true,
   errMsg: "",
+  statusFilter: "startLoading",
+  statusDetail: "startLoading",
 };
 
 const reducer = (state = initialState, action) => {
@@ -225,6 +229,13 @@ const reducer = (state = initialState, action) => {
 
     case GET_ERR_MSG: {
       return { ...state, errMsg: action.errMsg };
+    }
+
+    case GET_STATUS_FILTER: {
+      return { ...state, statusFilter: action.statusFilter };
+    }
+    case GET_STATUS_DETAIL: {
+      return { ...state, statusDetail: action.statusDetail };
     }
     default:
       return state;
