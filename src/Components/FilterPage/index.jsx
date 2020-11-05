@@ -39,7 +39,7 @@ class FilterPage extends React.Component {
     //Position Top
     let pathPositionTop = [];
     for (let i = 0; i < length; i++) {
-      const eleId_PositionTop = document.getElementById(`PositionTop${i}`);
+      const eleId_PositionTop = document.getElementById(`PositionTopWeb${i}`);
       console.log(eleId_PositionTop, "checked");
       eleId_PositionTop.checked === true &&
         pathPositionTop.push(eleId_PositionTop.value);
@@ -65,7 +65,7 @@ class FilterPage extends React.Component {
     //GeneralTerm
     let pathGeneral = [];
     for (let i = 0; i < length; i++) {
-      const eleId_General = document.getElementById(`General${i}`);
+      const eleId_General = document.getElementById(`GeneralWeb${i}`);
       eleId_General.checked === true && pathGeneral.push(eleId_General.value);
     }
 
@@ -534,7 +534,7 @@ class FilterPage extends React.Component {
                             <input
                               type="checkbox"
                               className="form-check-input"
-                              id={`General${index}`}
+                              id={`GeneralWeb${index}`}
                               value={`${ele.attribute_key}=${
                                 ele.attribute_value[ele.attribute_key]
                               }`}
@@ -715,7 +715,7 @@ class FilterPage extends React.Component {
                         <label className="form-check-label">
                           <input
                             type="checkbox"
-                            id={`PositionTop${index}`}
+                            id={`PositionTopWeb${index}`}
                             value={`${ele.attribute_key}=${
                               ele.attribute_value[ele.attribute_key]
                             }`}
@@ -736,7 +736,7 @@ class FilterPage extends React.Component {
                         <label className="form-check-label">
                           <input
                             type="checkbox"
-                            id={`PositionTop${index}`}
+                            id={`PositionTopWeb${index}`}
                             className="form-check-input"
                             value={`${ele.attribute_key}=${
                               ele.attribute_value[ele.attribute_key]
