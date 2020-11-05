@@ -22,7 +22,8 @@ class DetailPage extends React.Component {
     arrValue: [],
     product_AddToCart: {},
     updated: true,
-    url: ",",
+    url: "",
+    statusAddToCart: "",
   };
   componentDidMount() {
     const parsed = queryString.parse(window.location.search);
@@ -81,7 +82,10 @@ class DetailPage extends React.Component {
       this.state.arrAttribute.length <
       this.props.detailProduct.data.attribute.length
     ) {
-      alert("dien day du thong tin moi mua dc ");
+      this.setState({
+        ...this.state,
+        statusAddToCart: "Bạn cần lựa chọn thuộc tinh sản phẩm đầy đủ",
+      });
     } else {
       var product_AddToCart = {};
       for (let i = 0; i < this.state.arrAttribute.length; i++) {
@@ -97,6 +101,10 @@ class DetailPage extends React.Component {
 
       this.props.getProductToCart(product_AddToCart);
       this.props.change_isUpdate(!this.props.isUpdate);
+      this.setState({
+        ...this.state,
+        statusAddToCart: "Sản phẩm đã được thêm vào giỏ hàng",
+      });
     }
   };
 
@@ -142,7 +150,7 @@ class DetailPage extends React.Component {
             ></img>
           </div>
         )}
-        {Object.keys(this.props.detailProduct).length > 0 ? (
+        {Object.keys(this.props.detailProduct).length > 0 && (
           <>
             <div className="detailPage-ProductInfo">
               <div className="detailPage-ProductInfo-Gallery">
@@ -290,6 +298,8 @@ class DetailPage extends React.Component {
                 )}
 
                 <div className="detailPage-ProductInfo-BasicInfo-row-addToCart">
+                  {/* statusAddtoCart */}
+                  <p id="statusAddToCart">{this.state.statusAddToCart}</p>
                   <button id="addToCart" onClick={() => this.handleAddToCart()}>
                     Thêm vào giỏ hàng
                   </button>
@@ -358,7 +368,7 @@ class DetailPage extends React.Component {
                       </div>
                     )}
                     <p>
-                      Kho hàng:{" "}
+                      Kho hàng:
                       <span style={{ fontWeight: "bold" }}>
                         {this.props.detailShop.data.warehouse_city_name}
                       </span>
@@ -411,13 +421,14 @@ class DetailPage extends React.Component {
               />
             </div>
           </>
-        ) : (
-          <div className="loadingImg">
-            <img
-              src="https://raw.githubusercontent.com/khacduy91/DuyVuCV/gh-pages/newgif.gif"
-              alt="loading"
-            ></img>
-          </div>
+          // ) : (
+          //   <div className="loadingImg">
+          //     <img
+          //       src="https://raw.githubusercontent.com/khacduy91/DuyVuCV/gh-pages/newgif.gif"
+          //       alt="loading"
+          //     ></img>
+          //   </div>
+          //
         )}
       </>
     );

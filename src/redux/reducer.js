@@ -28,6 +28,7 @@ import {
   GET_ERR_MSG,
   GET_STATUS_FILTER,
   GET_STATUS_DETAIL,
+  GET_USER_LOGGED,
 } from "./action";
 
 const initialState = {
@@ -57,6 +58,11 @@ const initialState = {
   errMsg: "",
   statusFilter: "startLoading",
   statusDetail: "startLoading",
+
+  user: {
+    name: "",
+    isLoggedSuccess: false,
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -236,6 +242,15 @@ const reducer = (state = initialState, action) => {
     }
     case GET_STATUS_DETAIL: {
       return { ...state, statusDetail: action.statusDetail };
+    }
+    case GET_USER_LOGGED: {
+      let user = state.user;
+      user.name = action.name;
+      user.isLoggedSuccess = action.isLoggedSuccess;
+      return {
+        ...state,
+        user: user,
+      };
     }
     default:
       return state;

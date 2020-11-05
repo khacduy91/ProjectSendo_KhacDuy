@@ -227,6 +227,15 @@
         flex-direction: row;
         position: relative;
         justify-content: flex-end;
+        align-items: center;
+
+        #statusAddToCart {
+          font-size: 0.85em;
+          padding-right: 10px;
+          font-style: italic;
+          color: red;
+        }
+
         #addToCart {
           background-color: darkseagreen;
           color: white;
@@ -303,6 +312,33 @@
   p:nth-child(1) {
     max-height: 600px;
     overflow: scroll;
+  }
+
+  img {
+    display: none !important;
+  }
+
+  br {
+    line-height: 5px !important;
+    display: block;
+    /* margin: 1px 0; */
+    content: "";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-align: left !important;
+    text-transform: capitalize !important;
+    line-height: 1 !important;
+    font-weight: lighter !important;
+
+    span {
+      font-size: 0.5em !important;
+    }
   }
 }
 

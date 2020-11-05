@@ -18,6 +18,7 @@ import {
   get_HistoryQuery,
   get_HistoryProduct,
   change_isUpdate,
+  getUserLogged,
 } from "../../../redux/action";
 
 class Header extends React.Component {
@@ -30,7 +31,7 @@ class Header extends React.Component {
     isLogged: false,
     name: "",
     photo: "",
-    photoUrl: "",
+    photoUrl: "", //url dc firebase tra ve
   };
 
   componentDidMount() {
@@ -135,15 +136,16 @@ class Header extends React.Component {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...this.state, isLoggedSuccess: true, isLogged: true });
-        firebaseApp.auth().onAuthStateChanged();
+        // firebaseApp.auth().onAuthStateChanged();
         let user = firebaseApp.auth().currentUser;
-        if (user != null) {
-          this.setState({
-            ...this.state,
-            name: user.displayName,
-            photoUrl: user.photoURL,
-          });
-        }
+        console.log(user, "user");
+        //set name and photo url
+        this.setState({
+          ...this.state,
+          name: user.displayName,
+          photoUrl: user.photoURL,
+        });
+        this.props.getUserLogged(user.displayName, true);
       })
       .catch(function (error) {
         // Handle Errors here.
@@ -175,7 +177,15 @@ class Header extends React.Component {
     firebaseApp
       .auth()
       .signOut()
-      .then(() => this.setState({ ...this.state, isLogged: false }));
+      .then(() =>
+        this.setState({
+          ...this.state,
+          isLogged: false,
+          photo: "",
+          photoUrl: "",
+          name: "",
+        })
+      );
   };
 
   // Register FireBase
@@ -193,7 +203,6 @@ class Header extends React.Component {
         //Khai bai User da dang nhap FireBase
         let user = firebaseApp.auth().currentUser;
 
-        console.log(this.state.photo);
         //Upload avatart len FireBase de lay URL
         const uploadTask = storage
           .ref(`images/${this.state.photo.name}`)
@@ -211,7 +220,7 @@ class Header extends React.Component {
               .child(this.state.photo.name)
               .getDownloadURL()
               .then((url) => {
-                this.setState({ ...this.state, photoUrl: url });
+                this.setState({ ...this.state, photoUrl: url, name: name });
                 console.log(this.state.photoUrl);
               })
               .then(() => {
@@ -223,6 +232,7 @@ class Header extends React.Component {
                   })
                   .then(function (res) {
                     // Update successful.
+                    console.log(res, "resss");
                   })
                   .catch(function (error) {
                     // An error happened.
@@ -283,7 +293,6 @@ class Header extends React.Component {
       document.getElementById("register").style.display = "none";
       document.getElementById("loginSuccess").style.display = "flex";
       let user = firebaseApp.auth().currentUser;
-      console.log(user, "user");
     }
   }
 
@@ -309,12 +318,29 @@ class Header extends React.Component {
               <p>Duy Vu CV Project</p>
             </div>
             <div className="right_topBar">
-              <img
-                src="https://raw.githubusercontent.com/khacduy91/ProjectSendo_KhacDuy/756b0ba8fe27f822ebaf2dbc88a5d2b89422b6f8/assets/images/avatarUser1.jpg"
-                alt="avatartUser1"
-                className="avatarUser"
-              />
-              <p>Vũ Khắc Duy</p>
+              {this.state.photoUrl === "" ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 48 48"
+                  width="2em"
+                  height="2em"
+                  style={{ fill: "white" }}
+                >
+                  <g data-name="Layer 2">
+                    <g data-name="Layer 1">
+                      <path d="M24,4A20,20,0,1,0,44,24,20,20,0,0,0,24,4Zm0,6a6,6,0,1,1-6,6A6,6,0,0,1,24,10Zm0,28.4A14.4,14.4,0,0,1,12,32c.06-4,8-6.16,12-6.16S35.94,28,36,32A14.4,14.4,0,0,1,24,38.4Z"></path>
+                      <path d="M0,0H48V48H0Z" fill="none"></path>
+                    </g>
+                  </g>
+                </svg>
+              ) : (
+                <img
+                  src={this.state.photoUrl}
+                  alt={this.state.name}
+                  className="avatarUser"
+                />
+              )}
+              <p>{this.state.name}</p>
               {!this.state.isLogged && (
                 <button onClick={() => this.handleLogin()}>Login</button>
               )}
@@ -451,7 +477,7 @@ class Header extends React.Component {
                       "1"))
                   }
                   value={this.state.query}
-                  defaultValue={this.state.query}
+
                   // value={this.state.query}
                 />
 
@@ -562,7 +588,7 @@ class Header extends React.Component {
               </div>
             </div>
             <div className="modal-container" id="loginSuccess">
-              <p>Xin chào ....</p>
+              <p>Xin chào {this.state.name}</p>
               <button onClick={() => this.handleCloseModal()}>
                 Bắt đầu mùa sắm nào!
               </button>
@@ -617,6 +643,7 @@ const mapsStateToProps = (state) => ({
   historyProduct: state.historyProduct,
   isUpdate: state.isUpdate,
   cartProducts: state.cartProducts,
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -634,6 +661,7 @@ const mapDispatchToProps = (dispatch) => ({
       get_HistoryQuery,
       get_HistoryProduct,
       change_isUpdate,
+      getUserLogged,
     },
     dispatch
   ),

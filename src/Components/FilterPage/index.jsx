@@ -627,7 +627,7 @@ class FilterPage extends React.Component {
                           Mua trước trả sau
                         </label>
                       </div>
-                      <div class="form-check-inline">
+                      <div className="form-check-inline">
                         <input
                           type="checkbox"
                           className="form-check-input"

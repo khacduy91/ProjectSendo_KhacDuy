@@ -169,6 +169,13 @@ export const getStatusDetail = (statusDetail) => ({
   statusDetail,
 });
 
+export const GET_USER_LOGGED = "GET_USER_LOGGED";
+export const getUserLogged = (name, isLoggedSuccess) => ({
+  type: GET_USER_LOGGED,
+  name,
+  isLoggedSuccess,
+});
+
 export const getData = () => {
   return (dispatch) => {
     axios({

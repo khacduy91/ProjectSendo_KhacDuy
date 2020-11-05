@@ -71,6 +71,13 @@ class CartPage extends React.Component {
     }
   };
 
+  handleClick_Paid = () => {
+    console.log(this.props.user.isLoggedSuccess, "status login");
+    this.props.user.isLoggedSuccess
+      ? alert("Bạn đã thanh toán thành công, cảm ơn bạn đã xem Project này")
+      : alert("Bạn cần đăng nhập trước khi thanh toán");
+  };
+
   //render
   render() {
     //total Price
@@ -96,7 +103,7 @@ class CartPage extends React.Component {
         {this.props.cartProducts.length > 0 ? (
           <>
             {this.props.cartProducts.map((ele, index) => (
-              <div className="cartContainer">
+              <div className="cartContainer" key={index}>
                 <div className="cartContainer-Image">
                   <img
                     src={`https://media3.scdn.vn/${ele.thumbnail}`}
@@ -121,7 +128,8 @@ class CartPage extends React.Component {
                 <div className="cartContainer-Price">
                   <input
                     type="numer"
-                    defaultValue={(ele.price * ele.quanity).toLocaleString()}
+                    // defaultValue={(ele.price * ele.quanity).toLocaleString()}
+                    readOnly
                     value={(ele.price * ele.quanity).toLocaleString()}
                   />
                   <button onClick={() => this.handleDelete(index)}>x</button>
@@ -132,7 +140,9 @@ class CartPage extends React.Component {
               <Link to="/ProjectSendo_KhacDuy/filter">
                 <button>Tiếp tục mua sắm</button>
               </Link>
-              <button id="paid">Thanh toán</button>
+              <button id="paid" onClick={() => this.handleClick_Paid()}>
+                Thanh toán
+              </button>
             </div>
           </>
         ) : (
@@ -201,6 +211,7 @@ class CartPage extends React.Component {
 const mapsStateToProps = (state) => ({
   cartProducts: state.cartProducts,
   productTopKeyWord: state.productTopKeyWord,
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
