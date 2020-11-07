@@ -3,7 +3,7 @@
   width: 1360px;
   margin: 0 auto;
   justify-content: space-between;
-  padding-top: 97px;
+  padding-top: 100px;
   button {
     outline: none;
     &:hover {
@@ -257,6 +257,7 @@
 }
 @media screen and (max-width: 800px) {
   .FilterPage-wraper {
+    padding-top: 100px;
     .filterIcon {
       display: block;
     }

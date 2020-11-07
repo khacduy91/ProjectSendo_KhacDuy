@@ -534,35 +534,27 @@ class Header extends React.Component {
                 </span>
               </Link>
             </div>
-            {/* mobileMenu */}
-            <div className="mobileMenu">
-              <svg
-                width="34px"
-                height="34px"
-                viewBox="0 0 24 24"
-                onClick={() => this.handleMobileMenu()}
-              >
-                <path
-                  d="M3 19h18v-2H3v2zm0-6h8v-2H3v2zm0-8v2h18V5H3zm10 5l4 4 4-4z"
-                  fill="#FFF"
-                ></path>
-              </svg>
-
-              <div className="mobileMenu-container" id="mobileMenu">
-                <div className="mobileMenu-container-title">
-                  <p>Demo React Shopping App</p>
-                  <button onClick={() => this.handleMobileMenu()}>X</button>
-                </div>
-
-                <Link to="/">Trang chủ</Link>
-                <Link to="/">Đăng ký</Link>
-                <Link to="/">Đăng nhập</Link>
-                <Link to="/">Sản phẩm vừa xem</Link>
-                <Link to="/">Giới thiệu</Link>
-              </div>
-            </div>
           </div>
         </div>
+
+        {/* historyProduct Mobile*/}
+
+        {this.props.historyProduct.length > 0 && (
+          <div className="historyProduct-Mobile">
+            <span>Sản phẩm vừa xem</span>
+            <div className="historyProduct-Mobile-Product">
+              {this.props.historyProduct.map((ele, index) => (
+                <Link
+                  to={`/ProjectSendo_KhacDuy/detail?id=${ele.id}&name=${ele.name}&adminid=${ele.admin_id}`}
+                  key={index}
+                >
+                  <img src={ele.img} alt={ele.name} />
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Login Modal */}
         <div className="modal-wraper">
           <div className="modal-title">

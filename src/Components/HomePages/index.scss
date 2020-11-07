@@ -1,5 +1,5 @@
 .homepage {
-  padding-top: 97px;
+  padding-top: 100px;
   .slider-container {
     width: 100%;
     margin: 0 auto;
@@ -706,6 +706,7 @@
 
 @media screen and (max-width: 800px) {
   .homepage {
+    padding-top: 100px;
     .banner {
       &-container {
         &-inner {

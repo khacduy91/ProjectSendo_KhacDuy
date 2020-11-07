@@ -315,6 +315,25 @@
     }
   }
 }
+
+/*History mobile */
+.historyProduct-Mobile {
+  display: none;
+  justify-content: space-between;
+  background: #e54d3e;
+  align-items: center;
+  color: white;
+  padding: 2px 10px;
+  box-shadow: 2px 0px 10px #00000030;
+
+  a {
+    img {
+      width: 50px;
+      padding: 5px;
+    }
+  }
+}
+
 /*Modal Login*/
 .modal-wraper {
   display: none;
@@ -402,6 +421,12 @@
         }
       }
     }
+
+    #loginSuccess {
+      display: flex;
+      flex-direction: column;
+    }
+
     #register {
       display: flex;
       flex-direction: column;
@@ -481,6 +506,7 @@
 
       .mobileMenu {
         display: none;
+
         &-container {
           position: fixed;
           top: 0;
@@ -489,43 +515,54 @@
           width: 100vw;
           display: flex;
           flex-direction: column;
+          justify-content: flex-end;
           // align-items: center;
           // justify-content: center;
-          background-color: rosybrown;
+          background-color: white;
           z-index: 1000;
           transition: 0.5s ease;
+
+          button {
+            color: crimson;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            border: 0.5px solid crimson;
+            background: white;
+            box-shadow: none;
+          }
 
           &-title {
             background-color: white;
             display: flex;
-            height: 50px;
+            // height: 0px;
             align-items: center;
             justify-content: center;
             position: relative;
             p {
-              color: #ee2a25;
+              color: crimson;
               font-size: 16px;
               font-weight: 500;
               padding-left: 20px;
               letter-spacing: 4px;
               text-transform: uppercase;
             }
-            button {
-              position: absolute;
-              right: 20px;
-              /* border: none; */
-              background: white;
-              box-shadow: none;
-            }
           }
+
+          &-body {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 40px;
+            padding-left: 40px;
+          }
+
           a {
             display: flex;
             align-items: center;
-            height: 50px;
-            padding-left: 20px;
-            font-size: 20px;
+            height: 45px;
+            font-size: 1.1em;
             font-weight: 500;
-            color: white;
+            color: black;
             &:hover {
               text-decoration: none;
             }
@@ -649,6 +686,16 @@
         .mobileMenu {
           display: block;
         }
+      }
+    }
+    .historyProduct-Mobile {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      &-Product {
+        display: flex;
+        flex-direction: row;
       }
     }
     .modal-wraper {

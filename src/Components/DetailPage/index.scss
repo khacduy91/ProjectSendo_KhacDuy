@@ -520,6 +520,7 @@
 @media screen and (max-width: 800px) {
   .detailPage-ProductInfo {
     flex-direction: column;
+    padding-top: 100px;
     &-Gallery {
       max-width: 100%;
       &-image0 {

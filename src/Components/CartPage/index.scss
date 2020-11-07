@@ -279,7 +279,11 @@
     }
   }
 }
-
+@media screen and (max-width: 800px) {
+  .CartPage {
+    padding-top: 120px;
+  }
+}
 @media screen and (max-width: 500px) {
   .CartPage {
     &-title {
