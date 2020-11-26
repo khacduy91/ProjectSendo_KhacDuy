@@ -68,8 +68,11 @@
 @media screen and (max-width: 540px) {
   .productCard_FLASHSALE {
     width: 200px;
-    img {
-      width: 150px;
+
+    &-Card {
+      img {
+        width: 150px;
+      }
     }
   }
 }
