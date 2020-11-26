@@ -261,7 +261,7 @@ export const getProductFilter = (
     let url = `https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/search/product?${pathPositionTop}${pathDefault}&p=${
       page || 1
     }&platform=web${pathGeneral}&q=${query}&s=${quanity}&search_algo=algo6&${sortType}`;
-
+    console.log(url, "url");
     console.log(url, "urllllllllll");
     setTimeout(function () {
       axios({

@@ -82,6 +82,8 @@ class HomePage extends React.Component {
     let eleWidth = document.querySelector(`${c}`).offsetWidth;
     let scrollLeft = document.getElementById(`${b}`).scrollLeft;
 
+    console.log(scrollLeft, "scroll");
+
     let widthPerSlide = scrollWidth / a;
     let numberSilder = Math.floor(scrollLeft / widthPerSlide);
 

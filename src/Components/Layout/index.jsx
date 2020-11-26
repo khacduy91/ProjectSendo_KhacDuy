@@ -5,7 +5,9 @@ import Footer from "./Footer";
 
 class Layout extends React.Component {
   render(props) {
-    console.log(this.props.children, "aa");
+    // scrollAppear = ()=> {
+
+    // }
     return (
       <div>
         <Header />
