@@ -30,7 +30,7 @@ class HomePage extends React.Component {
   };
   componentDidMount() {
     this.props.getProductFilter("", "", "", "áo khoác", "36", "sortType=rank");
-    this.props.getDataProduct();
+    // this.props.getDataProduct();
   }
 
   componentWillMount() {
