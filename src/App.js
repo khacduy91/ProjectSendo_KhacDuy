@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import HomePages from "./Components/HomePages/index.jsx";
 import FilterPage from "./Components/FilterPage/index.jsx";
 import CartPage from "./Components/CartPage/index.jsx";
@@ -34,6 +39,7 @@ class App extends React.Component {
                 path="/ProjectSendo_KhacDuy/cart"
                 component={CartPage}
               />
+              <Redirect to="/ProjectSendo_KhacDuy" />
             </Switch>
           </Layout>
         </Router>
