@@ -207,15 +207,15 @@ export const getDataProduct = () => {
       .catch((err) => console.log(err, "getProductFlashSale"));
 
     //SenMall
-    axios({
-      method: "get",
-      url:
-        "https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/mall/shop?v=2",
-    })
-      .then((res) => {
-        dispatch(getShop_SenMall(res.data));
-      })
-      .catch((err) => console.log(err, "getShopSenMall"));
+    // axios({
+    //   method: "get",
+    //   url:
+    //     "https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/mall/shop?v=2",
+    // })
+    //   .then((res) => {
+    //     dispatch(getShop_SenMall(res.data));
+    //   })
+    //   .catch((err) => console.log(err, "getShopSenMall"));
 
     //Recomend
     axios({
@@ -230,54 +230,43 @@ export const getDataProduct = () => {
       .catch((err) => console.log(err, "getProductRecommend"));
 
     //TopKeyWord
-    axios({
-      method: "get",
-      url:
-        "https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/home/top-keyword",
-    })
-      .then((res) => {
-        dispatch(getProduct_TopKeyWord(res.data));
-      })
-      .catch((err) => console.log(err, "getProduct_TopKeyWord"));
+    // axios({
+    //   method: "get",
+    //   url:
+    //     "https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/home/top-keyword",
+    // })
+    //   .then((res) => {
+    //     dispatch(getProduct_TopKeyWord(res.data));
+    //   })
+    //   .catch((err) => console.log(err, "getProduct_TopKeyWord"));
   };
 };
 
 export const getProductFilter = (
-  pathPositionTop,
-  pathDefault,
-  pathGeneral,
-  query,
-  quanity,
-  sortType,
-  page,
+  query = "",
+  page = 1,
   isLoadmore = false,
-  productFilter,
-  statusFilter
+  productFilter
 ) => {
   return (dispatch) => {
     dispatch(getStatusFilter("startLoading"));
     dispatch(getErrMsg(""));
     dispatch(getProductFilterStart(productFilter, isLoadmore));
-    let url = `https://cors-anywhere.herokuapp.com/https://www.sendo.vn/m/wap_v2/search/product?${pathPositionTop}${pathDefault}&p=${
-      page || 1
-    }&platform=web${pathGeneral}&q=${query}&s=${quanity}&search_algo=algo6&${sortType}`;
-    console.log(url, "url");
-    console.log(url, "urllllllllll");
-    setTimeout(function () {
-      axios({
-        method: "get",
-        url: url,
+    let url = `https://cors-anywhere.herokuapp.com/https://mapi.sendo.vn/mob/product/search?p=${page}&q=${query}`;
+    axios({
+      method: "get",
+      url: url,
+    })
+      .then((res) => {
+        console.log(res);
+        dispatch(getProduct_Filter(res.data.data, isLoadmore));
+        dispatch(getStatusFilter("success"));
       })
-        .then((res) => {
-          dispatch(getProduct_Filter(res.data.result.data, isLoadmore));
-          dispatch(getStatusFilter("success"));
-        })
-        .catch((err) => {
-          dispatch(getErrMsg("Không có sản phẩm phù hợp"));
-          console.log(err, "getProduct_Filter");
-          console.log(url, "url");
-        });
-    }, 2000);
+      .catch((err) => {
+        dispatch(getErrMsg("Không có sản phẩm phù hợp"));
+        console.log(err, "getProduct_Filter");
+        console.log(url, "url");
+      });
   };
 };
 
@@ -331,3 +320,12 @@ export const getDetailShop = (adminId) => {
       .catch((err) => console.log(err, "getDetailShop"));
   };
 };
+
+//Handle Sort
+export const HANDLESORT = "HANDLESORT";
+export const handleSort = (sortType, productFilter, isUpdate) => ({
+  type: HANDLESORT,
+  sortType,
+  productFilter,
+  isUpdate,
+});

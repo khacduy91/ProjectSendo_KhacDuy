@@ -29,24 +29,22 @@ class ProductCardFILTER extends React.Component {
         className="productCardFILTER-Card"
       >
         <div className="productCardFILTER-Card-wraper">
-          <Link
-            to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.id}&name=${this.props.product.name}&adminid=${this.props.product.admin_id}`}
-            id={this.props.product.id}
-            onClick={() =>
-              this.handleHistoryProduct(
-                this.props.product.id,
-                this.props.product.image,
-                this.props.product.name,
-                this.props.product.admin_id
-              )
-            }
-          >
-            <img
-              className="productCardFILTER-Card-wraper-img"
-              src={this.props.product.image}
-              alt=""
-            />
-          </Link>
+          <div className="productCardFILTER-Card-wraper-img">
+            <Link
+              to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.id}&name=${this.props.product.name}&adminid=${this.props.product.admin_id}`}
+              id={this.props.product.id}
+              onClick={() =>
+                this.handleHistoryProduct(
+                  this.props.product.id,
+                  this.props.product.img_url,
+                  this.props.product.name,
+                  this.props.product.admin_id
+                )
+              }
+            >
+              <img src={this.props.product.img_url} alt="" />
+            </Link>
+          </div>
 
           <div className="productCardFILTER-Card-wraper-title">
             {this.props.product.shop_badge_url && (

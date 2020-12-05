@@ -39,22 +39,13 @@ class Header extends React.Component {
     // this.props.getDataSitemap();
   }
   handleSubmitValue = (e) => {
-    this.props.getProductFilter("", "", "", e, "32", "sortType=rank");
+    this.props.getProductFilter(this.props.query);
     this.props.get_HistoryQuery(e);
     this.props.getArrayFilter(e);
     this.setState({ query: e });
   };
   handleSubmitSearch = (e) => {
-    // e.preventDefault();
-
-    this.props.getProductFilter(
-      "",
-      "",
-      "",
-      this.props.query,
-      "96",
-      "sortType=rank"
-    );
+    this.props.getProductFilter(this.props.query);
     this.props.get_HistoryQuery(this.props.query);
     this.props.getArrayFilter(this.props.query);
     this.setState({ ...this.state, query: "" });
@@ -274,6 +265,8 @@ class Header extends React.Component {
 
   //NavBar
   handleClick_Navbar = (a) => {
+    window.location.pathname === "/ProjectSendo_KhacDuy/filter" &&
+      this.props.getProductFilter(a);
     this.props.getQuery(a);
     this.props.get_HistoryQuery(a);
     this.props.change_isUpdate(!this.props.isUpdate);
@@ -292,7 +285,6 @@ class Header extends React.Component {
       document.getElementById("login").style.display = "none";
       document.getElementById("register").style.display = "none";
       document.getElementById("loginSuccess").style.display = "flex";
-      let user = firebaseApp.auth().currentUser;
     }
   }
 

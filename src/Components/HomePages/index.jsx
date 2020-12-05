@@ -9,10 +9,7 @@ import {
 } from "../../redux/action";
 import { Link } from "react-router-dom";
 import ProductCardFLASHSALE from "../../Atoms/ProductCardFLASHSALE";
-import ShopCardSENMALL from "../../Atoms/ShopCardSENMALL";
-import ProductCardTOPKEYWORD from "../../Atoms/ProductCardTOPKEYWORD";
 import ProductCardFILTER from "../../Atoms/ProductCardFILTER";
-
 import "../HomePages/index.scss";
 import ProductCardRECOMMEND from "../../Atoms/ProductCardRECOMMEND";
 import Countdown from "react-countdown";
@@ -29,8 +26,8 @@ class HomePage extends React.Component {
     x: new Date(),
   };
   componentDidMount() {
-    this.props.getProductFilter("", "", "", "áo khoác", "36", "sortType=rank");
-    // this.props.getDataProduct();
+    this.props.getProductFilter();
+    this.props.getDataProduct();
   }
 
   componentWillMount() {
@@ -114,8 +111,6 @@ class HomePage extends React.Component {
     this.props.getQuery(a);
     this.props.get_HistoryQuery(a);
   };
-
-  componentDidUpdate = () => {};
   render() {
     window.setTimeout(() => this.autoChange(), 7000);
     const renderer = ({ hours, minutes, seconds }) => {
@@ -420,7 +415,7 @@ class HomePage extends React.Component {
               </div>
             ))}
         </div>
-        <div className="shopSenMall-wraper">
+        {/* <div className="shopSenMall-wraper">
           {Object.keys(this.props.shopSenMall).length > 0 && (
             <div>
               <button
@@ -457,7 +452,7 @@ class HomePage extends React.Component {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
         <div className="productRecommend">
           {Object.keys(this.props.productRecommend).length > 0 && (
             <div className="productRecommend-wraper">
@@ -507,7 +502,7 @@ class HomePage extends React.Component {
             </div>
           )}
         </div>
-        <div className="productTopKeyWord">
+        {/* <div className="productTopKeyWord">
           {Object.keys(this.props.productTopKeyWord).length > 0 && (
             <div className="productTopKeyWord-wraper">
               <button
@@ -552,7 +547,7 @@ class HomePage extends React.Component {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
         <div className="productFilter">
           <div className="productFilter-wraper">
             <div className="productFilter-title">

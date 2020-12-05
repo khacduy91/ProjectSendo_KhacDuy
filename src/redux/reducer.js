@@ -29,6 +29,7 @@ import {
   GET_STATUS_FILTER,
   GET_STATUS_DETAIL,
   GET_USER_LOGGED,
+  HANDLESORT,
 } from "./action";
 
 const initialState = {
@@ -41,7 +42,8 @@ const initialState = {
   banner: [],
   menu: [],
   sitemap: [],
-  query: "ao khoac",
+  query: "",
+  page: 1,
   themeEvent: [],
   arrayFilter: [],
   defaultTerm: [],
@@ -251,6 +253,36 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: user,
       };
+    }
+    case HANDLESORT: {
+      const sortType = action.sortType;
+      const productFilter = action.productFilter;
+      switch (sortType) {
+        case "thapdencao":
+          console.log("thapdencao");
+          productFilter.sort(function (a, b) {
+            return a.final_price - b.final_price;
+          });
+          break;
+        case "caodenthap":
+          productFilter.sort(function (a, b) {
+            return b.final_price - a.final_price;
+          });
+          break;
+        case "muanhieunhat":
+          productFilter.sort(function (a, b) {
+            return b.order_count - a.order_count;
+          });
+          break;
+        case "dangkhuyenmai":
+          productFilter.sort(function (a, b) {
+            return b.promotion_percent - a.promotion_percent;
+          });
+          break;
+        default:
+          return { ...state };
+      }
+      return { ...state, productFilter: productFilter, isUpdate: true };
     }
     default:
       return state;
