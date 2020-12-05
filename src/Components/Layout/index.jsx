@@ -4,10 +4,13 @@ import Footer from "./Footer";
 // import { BrowserRouter as Switch } from "react-router-dom";
 
 class Layout extends React.Component {
+  componentDidUpdate(prevProps) {
+    if (window.location.pathname !== prevProps.window.location.pathname) {
+      window.scrollTo(0, 0);
+      console.log("aa");
+    }
+  }
   render(props) {
-    // scrollAppear = ()=> {
-
-    // }
     return (
       <div>
         <Header />

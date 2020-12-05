@@ -44,6 +44,9 @@ class FilterPage extends React.Component {
   }
   //render
   render() {
+    var body = document.getElementById("root");
+    body.animate({ scrollTop: "0px" }, 0.2);
+    // body.scrollTop = 0;
     return (
       <div className="FilterPage-wraper">
         <div className="productFilter">

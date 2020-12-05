@@ -11,12 +11,14 @@ import CartPage from "./Components/CartPage/index.jsx";
 import Layout from "./Components/Layout";
 import "./App.css";
 import DetailPage from "./Components/DetailPage/index.jsx";
+import ScrollToTop from "./Atoms/ScrollToTop/index.jsx";
 
 class App extends React.Component {
   render() {
     return (
       <React.Fragment>
         <Router>
+          <ScrollToTop />
           <Layout>
             <Switch>
               <Route
