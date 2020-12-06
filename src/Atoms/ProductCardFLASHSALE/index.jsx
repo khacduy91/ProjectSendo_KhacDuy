@@ -22,7 +22,7 @@ class ProductCardFLASHSALE extends React.Component {
     return (
       <div className="productCard_FLASHSALE">
         <div className="productCard_FLASHSALE-Card">
-          {product.stock_percent === 100 && (
+          {product.stock_percent < 100 && (
             <img
               src="https://media3.scdn.vn/img2/2018/8_6/CET2Q5.png"
               alt="sold-out"
