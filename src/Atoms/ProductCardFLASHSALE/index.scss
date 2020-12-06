@@ -10,6 +10,7 @@
     flex-direction: column;
     padding-bottom: 15px;
     position: relative;
+    align-items: center;
   }
 
   &-price {
@@ -26,6 +27,7 @@
     position: absolute;
     z-index: 4;
     opacity: 80%;
+    width: 200px;
     border: 5px solid white;
   }
   img {
@@ -70,10 +72,14 @@
 @media screen and (max-width: 540px) {
   .productCard_FLASHSALE {
     width: 200px;
-
+    #sold-out {
+      width: 150px;
+      height: 150px;
+    }
     &-Card {
       img {
         width: 150px;
+        height: 150px;
       }
     }
   }
