@@ -315,7 +315,7 @@ class HomePage extends React.Component {
           </div>
         </div>
         <div className="themeEvent">
-          {Object.keys(this.props.themeEvent).length > 0 && (
+          {/* {Object.keys(this.props.themeEvent).length > 0 && (
             <div>
               <img src={this.props.themeEvent.image} alt="themeEvent" />
               {this.props.themeEvent.links.map((ele, index) => (
@@ -335,9 +335,9 @@ class HomePage extends React.Component {
                 </a>
               ))}
             </div>
-          )}
+          )} */}
         </div>
-        <div>
+        <div style={{ paddingTop: "20px" }}>
           {Object.keys(this.props.productFlashSale).length > 0 &&
             (() =>
               this.countDownClock(
