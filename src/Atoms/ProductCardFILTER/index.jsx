@@ -61,7 +61,8 @@ class ProductCardFILTER extends React.Component {
                 this.handleHistoryProduct(
                   this.props.product.id,
                   this.props.product.image,
-                  this.props.product.name
+                  this.props.product.name,
+                  this.props.product.admin_id
                 )
               }
             >

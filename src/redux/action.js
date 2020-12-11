@@ -288,6 +288,7 @@ export const getArrayFilter = (query) => {
 export const getDetailProduct = (id) => {
   return (dispatch) => {
     dispatch(getDetailProductStart());
+    dispatch(getStatusDetail("startLoading"));
     axios({
       method: "get",
       url: `https://cors-anywhere.herokuapp.com/https://mapi.sendo.vn/mob/product/${id}/detail`,
