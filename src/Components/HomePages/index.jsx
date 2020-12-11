@@ -317,7 +317,7 @@ class HomePage extends React.Component {
         <div className="themeEvent">
           {Object.keys(this.props.themeEvent).length > 0 && (
             <div>
-              <img src={this.props.themeEvent.image.lg} alt="themeEvent" />
+              <img src={this.props.themeEvent.image} alt="themeEvent" />
               {this.props.themeEvent.links.map((ele, index) => (
                 <a
                   href={ele.url}
