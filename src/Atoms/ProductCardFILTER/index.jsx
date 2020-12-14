@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.scss";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { get_HistoryProduct, change_isUpdate } from "../../redux/action";
@@ -15,6 +15,28 @@ class ProductCardFILTER extends React.Component {
     this.props.get_HistoryProduct(product);
     this.props.change_isUpdate(!this.props.isUpdate);
   };
+
+  // handleClick_Overlay = () => {
+  //   const eleCard = document.querySelector(".productCardFILTER-Card");
+  //   let overlay = document.createElement("span");
+  //   overlay.style.cssText = `
+  //     background-color: #e54d3e;
+  //     width: 150px;
+  //     height: 150px;
+  //     top: 50%;
+  //     left: 50%;
+  //     position: absolute;
+  //     border-radius: 50%;
+  //     z-index: 3;
+  //     opacity: 0;
+  //     animation: overlay_Animation 1s ease;`;
+
+  //   overlay.addEventListener("animationend", (e) => {
+  //     e.target.remove();
+  //   });
+
+  //   eleCard.appendChild(overlay);
+  // };
   render() {
     var styleElem = document.head.appendChild(document.createElement("style"));
 
@@ -23,10 +45,12 @@ class ProductCardFILTER extends React.Component {
     }::before {background: linear-gradient(90deg, #e5101d ${
       20 * this.props.product.percent_star
     }%, #c7c7cd 0);}`;
+
     return (
       <div
-        to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.id}&name=${this.props.product.name}&adminid=${this.props.product.admin_id}`}
+        // to={`/ProjectSendo_KhacDuy/detail?id=${this.props.product.id}&name=${this.props.product.name}&adminid=${this.props.product.admin_id}`}
         className="productCardFILTER-Card"
+        // onClick={(e) => this.handleClick_Overlay(e)}
       >
         <div className="productCardFILTER-Card-wraper">
           <div className="productCardFILTER-Card-wraper-img">

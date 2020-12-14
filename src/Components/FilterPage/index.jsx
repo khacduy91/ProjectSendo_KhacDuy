@@ -102,6 +102,7 @@ class FilterPage extends React.Component {
                 }
               >
                 Loadmore
+                <span></span>
               </button>
             </div>
           </div>

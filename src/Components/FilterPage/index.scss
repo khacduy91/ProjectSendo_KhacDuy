@@ -79,16 +79,47 @@
         color: #e54d3e;
         border: 1px solid #e54d3e;
         transition: all 0.2s;
-        margin-bottom: 5px;
-        margin-top: 5px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+
+        span {
+          background-color: #e54d3e;
+          width: 15px;
+          height: 15px;
+          top: 50%;
+          left: 50%;
+          position: absolute;
+          border-radius: 50%;
+          z-index: -1;
+          opacity: 0;
+        }
 
         &:hover {
-          background-color: #e54d3e;
-          color: white;
-          border: 1px solid #00000030;
+          span {
+            // transform: translate(-50%, -50%) scale(15);
+            animation: button_animation 1s ease;
+            // z-index: 1;
+          }
         }
       }
     }
+  }
+}
+
+@keyframes button_animation {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(7);
   }
 }
 

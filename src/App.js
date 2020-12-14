@@ -10,6 +10,7 @@ import FilterPage from "./Components/FilterPage/index.jsx";
 import CartPage from "./Components/CartPage/index.jsx";
 import Layout from "./Components/Layout";
 import "./App.css";
+// import "antd/dist/antd.css"; /*antd css */
 import DetailPage from "./Components/DetailPage/index.jsx";
 import ScrollToTop from "./Atoms/ScrollToTop/index.jsx";
 
