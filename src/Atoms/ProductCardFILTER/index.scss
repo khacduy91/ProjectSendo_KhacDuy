@@ -22,14 +22,14 @@
     transition: 0.25s ease;
     position: relative;
     /* justify-content: center; */
-    height: 295px;
+    min-height: 310px;
     width: 200px;
     &-img {
       overflow: hidden;
       border: 0.5px solid #00000030;
       img {
         width: 200px;
-        height: 200px;
+        height: auto;
         object-fit: contain;
 
         transition: all 0.3s;
@@ -202,44 +202,48 @@
   .productCardFILTER-Card {
   }
 }
-@media screen and (max-width: 600px) {
-  .productCardFILTER {
-    flex-wrap: wrap;
+// @media screen and (max-width: 600px) {
+//   .productCardFILTER {
+//     flex-wrap: wrap;
 
-    &-Card {
-      padding: 0;
-      margin-bottom: 10px;
-      padding: 5px;
-      margin-bottom: 10px;
-      padding-bottom: 10px;
-      margin-right: 10px;
-      // box-shadow: 0 0 5px #00000040;
+//     &-Card {
+//       padding: 0;
+//       margin-bottom: 10px;
+//       padding: 5px;
+//       margin-bottom: 10px;
+//       padding-bottom: 10px;
+//       margin-right: 10px;
+//       // box-shadow: 0 0 5px #00000040;
 
-      &-wraper {
-        margin-top: 10px;
+//       &-wraper {
+//         margin-top: 10px;
 
-        width: 250px;
-        min-height: 300px;
-        // border: 1px solid #00000030;
-        &-title {
-          padding-left: 10px;
-        }
-        &-price {
-          padding-left: 10px;
-        }
-        &-img {
-          width: 250px;
-          margin: 0 auto;
-          margin-top: 10px;
-          height: auto;
-        }
-      }
-      .shopName {
-        width: 250px;
-        p {
-          padding-left: 10px;
-        }
-      }
-    }
-  }
-}
+//         width: 250px;
+//         min-height: 310px;
+//         // border: 1px solid #00000030;
+//         &-title {
+//           padding-left: 10px;
+//         }
+//         &-price {
+//           padding-left: 10px;
+//         }
+//         &-img {
+//           width: 250px;
+//           margin: 0 auto;
+//           height: auto;
+
+//           img {
+//             width: 250px;
+//             // object-fit: cover;
+//           }
+//         }
+//       }
+//       .shopName {
+//         width: 250px;
+//         p {
+//           padding-left: 10px;
+//         }
+//       }
+//     }
+//   }
+// }
