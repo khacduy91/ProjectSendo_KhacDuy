@@ -76,6 +76,7 @@ class FilterPage extends React.Component {
               <div
                 className="productFilter-container"
                 id="productFilter-container"
+                // style={this.props.productFi }
               >
                 {this.props.productFilter.map((ele, index) => (
                   <ProductCardFILTER product={ele} key={index} index={index} />
