@@ -703,6 +703,9 @@
     .productFilter-wraper {
       width: 95%;
     }
+    .productFilter-container {
+      justify-content: space-between;
+    }
   }
 }
 
@@ -767,6 +770,16 @@
         flex-direction: row;
         flex-wrap: wrap;
         padding-top: 10px;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .homepage {
+    .productFilter {
+      &-container {
         justify-content: center;
       }
     }
