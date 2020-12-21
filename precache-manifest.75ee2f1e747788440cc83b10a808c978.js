@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "612555a8a621bab0c1dfaf9b49f724c9",
+    "revision": "03e708c3ac95756163df4884bc503606",
     "url": "/ProjectSendo_KhacDuy/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ProjectSendo_KhacDuy/static/css/2.ef440c72.chunk.css"
   },
   {
-    "revision": "866cdd90dfd447b7af57",
-    "url": "/ProjectSendo_KhacDuy/static/css/main.65982456.chunk.css"
+    "revision": "0932cb5f028fd54e8e78",
+    "url": "/ProjectSendo_KhacDuy/static/css/main.1aeb7c01.chunk.css"
   },
   {
     "revision": "a61b88aad313abca541a",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ProjectSendo_KhacDuy/static/js/2.efd27b35.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "866cdd90dfd447b7af57",
-    "url": "/ProjectSendo_KhacDuy/static/js/main.216edbcf.chunk.js"
+    "revision": "0932cb5f028fd54e8e78",
+    "url": "/ProjectSendo_KhacDuy/static/js/main.43610d31.chunk.js"
   },
   {
     "revision": "54a47f53671fd9c84296",
